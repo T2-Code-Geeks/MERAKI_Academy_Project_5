@@ -35,7 +35,7 @@ const userRegister = async (req, res) => {
 const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const result = await client.query(`SELECT * FROM users WHERE email=$1`, [email.toLowerCase()]);
+        const result = await client.query(`SELECT * FROM users WHERE email=$1 AND is_deleted=0`, [email.toLowerCase()]);
         if (result.rows.length) {
             const comparePassword = await bcrypt.compare(password, result.rows[0].password);
             if (comparePassword) {
