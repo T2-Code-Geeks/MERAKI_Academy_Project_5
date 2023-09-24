@@ -138,3 +138,4 @@ CREATE TABLE role_permission (
     FOREIGN KEY (permission_id) REFERENCES permissions(id)
 );
 --  psql -U postgres -f ./modules/database.sql
+
