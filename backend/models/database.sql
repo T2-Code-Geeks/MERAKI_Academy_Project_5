@@ -1,8 +1,6 @@
-DROP DATABASE IF EXISTS project_5_database;
+DROP DATABASE  project_5_database;
 CREATE DATABASE project_5_database;
-
 \c project_5_database;
-
 CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
     role VARCHAR(255),
@@ -31,14 +29,12 @@ CREATE TABLE users (
     is_deleted SMALLINT DEFAULT 0,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
-
 CREATE TABLE user_payment (
     id SERIAL PRIMARY KEY,
     user_id INT,
     payment_method VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
-
 CREATE TABLE product_category (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -46,14 +42,12 @@ CREATE TABLE product_category (
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0
 );
-
-CREATE TABLE product_inventory (
-    id SERIAL PRIMARY KEY,
-    quantity INT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    is_deleted SMALLINT DEFAULT 0
-);
-
+-- CREATE TABLE product_inventory (
+--     id SERIAL PRIMARY KEY,
+--     quantity INT,
+--     created_at TIMESTAMP DEFAULT NOW(),
+--     is_deleted SMALLINT DEFAULT 0
+-- );
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -61,22 +55,17 @@ CREATE TABLE products (
     img TEXT,
     price INT,
     category_id INT,
-    inventory_id INT,
+    quantity INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
-    FOREIGN KEY (category_id) REFERENCES product_category(id),
-    FOREIGN KEY (inventory_id) REFERENCES product_inventory(id)
+    FOREIGN KEY (category_id) REFERENCES product_category(id)
 );
-
 CREATE TABLE order_items (
     id SERIAL PRIMARY KEY,
     product_id INT,
-    quantity INT,
-    inventory_id INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (inventory_id) REFERENCES product_inventory(id)
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
 CREATE TABLE employeeCategory(
     id SERIAL PRIMARY KEY,
@@ -107,7 +96,7 @@ CREATE TABLE order_details (
     user_id INT,
     employee_id INT,
     payment_id INT,
-    product_id INT
+    product_id INT,
     total DECIMAL,
     shipping_date TIMESTAMP,
     created_at TIMESTAMP DEFAULT NOW(),
@@ -127,7 +116,6 @@ CREATE Table hiring (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
-
 CREATE TABLE role_permission (
     id SERIAL PRIMARY KEY,
     role_id INT,
@@ -137,4 +125,4 @@ CREATE TABLE role_permission (
     FOREIGN KEY (role_id) REFERENCES roles(id),
     FOREIGN KEY (permission_id) REFERENCES permissions(id)
 );
---  psql -U postgres -f ./modules/database.sql
+--  psql -U postgres -f ./models/database.sql
