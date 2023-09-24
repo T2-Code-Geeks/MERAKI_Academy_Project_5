@@ -84,7 +84,7 @@ const createNewProduct = async (req, res) => {
     const result = await client.query(query, data);
     res.status(201).json({
       success: true,
-      message: "category Created",
+      message: "Product Created",
       role: result.rows[0],
     });
   } catch (error) {
@@ -95,9 +95,50 @@ const createNewProduct = async (req, res) => {
     });
   }
 };
+// ! Update Product
+const updateProductById = (req, res) => {
+  const id = req.params.id;
+  let { name, description, img, price, category_id, quantity } = req.body;
 
+  const query = `UPDATE products SET name = COALESCE($1,name),   description = COALESCE($2, description),
+    img = COALESCE($3, img),
+    price = COALESCE($4, price),
+    category_id = COALESCE($5, category_id),
+    quantity = COALESCE($6, quantity),
+     WHERE id=$7 AND is_deleted = 0  RETURNING *;`;
+  const data = [
+    name || null,
+    description || null,
+    img || null,
+    price || null,
+    category_id || null,
+    quantity || null,
+    id,
+  ];
+  client
+    .query(query, data)
+    .then((result) => {
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `category with id: ${id} updated successfully `,
+          result: result.rows[0],
+        });
+      } else {
+        throw new Error("Error happened while updating article");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
 module.exports = {
   createNewCategory,
   updateCategoryById,
-  deleteCategoryById,createNewProduct
+  deleteCategoryById,
+  createNewProduct,updateProductById
 };
