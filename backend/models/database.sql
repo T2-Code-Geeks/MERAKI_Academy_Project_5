@@ -22,7 +22,7 @@ CREATE TABLE users (
     country VARCHAR(255),
     address1 VARCHAR(255),
     address2 VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255),
     role_id INT,
     created_at TIMESTAMP DEFAULT NOW(),
