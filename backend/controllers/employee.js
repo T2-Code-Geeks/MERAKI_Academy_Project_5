@@ -96,10 +96,10 @@ const loginEmployee = (req, res) => {
 
 const updateEmployeeById = (req, res) => {
     const id = req.params.id;
-    const  { fristName, lastName ,description ,work_hour,country, category,img,age} = req.body;
+    const  { firstName, lastName ,description ,work_hours,country, category,img,age} = req.body;
     console.log(req.body,id)
-    const query = `UPDATE employees SET firstName = COALESCE($1,firstName), lastName = COALESCE($2, lastName) , description = COALESCE($3, description) ,work_hour = COALESCE($4, work_hour), country = COALESCE($5, country) , category = COALESCE($6, category), img = COALESCE($7, img) , age = COALESCE($8, age) WHERE id=$9 AND is_deleted = 0  RETURNING *;`;
-    const data = [fristName || null, lastName || null, description || null, work_hour || null , country || null, category || null , img || null, age || null, id];
+    const query = `UPDATE employees SET firstName = COALESCE($1,firstName), lastName = COALESCE($2, lastName) , description = COALESCE($3, description) ,work_hours = COALESCE($4, work_hours), country = COALESCE($5, country) , category = COALESCE($6, category), img = COALESCE($7, img) , age = COALESCE($8, age) WHERE id=$9 AND is_deleted = 0  RETURNING *;`;
+    const data = [firstName || null, lastName || null, description || null, work_hours || null , country || null, category || null , img || null, age || null, id];
     client
       .query(query, data)
       .then((result) => {
@@ -150,5 +150,55 @@ const updateEmployeeById = (req, res) => {
       });
   };
 
+  // ! get all employees function  ... 
+  const getAllEmployees = (req, res) => {
+    const query = `SELECT * FROM employees a WHERE a.is_deleted=0 ;`;
+  
+    client
+      .query(query)
+      .then((result) => {
+        res.status(200).json({
+          success: true,
+          message: "All the employees",
+          result: result.rows,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
 
-module.exports = { registerEmployee, loginEmployee,updateEmployeeById,deleteEmployeeById };
+  //! get employee by id ...
+
+  const getEmployeeById = (req, res) => {
+    const id = req.params.id;
+    const query = `SELECT firstName,lastName,description, work_hours ,country,category_id ,img,age FROM employees  WHERE employees.id=$1 AND employees.is_deleted=0;`;
+    const data = [id];
+  
+    client
+      .query(query, data)
+      .then((result) => {
+        if (result.rows.length !== 0) {
+          res.status(200).json({
+            success: true,
+            message: `The employee with id: ${id}`,
+            result: result.rows,
+          });
+        } else {
+          throw new Error("Error happened while getting employee");
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
+
+module.exports = { registerEmployee, loginEmployee,updateEmployeeById,deleteEmployeeById,getAllEmployees,getEmployeeById };
