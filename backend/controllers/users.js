@@ -75,7 +75,34 @@ const userLogin = async (req, res) => {
     }
 }
 
+// ! Update User Info By Id
+
+const UpdateUserById = async(req, res) => {
+    try {
+        const { firstName, lastName, img, age, country, address1, address2, password } = req.body;
+        const { id } = req.params;
+        const data = [firstName || null, lastName || null, img || null, age || null, country || null, address1 || null, address2 || null, password || null];
+
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            data[data.length - 1] = hashedPassword;
+        }
+        const result = await client.query(`UPDATE users SET firstName = COALESCE($1,firstName), lastName=COALESCE($2,lastName), img=COALESCE($3,img), age=COALESCE($4,age), country=COALESCE($5,country), address1=COALESCE($6,address1), address2=COALESCE($7,address2),password=COALESCE($8,password) WHERE id=$9 AND is_deleted=0 RETURNING *`, [...data, id]);
+        res.json({
+            success: true,
+            result:result.rows[0]
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     userRegister,
-    userLogin
+    userLogin,
+    UpdateUserById
 }
