@@ -77,6 +77,54 @@ const deleteCategoryById = (req, res) => {
       });
     });
 };
+// ! Get all category 
+const getAllCategory = (req, res) => {
+    const query = `SELECT * FROM product_category  WHERE is_deleted=0;`;
+  
+    client
+      .query(query)
+      .then((result) => {
+        res.status(200).json({
+          success: true,
+          message: "All the category",
+          result: result.rows,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
+  // ! Get  category by id
+  const getCategoryById = (req, res) => {
+    const id = req.params.id;
+    const query = `SELECT * FROM product_category  WHERE id=$1;`;
+    const data = [id];
+  
+    client
+      .query(query, data)
+      .then((result) => {
+        if (result.rows.length !== 0) {
+          res.status(200).json({
+            success: true,
+            message: `The article with id: ${id}`,
+            result: result.rows,
+          });
+        } else {
+          throw new Error("Error happened while getting article");
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
 // ! Create Product
 const createNewProduct = async (req, res) => {
   try {
@@ -177,5 +225,5 @@ module.exports = {
   updateCategoryById,
   deleteCategoryById,
   createNewProduct,
-  updateProductById,deleteProductById
+  updateProductById,deleteProductById,getAllCategory,getCategoryById
 };
