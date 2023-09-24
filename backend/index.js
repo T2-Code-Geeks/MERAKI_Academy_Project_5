@@ -10,12 +10,14 @@ const db = require("./models/db");
 // Router Name -------------------
 const roleRouter = require("./routes/role");
 const productsRouts = require("./routes/products");
-const employeeRouter=require("./routes/employee");
+const employeeRouter = require("./routes/employee");
+const userRouter = require("./routes/Users");
 
 // Router Endpoint ----------------------------
 app.use("/role", roleRouter);
 app.use("/employees",employeeRouter);
 app.use("/products", productsRouts);
+app.use("/users", userRouter);
 
 
 // Handles any other endpoints [unassigned - endpoints]
