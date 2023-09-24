@@ -41,9 +41,32 @@ const createNewPermission = (req, res) => {
         });
 };
 
+const createNewRolePermission = (req, res) => {
+    const { role_id, permission_id } = req.body;
+    const query = `INSERT INTO role_permission (role_id,
+    permission_id) VALUES ($1,$2) RETURNING *`;
+    const data = [role_id, permission_id];
 
+    client
+        .query(query, data)
+        .then((result) => {
+            res.status(201).json({
+                success: true,
+                message: ` Role Permission created successfully`,
+                result: result.rows[0],
+            });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                success: false,
+                message: `Server error`,
+                err: err.message,
+            });
+        });
+};
 
 module.exports = {
     createNewRole,
     createNewPermission,
+    createNewRolePermission
 }

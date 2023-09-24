@@ -5,5 +5,6 @@ const { createNewRole, createNewPermission, createNewRolePermission } = require(
 
 roleRouter.post("/", createNewRole);
 roleRouter.post("/permission", createNewPermission);
+roleRouter.post("/role-permission", createNewRolePermission);
 
 module.exports = roleRouter;
