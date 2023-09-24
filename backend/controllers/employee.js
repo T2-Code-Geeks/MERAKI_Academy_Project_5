@@ -3,6 +3,55 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = parseInt(process.env.SALT);
 
+//! create category function ... 
+const CreateEmployeeCategory = async (req, res) => {
+  const { category } =req.body;
+
+
+  const query = `INSERT INTO employeeCategory (category) VALUES ($1)`;
+  const data = [
+    category
+  ];
+  client
+    .query(query, data)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "category created successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(409).json({
+        success: false,
+        message: "The category already exists",
+        err,
+      });
+    });
+};
+
+//! get all categorys ...
+const getAllCategoryes  = (req, res) => {
+  const query = `SELECT * FROM employeeCategory WHERE is_deleted=0 ;`;
+  client
+    .query(query)
+    .then((result) => {
+      
+      res.status(200).json({
+        success: true,
+        message: "All the Category",
+        result: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+
 //! this function create account as employee ... 
 
 const registerEmployee = async (req, res) => {
@@ -99,10 +148,10 @@ const loginEmployee = (req, res) => {
 
 const updateEmployeeById = (req, res) => {
     const id = req.params.id;
-    const  { firstName, lastName ,description ,work_hours,country, category,img,age} = req.body;
+    const  { firstName, lastName ,description ,work_hours,country, category_id,img,age} = req.body;
     console.log(req.body,id)
-    const query = `UPDATE employees SET firstName = COALESCE($1,firstName), lastName = COALESCE($2, lastName) , description = COALESCE($3, description) ,work_hours = COALESCE($4, work_hours), country = COALESCE($5, country) , category = COALESCE($6, category), img = COALESCE($7, img) , age = COALESCE($8, age) WHERE id=$9 AND is_deleted = 0  RETURNING *;`;
-    const data = [firstName || null, lastName || null, description || null, work_hours || null , country || null, category || null , img || null, age || null, id];
+    const query = `UPDATE employees SET firstName = COALESCE($1,firstName), lastName = COALESCE($2, lastName) , description = COALESCE($3, description) ,work_hours = COALESCE($4, work_hours), country = COALESCE($5, country) , category_id = COALESCE($6, category_id), img = COALESCE($7, img) , age = COALESCE($8, age) WHERE id=$9 AND is_deleted = 0  RETURNING *;`;
+    const data = [firstName || null, lastName || null, description || null, work_hours || null , country || null, category_id || null , img || null, age || null, id];
     client
       .query(query, data)
       .then((result) => {
@@ -127,7 +176,7 @@ const updateEmployeeById = (req, res) => {
         });
       });
   };
-
+  //! delete employee account by id ...
   const deleteEmployeeById = (req, res) => {
     const id = req.params.id;
     const query = `UPDATE employees SET is_deleted=1 WHERE id=$1;`;
@@ -204,4 +253,4 @@ const updateEmployeeById = (req, res) => {
       });
   };
 
-module.exports = { registerEmployee, loginEmployee,updateEmployeeById,deleteEmployeeById,getAllEmployees,getEmployeeById };
+module.exports = { registerEmployee, loginEmployee,updateEmployeeById,deleteEmployeeById,getAllEmployees,getEmployeeById ,CreateEmployeeCategory,getAllCategoryes};
