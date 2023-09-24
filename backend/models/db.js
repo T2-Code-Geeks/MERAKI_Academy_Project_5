@@ -14,3 +14,5 @@ try {
 } catch (error) {
     console.log("Client didn't connect", error.message, error.stack);
 }
+
+module.exports = client;
