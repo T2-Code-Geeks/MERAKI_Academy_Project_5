@@ -120,9 +120,26 @@ const deleteUserById = async (req, res) => {
     }
 }
 
+const getAllUsers = async (req, res) => {
+    try {
+        const result = await client.query(`SELECT id,firstName,lastName,img,age,country,address1,address2,email FROM users`);
+        res.json({
+            success: true,
+            result: result.rows[0]
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     userRegister,
     userLogin,
     UpdateUserById,
-    deleteUserById
+    deleteUserById,
+    getAllUsers
 }
