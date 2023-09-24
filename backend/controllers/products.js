@@ -38,9 +38,9 @@ const updateCategoryById = (req, res) => {
         });
       } else {
         res.status(404).json({
-            success: false,
-            message: `No category with id: ${id} found`,
-          });
+          success: false,
+          message: `No category with id: ${id} found`,
+        });
       }
     })
     .catch((err) => {
@@ -130,9 +130,37 @@ const updateProductById = (req, res) => {
         });
       } else {
         res.status(404).json({
-            success: false,
-            message: `No product with id: ${id} found`,
-          });
+          success: false,
+          message: `No product with id: ${id} found`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+// ! Delete Products
+const deleteProductById = (req, res) => {
+  const id = req.params.id;
+  const query = `UPDATE products SET is_deleted=1 
+      WHERE id=$1;`;
+  client
+    .query(query, [id])
+    .then((result) => {
+      if (result.rowCount !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `product with id: ${id} deleted successfully`,
+        });
+      } else {
+        res.status(404).json({
+          success: false,
+          message: `No product with id: ${id} found`,
+        });
       }
     })
     .catch((err) => {
@@ -144,11 +172,10 @@ const updateProductById = (req, res) => {
     });
 };
 
-
 module.exports = {
   createNewCategory,
   updateCategoryById,
   deleteCategoryById,
   createNewProduct,
-  updateProductById,
+  updateProductById,deleteProductById
 };
