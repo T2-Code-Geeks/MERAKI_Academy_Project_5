@@ -11,9 +11,9 @@ const userRegister = async (req, res) => {
             res.json({
                 success: true,
                 message: "Account Created",
-                result:result.rows[0]
+                result: result.rows[0]
             })
-            
+
         }
     } catch (error) {
         if (error.code === "23505") {
@@ -26,12 +26,55 @@ const userRegister = async (req, res) => {
             res.json({
                 success: false,
                 message: "Server Error",
-                error:error.message
+                error: error.message
             })
         }
     }
 }
 
+const userLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const result = await client.query(`SELECT * FROM users WHERE email=$1`, [email.toLowerCase()]);
+        if (result.rows.length) {
+            const comparePassword = await bcrypt.compare(password, result.rows[0].password);
+            if (comparePassword) {
+                const payload = {
+                    userId: result.rows[0].id,
+                    role: result.rows[0].role_id
+                }
+                const options = {
+                    expiresIn: "1d"
+                }
+                const token = jwt.sign(payload, process.env.SECRET, options);
+                res.status(200).json({
+                    success: true,
+                    message: "Valid login credentials",
+                    token,
+                    userId: result.rows[0].id,
+                })
+            } else {
+                res.json({
+                    success: false,
+                    message: "Email or password error"
+                })
+            }
+        } else {
+            res.json({
+                success: false,
+                message: "Email or password error"
+            })
+        }
+    } catch (error) {
+        res.json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     userRegister,
+    userLogin
 }
