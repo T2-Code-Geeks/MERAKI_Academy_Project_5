@@ -40,7 +40,7 @@ const registerEmployee = async (req, res) => {
 
 // ! this function do login as employee .. 
 
-const loginRegister = (req, res) => {
+const loginEmployee = (req, res) => {
   const password = req.body.password;
   const email = req.body.email.toLowerCase();
   const query=(`SELECT * FROM employees WHERE email=$1`);
@@ -125,4 +125,30 @@ const updateEmployeeById = (req, res) => {
       });
   };
 
-module.exports = { registerEmployee, loginRegister,updateEmployeeById };
+  const deleteEmployeeById = (req, res) => {
+    const id = req.params.id;
+    const query = `UPDATE employees SET is_deleted=1 WHERE id=$1;`;
+    const data = [id];
+    client
+      .query(query, data)
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          res.status(200).json({
+            success: true,
+            message: `employee with id: ${id} deleted successfully`,
+          });
+        } else {
+          throw new Error("Error happened while deleting employee");
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
+
+
+module.exports = { registerEmployee, loginEmployee,updateEmployeeById,deleteEmployeeById };
