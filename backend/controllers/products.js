@@ -37,7 +37,10 @@ const updateCategoryById = (req, res) => {
           result: result.rows[0],
         });
       } else {
-        throw new Error("Error happened while updating article");
+        res.status(404).json({
+            success: false,
+            message: `No category with id: ${id} found`,
+          });
       }
     })
     .catch((err) => {
@@ -104,7 +107,7 @@ const updateProductById = (req, res) => {
     img = COALESCE($3, img),
     price = COALESCE($4, price),
     category_id = COALESCE($5, category_id),
-    quantity = COALESCE($6, quantity),
+    quantity = COALESCE($6, quantity)
      WHERE id=$7 AND is_deleted = 0  RETURNING *;`;
   const data = [
     name || null,
@@ -118,14 +121,18 @@ const updateProductById = (req, res) => {
   client
     .query(query, data)
     .then((result) => {
-      if (result.rows.length !== 0) {
+      console.log(result);
+      if (result.rows.length > 0) {
         res.status(200).json({
           success: true,
-          message: `category with id: ${id} updated successfully `,
+          message: `products with id: ${id} updated successfully `,
           result: result.rows[0],
         });
       } else {
-        throw new Error("Error happened while updating article");
+        res.status(404).json({
+            success: false,
+            message: `No product with id: ${id} found`,
+          });
       }
     })
     .catch((err) => {
@@ -136,9 +143,12 @@ const updateProductById = (req, res) => {
       });
     });
 };
+
+
 module.exports = {
   createNewCategory,
   updateCategoryById,
   deleteCategoryById,
-  createNewProduct,updateProductById
+  createNewProduct,
+  updateProductById,
 };

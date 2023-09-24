@@ -10,7 +10,7 @@ productsRouts.put("/category/:id", updateCategoryById);
 productsRouts.delete("/category/:id",deleteCategoryById);
 // ! Create Product
 productsRouts.post("/", createNewProduct);
-// ! Update Category
+// ! Update Product
 productsRouts.put("/:id", updateProductById);
 
 module.exports = productsRouts;
