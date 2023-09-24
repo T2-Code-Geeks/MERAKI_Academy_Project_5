@@ -2,6 +2,7 @@ const client = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+// ! Register User
 const userRegister = async (req, res) => {
     try {
         const { firstName, lastName, img, age, country, address1, address2, email, password } = req.body;
@@ -31,7 +32,7 @@ const userRegister = async (req, res) => {
         }
     }
 }
-
+// ! Login User
 const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
