@@ -136,10 +136,31 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await client.query(`SELECT id,firstName,lastName,img,age,country,address1,address2,email FROM users WHERE id=$1 AND is_deleted=0`, [id]);
+        if (result.rows.length) {
+            res.json({
+                success: true,
+                result: result.rows[0]
+            })
+        } else {
+            res.json({
+                success: true,
+                message: "No users with this id"
+            })
+        }
+    } catch (error) {
+
+    }
+}
+
 module.exports = {
     userRegister,
     userLogin,
     UpdateUserById,
     deleteUserById,
-    getAllUsers
+    getAllUsers,
+    getUserById
 }
