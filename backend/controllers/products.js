@@ -21,9 +21,41 @@ const createNewCategory = async (req, res) => {
   }
 };
 
+const updateCategoryById = (req, res) => {
+    const id = req.params.id;
+    let { name, description } = req.body;
+  
+    const query = `UPDATE product_category SET name = COALESCE($1,name), description = COALESCE($2, description) WHERE id=$3 AND is_deleted = 0  RETURNING *;`;
+    const data = [name || null, description || null, id];
+    client
+      .query(query, data)
+      .then((result) => {
+        if (result.rows.length !== 0) {
+          res.status(200).json({
+            success: true,
+            message: `category with id: ${id} updated successfully `,
+            result: result.rows[0],
+          });
+        } 
+          else {
+            throw new Error("Error happened while updating article");
+  
+          }
+        
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
+  
+
 
 
 
 module.exports={
-    createNewCategory,
+    createNewCategory,updateCategoryById
 }
