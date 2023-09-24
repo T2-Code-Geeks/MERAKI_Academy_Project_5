@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 const db = require("./models/db");
 
-// Router Name -------------------
+// ! Router Name -------------------
 const roleRouter = require("./routes/role");
 const employeeRouter=require("./routes/employee");
 
@@ -16,7 +16,8 @@ app.use("/role", roleRouter);
 app.use("/employees",employeeRouter);
 
 
-// Handles any other endpoints [unassigned - endpoints]
+// ! Handles any other endpoints 
+
 app.use("*", (req, res) => res.status(404).json("NO content at this path"));
 
 app.listen(PORT, () => {
