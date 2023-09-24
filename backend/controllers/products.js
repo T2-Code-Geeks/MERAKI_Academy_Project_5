@@ -53,9 +53,30 @@ const updateCategoryById = (req, res) => {
   };
   
 
-
+const deleteCategoryById =(req,res)=>{
+    const id = req.params.id;
+    const query=`UPDATE product_category SET is_deleted=1 
+    WHERE id=$1;`;
+    client.query(query,[id]).then(result=>{
+        if (result.rowCount !== 0) {
+            res.status(200).json({
+              success: true,
+              message: `category with id: ${id} deleted successfully`,
+            });
+          } else {
+            throw new Error("Error happened while deleting category");
+          }
+        })
+        .catch((err) => {
+          res.status(500).json({
+            success: false,
+            message: "Server error",
+            err: err,
+          });
+        });
+}
 
 
 module.exports={
-    createNewCategory,updateCategoryById
+    createNewCategory,updateCategoryById,deleteCategoryById
 }
