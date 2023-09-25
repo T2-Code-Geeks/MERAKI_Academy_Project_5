@@ -126,3 +126,54 @@ CREATE TABLE role_permission (
     FOREIGN KEY (permission_id) REFERENCES permissions(id)
 );
 --  psql -U postgres -f ./models/database.sql
+
+
+INSERT INTO roles (role) VALUES
+    ('Admin'),
+    ('Employee'),
+    ('User');
+
+INSERT INTO permissions (permission) VALUES
+    ('ALL_Permissions'),
+    ('Create_Services'),
+    ('Update_Profile'),
+    ('Create_Orders'),
+    ('Order_Service') ;
+
+INSERT INTO role_permission (role_id, permission_id) VALUES
+    (1, 1),
+    (2, 2),
+    (2, 3),
+    (3, 3),
+    (3, 4),
+    (3, 5);
+    
+INSERT INTO users (firstName, lastName, img, age, country, address1, address2, email, password, role_id) VALUES
+    ('Mohammad', 'Alabed', 'user1.jpg', 25, 'Syria', 'amman', 'Address 2', 'user1@Gmail.com', '123456', 1),
+    ('Qutada', 'Alblui', 'user2.jpg', 25, 'Jordan', 'Amman ', 'Airport ', 'qutada@example.com', '123456', 2),
+    ('Abdallah', 'Aljmal', 'user3.jpg', 22, 'Jordan', 'Amman ', 'Airport St. ', 'Abd@example.com', '123456', 3);
+
+
+INSERT INTO product_category (name, description) VALUES
+    ('‘عدة نجارة', 'Category 1 Description'),
+    ('عدة حدادة', 'Category 2 Description'),
+    ('عدة كهربائي', 'Category 3 Description');
+
+INSERT INTO products (name, description, img, quantity,price, category_id) VALUES
+    ('Product 1', 'Product 1 Description', 'product1.jpg', 5,10, 1),
+    ('Product 2', 'Product 2 Description', 'product2.jpg', 7,20, 2),
+    ('Product 3', 'Product 3 Description', 'product3.jpg', 6,15, 3);
+
+INSERT INTO order_items (product_id) VALUES
+    (1),
+    (3),
+    (2);
+INSERT INTO employeeCategory (category) VALUES
+    (' نجار'),
+    ('جداد'),
+    ('مواسرجي');
+
+INSERT INTO employees (firstName, lastName, description, category_id, work_hours, img, age, country, email, password, role_id) VALUES
+    ('Employee 1', 'Lastname 1', 'Description 1', 1, '2023-09-22 08:00:00', 'employee1.jpg', 25, 'Country A', 'employee1@email.com', 'password1', 1),
+    ('Employee 2', 'Lastname 2', 'Description 2', 2, '2023-09-22 09:00:00', 'employee2.jpg', 30, 'Country B', 'employee2@email.com', 'password2', 2),
+    ('Employee 3', 'Lastname 3', 'Description 3', 3, '2023-09-22 10:00:00', 'employee3.jpg', 28, 'Country C', 'employee3@email.com', 'password3', 3);
