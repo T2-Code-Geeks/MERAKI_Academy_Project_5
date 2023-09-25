@@ -14,7 +14,11 @@ const userRegister = async (req, res) => {
                 message: "Account Created",
                 result: result.rows[0]
             })
-
+        } else {
+            res.json({
+                success: false,
+                message: "Missing Info"
+            })
         }
     } catch (error) {
         if (error.code === "23505") {
@@ -41,8 +45,8 @@ const userLogin = async (req, res) => {
             const comparePassword = await bcrypt.compare(password, result.rows[0].password);
             if (comparePassword) {
                 const payload = {
-                    userId: result.rows[0].id,
-                    role: result.rows[0].role_id
+                    user_id: result.rows[0].id,
+                    role_id: result.rows[0].role_id
                 }
                 const options = {
                     expiresIn: "1d"
@@ -52,7 +56,7 @@ const userLogin = async (req, res) => {
                     success: true,
                     message: "Valid login credentials",
                     token,
-                    userId: result.rows[0].id,
+                    user_id: result.rows[0].id,
                 })
             } else {
                 res.json({
