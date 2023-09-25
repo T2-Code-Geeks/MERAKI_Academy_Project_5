@@ -219,7 +219,27 @@ const deleteProductById = (req, res) => {
       });
     });
 };
-
+// ! Get all Products 
+const getAllProducts = (req, res) => {
+    const query = `SELECT * FROM product_category  WHERE is_deleted=0;`;
+  
+    client
+      .query(query)
+      .then((result) => {
+        res.status(200).json({
+          success: true,
+          message: "All the category",
+          result: result.rows,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
 module.exports = {
   createNewCategory,
   updateCategoryById,
