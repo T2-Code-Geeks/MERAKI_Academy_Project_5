@@ -117,7 +117,7 @@ const loginEmployee = (req, res) => {
                 }
                 const payload = {
                     employee_id: results.rows[0].id,
-                    role: results.rows[0].role_id,
+                    role_id: results.rows[0].role_id,
                 };
                 console.log(payload);
                 const options = {
