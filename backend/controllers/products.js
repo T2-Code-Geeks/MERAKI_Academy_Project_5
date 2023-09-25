@@ -221,7 +221,7 @@ const deleteProductById = (req, res) => {
 };
 // ! Get all Products 
 const getAllProducts = (req, res) => {
-    const query = `SELECT * FROM product_category  WHERE is_deleted=0;`;
+    const query = `SELECT * FROM products  WHERE is_deleted=0;`;
   
     client
       .query(query)
@@ -240,10 +240,37 @@ const getAllProducts = (req, res) => {
         });
       });
   };
+    // ! Get  Products by id
+    const getProductById = (req, res) => {
+        const id = req.params.id;
+        const query = `SELECT * FROM products  WHERE id=$1;`;
+        const data = [id];
+      
+        client
+          .query(query, data)
+          .then((result) => {
+            if (result.rows.length !== 0) {
+              res.status(200).json({
+                success: true,
+                message: `The article with id: ${id}`,
+                result: result.rows,
+              });
+            } else {
+              throw new Error("Error happened while getting article");
+            }
+          })
+          .catch((err) => {
+            res.status(500).json({
+              success: false,
+              message: "Server error",
+              err: err,
+            });
+          });
+      };
 module.exports = {
   createNewCategory,
   updateCategoryById,
   deleteCategoryById,
   createNewProduct,
-  updateProductById,deleteProductById,getAllCategory,getCategoryById
+  updateProductById,deleteProductById,getAllCategory,getCategoryById,getAllProducts,getProductById
 };
