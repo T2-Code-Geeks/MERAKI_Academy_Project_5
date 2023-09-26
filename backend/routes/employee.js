@@ -4,7 +4,7 @@ const authentication = require("../middleware/authentication");
 
 const { registerEmployee, loginEmployee, updateEmployeeById, deleteEmployeeById, getAllEmployees, getEmployeeById, CreateEmployeeCategory, getAllCategoryes } = require("../controllers/employee");
 
-employeeRouter.get("/categoryes", authentication, getAllCategoryes);
+employeeRouter.get("/categoryes", getAllCategoryes);
 employeeRouter.post("/register", registerEmployee);
 employeeRouter.post("/login", loginEmployee);
 employeeRouter.put("/:id", authentication, updateEmployeeById);

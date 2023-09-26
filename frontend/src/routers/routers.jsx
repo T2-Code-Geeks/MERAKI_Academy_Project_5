@@ -1,18 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/login/Login.Jsx";
+import Products from "../pages/Products/products/Products";
+import Main from "../layouts/Main/Main";
+import Register from "../pages/Register/Register";
+import Login from "../pages/Login/Login.Jsx";
 
 export const router = createBrowserRouter(
-  {
+[  {
     path: "/",
     element: <Main />,
-    children: [{ path: "", element: <Home /> }],
+    children: [{
+        path: "/login",
+        element: <Login/>,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/products",
+        element: <Products />,
+      }],
   },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Login />,
-  }
+  ]
+
 );
