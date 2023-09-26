@@ -1,14 +1,8 @@
-import React, { useState } from 'react'
-
+import React from 'react'
 
 const Login = () => {
-const [toggle, setToggle] = useState(false);
-
-  return (<>
-  <div>Toggle user or employee</div>
-
-  </>
-    
+  return (
+    <div>Login</div>
   )
 }
 
