@@ -58,7 +58,7 @@ CREATE TABLE products (
     inventory_ID INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
-    FOREIGN KEY (inventory_ID) REFERENCES product_category(id)
+    FOREIGN KEY (inventory_ID) REFERENCES product_category(id),
     FOREIGN KEY (category_id) REFERENCES product_inventory(id)
 );
 CREATE TABLE order_items (
@@ -68,7 +68,7 @@ CREATE TABLE order_items (
     inventory_ID INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
-     FOREIGN KEY (inventory_ID) REFERENCES product_category(id)
+     FOREIGN KEY (inventory_ID) REFERENCES product_category(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 CREATE TABLE employeeCategory(
@@ -163,10 +163,10 @@ INSERT INTO product_category (name, description) VALUES
     ('عدة حدادة', 'Category 2 Description'),
     ('عدة كهربائي', 'Category 3 Description');
 
-INSERT INTO products (name, description, img, quantity,price, category_id) VALUES
-    ('Product 1', 'Product 1 Description', 'product1.jpg', 5,10, 1),
-    ('Product 2', 'Product 2 Description', 'product2.jpg', 7,20, 2),
-    ('Product 3', 'Product 3 Description', 'product3.jpg', 6,15, 3);
+INSERT INTO products (name, description, img, price, category_id) VALUES
+    ('Product 1', 'Product 1 Description', 'product1.jpg', 10, 1),
+    ('Product 2', 'Product 2 Description', 'product2.jpg', 20, 2),
+    ('Product 3', 'Product 3 Description', 'product3.jpg', 15, 3);
 
 INSERT INTO order_items (product_id) VALUES
     (1),
