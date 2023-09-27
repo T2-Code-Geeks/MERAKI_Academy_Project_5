@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { Suspense } from 'react';
-import { Await, useLoaderData } from 'react-router-dom';
+import { Await, Link, useLoaderData } from 'react-router-dom';
 import "./Products.css"
 const Products = () => {
   const { result } = useLoaderData();
-
+console.log(result);
   return (
     <>
       <h2>Products</h2>
@@ -16,6 +16,7 @@ const Products = () => {
                 <div className="productContainer" key={product.id}>
                   <h2>{product.name}</h2>
                   <p>{product.description}</p>
+                  <Link to={`/products/${product.id}`}>View Details</Link>
                 </div>
               ))}
             </div>
@@ -29,11 +30,9 @@ const Products = () => {
 export default Products;
 
 export const productsLoader = async () => {
-  try {
-    const response = await axios.get(`http://localhost:5000/products`);
-    const products = response.data.result;
-    return { result: products };
-  } catch (error) {
-    throw error; 
-  }
-};
+
+  const result = await axios.get("http://localhost:5000/products").then(res => {
+      return res.data.result
+  })
+  return {result}
+}
