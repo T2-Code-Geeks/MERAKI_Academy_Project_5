@@ -8,7 +8,7 @@ const userRegister = async (req, res) => {
         const { firstName, lastName, img, age, country, address1, address2, email, password } = req.body;
         if (firstName && lastName && email && password) {
             const hashedPassword = await bcrypt.hash(password, 10);
-            const result = await client.query(`INSERT INTO users (firstName, lastName, img, age, country, address1, address2, email, password, role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`, [firstName, lastName, img, age, country, address1, address2, email.toLowerCase(), hashedPassword, 2]);
+            const result = await client.query(`INSERT INTO users (firstName, lastName, img, age, country, address1, address2, email, password, role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`, [firstName, lastName, img, age, country, address1, address2, email.toLowerCase(), hashedPassword, 3]);
             res.json({
                 success: true,
                 message: "Account Created",
