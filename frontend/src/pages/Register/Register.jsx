@@ -3,10 +3,8 @@ import RegisterEmployee from "../../components/Register/RegisterEmployee"
 const Register = () => {
   return (
     <div>Register
-
-<RegisterEmployee/>
+    <RegisterEmployee/>
     </div>
   )
 }
-
 export default Register

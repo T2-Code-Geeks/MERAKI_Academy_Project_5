@@ -129,6 +129,7 @@ const loginEmployee = (req, res) => {
                     success: true,
                     message: `Valid login credentials`,
                     token: token,
+                    employee_id:results.rows[0].id
                 });
                 //console.log(token.payload);
             } catch (error) {
