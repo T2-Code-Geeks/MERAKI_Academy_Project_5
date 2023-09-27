@@ -12,9 +12,9 @@ const Main = () => {
       <main>
         <Outlet />
       </main>
-      {/* <footer>
+      <footer>
         <Footer/>
-      </footer> */}
+      </footer>
     </div>
   );
 };
