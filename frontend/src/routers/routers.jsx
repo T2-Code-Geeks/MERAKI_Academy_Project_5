@@ -4,7 +4,7 @@ import Main from "../layouts/Main/Main";
 
 import Register from "../pages/Register/Register";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
-import Login from "../pages/Login/Login";
+import LoginPage from "../pages/LoginPage/LoginPage";
 
 
 export const router = createBrowserRouter([
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        element: <Login/>
+        element: <LoginPage/>
       },
       {
         path: "register",
