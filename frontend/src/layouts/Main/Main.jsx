@@ -1,9 +1,14 @@
 import React from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import { Outlet } from "react-router-dom";
+
 import Footer from "../../components/Footer/Footer";
 import RegisterEmployee from "../../components/Register/RegisterEmployee";
+
+
+
 const Main = () => {
+
   return (
     <div>
       <header>
@@ -13,11 +18,12 @@ const Main = () => {
       <main>
         <Outlet />
       </main>
-      {/* <footer>
+      <footer>
         <Footer/>
-      </footer> */}
+      </footer>
     </div>
   );
+
 };
 
 export default Main;
