@@ -42,12 +42,12 @@ CREATE TABLE product_category (
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0
 );
--- CREATE TABLE product_inventory (
---     id SERIAL PRIMARY KEY,
---     quantity INT,
---     created_at TIMESTAMP DEFAULT NOW(),
---     is_deleted SMALLINT DEFAULT 0
--- );
+CREATE TABLE product_inventory (
+    id SERIAL PRIMARY KEY,
+    quantity INT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    is_deleted SMALLINT DEFAULT 0
+);
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -55,16 +55,20 @@ CREATE TABLE products (
     img TEXT,
     price INT,
     category_id INT,
-    quantity INT,
+    inventory_ID INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
-    FOREIGN KEY (category_id) REFERENCES product_category(id)
+    FOREIGN KEY (inventory_ID) REFERENCES product_category(id)
+    FOREIGN KEY (category_id) REFERENCES product_inventory(id)
 );
 CREATE TABLE order_items (
     id SERIAL PRIMARY KEY,
     product_id INT,
+    quantity INT,
+    inventory_ID INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
+     FOREIGN KEY (inventory_ID) REFERENCES product_category(id)
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 CREATE TABLE employeeCategory(
