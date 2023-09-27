@@ -45,8 +45,6 @@ const UserRegister = () => {
             } else {
                 setMessage(result.data.message);
             }
-
-            console.log(result);
         } catch (error) {
             console.log(error.message);
         }
