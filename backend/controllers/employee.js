@@ -79,6 +79,7 @@ const registerEmployee = async (req, res) => {
             });
         })
         .catch((err) => {
+            console.log(err)
             res.status(409).json({
                 success: false,
                 message: "The email already exists",
@@ -128,6 +129,7 @@ const loginEmployee = (req, res) => {
                     success: true,
                     message: `Valid login credentials`,
                     token: token,
+                    employee_id:results.rows[0].id
                 });
                 //console.log(token.payload);
             } catch (error) {

@@ -2,6 +2,8 @@
 import React from "react";
 import RegisterEmployee from "../../components/Register/RegisterEmployee";
 const Register = () => {
+
+
     return (
         <div>
             Register
@@ -9,6 +11,7 @@ const Register = () => {
         </div>
     );
 };
+
 
 
 export default Register;

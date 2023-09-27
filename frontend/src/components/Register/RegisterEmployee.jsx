@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./RegisterEmployee.css";
 import axios from "axios";
-import { UseSelector } from "react-redux";
+import { UseSelector, useSelector } from "react-redux";
 
 //!=================================================
 
@@ -17,22 +17,27 @@ const RegisterEmployee = () => {
   const [status, setStatus] = useState(false);
 
   //!=================================================
+  const { token } = useSelector((state) => state.auth);
+  //!=================================================
 
   const CreateAccountEmployee = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post("http://localhost:5000/employees/register", {
-        firstName,
-        lastName,
-        age,
-        country,
-        email,
-        password,
-        role_id,
-      });
+      const result = await axios.post(
+        "http://localhost:5000/employees/register",
+        {
+          firstName,
+          lastName,
+          age,
+          country,
+          email,
+          password,
+          role_id,
+        }
+      );
 
       if (result.data) {
-        console.log(result.data)
+        console.log(result.data);
         setStatus(true);
         setMessage(result.data.message);
       } else {
@@ -47,15 +52,19 @@ const RegisterEmployee = () => {
     }
   };
 
-   //!=================================================
+  //!=================================================
 
-   return(
+  return (
     <>
-      <div className="Form">
-        
+      {!token ? (
+        <div className="Form">
           <>
             <p className="Title">Register:</p>
-            <form onSubmit={(e)=>{CreateAccountEmployee(e)}}>
+            <form
+              onSubmit={(e) => {
+                CreateAccountEmployee(e);
+              }}
+            >
               <br />
               <input
                 type="text"
@@ -100,8 +109,10 @@ const RegisterEmployee = () => {
               ? message && <div className="SuccessMessage">{message}</div>
               : message && <div className="ErrorMessage">{message}</div>}
           </>
-       
-      </div>
+        </div>
+      ) : (
+        <p>Logout First </p>
+      )}
     </>
   );
 };
