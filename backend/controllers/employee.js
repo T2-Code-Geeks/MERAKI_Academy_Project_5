@@ -79,6 +79,7 @@ const registerEmployee = async (req, res) => {
             });
         })
         .catch((err) => {
+            console.log(err)
             res.status(409).json({
                 success: false,
                 message: "The email already exists",

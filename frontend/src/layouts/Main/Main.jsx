@@ -8,14 +8,12 @@ const Main = () => {
     <div>
       <header>
         <NavBar />
-        <RegisterEmployee/>
+        <RegisterEmployee />
       </header>
       <main>
         <Outlet />
       </main>
-      {/* <footer>
-        <Footer/>
-      </footer> */}
+      <Footer />
     </div>
   );
 };
