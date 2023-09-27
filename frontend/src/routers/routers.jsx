@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Products,{ productsLoader } from "../pages/Products/products/Products";
 import Main from "../layouts/Main/Main";
 import Register from "../pages/Register/Register";
-import Login from "../pages/Login/Login";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
+import Login from "../pages/Login/Login";
 
 
 
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        element: <Login/>,
+        element: <Login/>
       },
       {
         path: "register",
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       {
         path:"products/:id",
         element:<ProductDetails/>,
-        loader:productLoader,
+        loader:productLoader
       },
     ],
   },

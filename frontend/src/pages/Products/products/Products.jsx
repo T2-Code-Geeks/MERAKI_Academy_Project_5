@@ -4,7 +4,7 @@ import { Await, Link, useLoaderData } from 'react-router-dom';
 import "./Products.css"
 const Products = () => {
   const { result } = useLoaderData();
-
+console.log(result);
   return (
     <>
       <h2>Products</h2>
@@ -30,12 +30,9 @@ const Products = () => {
 export default Products;
 
 export const productsLoader = async () => {
-  try {
-    const response = await axios.get(`http://localhost:5000/products`);
-    const products = response.data.result;
-    console.log(products);
-    return { result: products };
-  } catch (error) {
-    throw error; 
-  }
-};
+
+  const result = await axios.get("http://localhost:5000/products").then(res => {
+      return res.data.result
+  })
+  return {result}
+}

@@ -1,8 +1,11 @@
 import React from 'react'
-
+import RegisterEmployee from "../../components/Register/RegisterEmployee"
 const Register = () => {
   return (
-    <div>Register</div>
+    <div>Register
+
+<RegisterEmployee/>
+    </div>
   )
 }
 
