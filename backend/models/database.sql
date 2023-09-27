@@ -154,19 +154,19 @@ INSERT INTO role_permission (role_id, permission_id) VALUES
     (3, 4),
     (3, 5);
     
-
-
-
+INSERT INTO product_inventory (quantity) VALUES (10),
+ (15),
+ (8);
 INSERT INTO product_category (name, description) VALUES
     ('‘عدة نجارة', 'Category 1 Description'),
     ('عدة حدادة', 'Category 2 Description'),
     ('عدة كهربائي', 'Category 3 Description');
 
-INSERT INTO products (name, description, img, price, category_id) VALUES
+INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES
+  ('Product 1', 'Description for Product 1', 'img1.jpg', 20, 1, 1),
+ ('Product 2', 'Description for Product 2', 'img2.jpg', 25, 3, 2),
+  ('Product 3', 'Description for Product 3', 'img3.jpg', 30, 2, 3);
 
-    ('Product 1', 'Product 1 Description', 'product1.jpg', 10, 1),
-    ('Product 2', 'Product 2 Description', 'product2.jpg', 20, 2),
-    ('Product 3', 'Product 3 Description', 'product3.jpg', 15, 3);
 
 INSERT INTO order_items (product_id) VALUES
     (1),

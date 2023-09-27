@@ -51,7 +51,7 @@ const UserRegister = () => {
     };
 
     return (
-        <div>
+        <div>user
             {token ? (
                 navigate("/")
             ) : (

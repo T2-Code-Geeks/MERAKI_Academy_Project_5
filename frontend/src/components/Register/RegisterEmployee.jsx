@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./RegisterEmployee.css";
 import axios from "axios";
-import { UseSelector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 //!=================================================
 
@@ -59,7 +59,7 @@ const RegisterEmployee = () => {
       {!token ? (
         <div className="Form">
           <>
-            <p className="Title">Register:</p>
+            <p className="Title">Register employee:</p>
             <form
               onSubmit={(e) => {
                 CreateAccountEmployee(e);
