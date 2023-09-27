@@ -162,7 +162,8 @@ INSERT INTO product_category (name, description) VALUES
     ('عدة حدادة', 'Category 2 Description'),
     ('عدة كهربائي', 'Category 3 Description');
 
-INSERT INTO products (name, description, img,price, category_id) VALUES
+INSERT INTO products (name, description, img, price, category_id) VALUES
+
     ('Product 1', 'Product 1 Description', 'product1.jpg', 10, 1),
     ('Product 2', 'Product 2 Description', 'product2.jpg', 20, 2),
     ('Product 3', 'Product 3 Description', 'product3.jpg', 15, 3);
