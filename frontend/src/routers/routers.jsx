@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Products,{ productsLoader } from "../pages/Products/products/Products";
 import Main from "../layouts/Main/Main";
 import Register from "../pages/Register/Register";
-import Login from "../pages/Login/Login";
+import Login from "../pages/login/Login";
 // import { productsLoader } from "../service/api/ProductsAPI/Products";
 
 export const router = createBrowserRouter([
