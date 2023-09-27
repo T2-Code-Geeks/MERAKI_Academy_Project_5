@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EmployeeLogin from "../../components/Login/EmployeeLogin"
+import UserLogin from "../../components/Login/UserLogin"
+
 const Login = () => {
+    const [toggle, setToggle] = useState(false);
+
+    const toggleFn=()=>{
+        setToggle(prev=>!prev)
+    }
   return (
-  <EmployeeLogin/>
+    <>
+    <div on onClick={toggleFn}>Toggle user or employee</div>
+    {toggle ? <UserLogin /> : <EmployeeLogin />}
+</>
   )
 }
 
