@@ -16,7 +16,7 @@ export const authSlice = createSlice({
             state.userId = action.payload;
             localStorage.setItem("userId", state.userId);
         },
-        setLogout: (state, action) => {
+        setLogout: (state) => {
             state.token = null;
             state.userId = null;
             localStorage.clear();
