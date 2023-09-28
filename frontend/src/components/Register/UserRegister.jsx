@@ -40,7 +40,7 @@ const UserRegister = () => {
             if (result.data.success) {
                 setMessage("Account Created");
                 setTimeout(() => {
-                    navigate("/");
+                    navigate("/login");
                 }, 2000);
             } else {
                 setMessage(result.data.message);

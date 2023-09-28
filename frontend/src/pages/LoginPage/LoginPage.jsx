@@ -10,8 +10,8 @@ const LoginPage = () => {
     };
     return (
         <>
-            <div on onClick={toggleFn}>
-                Toggle user or employee
+            <div>
+                <h4 onClick={toggleFn}>Toggle user or employee</h4>
             </div>
             {toggle ? <UserLogin /> : <EmployeeLogin />}
         </>
