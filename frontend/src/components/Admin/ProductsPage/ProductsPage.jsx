@@ -36,7 +36,14 @@ const dispatch=useDispatch()
     }
   };
 
-
+  const deleteProduct = async (id) => {
+    try {
+      const result = await axios.delete(`http://localhost:5000/products/${id}`);
+      dispatch(deleteProductById(id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <h2>Products</h2>
