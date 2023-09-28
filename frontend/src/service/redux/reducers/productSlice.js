@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const products = createSlice({
   name: "products",
   initialState: {
-    articles: [],
+    products: [],
     name: "products",
   },
   reducers: {
-    setArticles: (state, action) => {
+    setProducts: (state, action) => {
       state.articles = action.payload;
     },
     addProduct: (state, action) => {
@@ -24,25 +24,11 @@ export const products = createSlice({
         (product) => product.id !== action.payload
       );
     },
-    // setComments: (state, action) => {
-    //   const { comments, article_id } = action.payload;
-    //   const articleIndex = state.articles.findIndex(
-    //     (art) => art.id === article_id
-    //   );
-    //   state.articles[articleIndex].comments = comments;
-    // },
-    // addComment: (state, action) => {
-    //   const { newComment, article_id } = action.payload;
-    //   const article = state.articles.find(
-    //     (art) => art.id === article_id
-    //   );
-    //   article.comments.push(newComment);
-    
-    // },
+  
   },
 });
 export const {
-  setArticles,
+  setProducts,
   addProduct,
   updateProductById,
   deleteProductById,

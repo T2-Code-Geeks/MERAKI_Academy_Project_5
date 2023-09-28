@@ -8,6 +8,10 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import MainPage from "../components/Admin/MainPage/MainPage";
 import AdminLayOut from "../layouts/Admin/AdminLayOut";
 import UsersPage from "../components/Admin/UsersPage/UsersPage";
+import EmployeeCategories from "../components/Admin/EmployeeCategories/EmployeeCategories";
+import EmployeesPage from "../components/Admin/EmployeesPage/EmployeesPage";
+import ProductsCategories from "../components/Admin/ProductsCategories/ProductsCategories";
+import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
 
 
 export const router = createBrowserRouter([
@@ -52,16 +56,20 @@ export const router = createBrowserRouter([
         element: <UsersPage />,
       },
       {
-        path: "",
-        element: <MainPage />,
+        path: "employeeCategories",
+        element: <EmployeeCategories />,
       },
       {
-        path: "",
-        element: <MainPage />,
+        path: "employees",
+        element: <EmployeesPage />,
       },
       {
-        path: "",
-        element: <MainPage />,
+        path: "productsCategories",
+        element: <ProductsCategories />,
+      },
+      {
+        path: "products",
+        element: <ProductsPage />,
       },
     ]
   }
