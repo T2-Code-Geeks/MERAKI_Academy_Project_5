@@ -20,8 +20,10 @@ export const products = createSlice({
       );
     },
     deleteProductById: (state, action) => {
+     
       state.products = state.products.filter(
-        (product) => product.id !== action.payload
+        
+        (product) =>  product.id !== action.payload
       );
     },
   
@@ -32,7 +34,5 @@ export const {
   addProduct,
   updateProductById,
   deleteProductById,
-  setComments,
-  addComment,
 } = products.actions;
 export default products.reducer;

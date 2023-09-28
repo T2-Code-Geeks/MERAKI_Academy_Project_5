@@ -130,7 +130,7 @@ const createNewProduct = async (req, res) => {
   try {
     const { name, description, img, price, category_id, quantity } = req.body;
     const query =
-      "INSERT INTO products (name, description, img, price, category_id, quantity) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *";
+      "INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *";
     const data = [name, description, img, price, category_id, quantity];
     const result = await client.query(query, data);
     res.status(201).json({
