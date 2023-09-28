@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Products,{ productsLoader } from "../pages/Products/products/Products";
 import Main from "../layouts/Main/Main";
-
+import Employees,{EmployeesLoader} from "../pages/Employee/Employee";
+import EmployeeDetails,{EmployeeLoader} from "../pages/Employee/EmployeeDetiles";
 import Register from "../pages/Register/Register";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
 import LoginPage from "../pages/LoginPage/LoginPage";
@@ -31,7 +32,17 @@ export const router = createBrowserRouter([
         element:<ProductDetails/>,
         loader:productLoader
       },
+      {
+        path: "employees",
+        element: <Employees/>,
+        loader:EmployeesLoader,
+        children:[]
+      },
+      {
+        path:"employees/:id",
+        element:<EmployeeDetails/>,
+        loader:EmployeeLoader
+      },
     ],
   },
-
 ]);
