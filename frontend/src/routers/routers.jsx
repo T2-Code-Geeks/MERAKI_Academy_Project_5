@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Products,{ productsLoader } from "../pages/Products/products/Products";
 import Main from "../layouts/Main/Main";
-import Employees,{EmployeesLoader} from "../pages/Employee/Employee";
-import EmployeeDetails,{EmployeeLoader} from "../pages/Employee/EmployeeDetiles";
+import Employees,{EmployeesLoader} from "../pages/Employee/EmployessPage/Employee";
+import EmployeeDetails,{EmployeeLoader} from "../pages/Employee/EmployeeDetiles/EmployeeDetiles";
 import Register from "../pages/Register/Register";
+import ProfileEmployee from "../pages/Employee/EmployeeProfile/ProfileEmployee";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
 import LoginPage from "../pages/LoginPage/LoginPage";
 
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
         path:"employees/:id",
         element:<EmployeeDetails/>,
         loader:EmployeeLoader
+      },
+      {
+        path:"employeeProfile/:id",
+        element:<ProfileEmployee/>,
       },
     ],
   },
