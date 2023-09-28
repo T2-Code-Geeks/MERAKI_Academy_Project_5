@@ -253,7 +253,7 @@ const getAllProducts = (req, res) => {
               res.status(200).json({
                 success: true,
                 message: `The article with id: ${id}`,
-                result: result.rows,
+                result: result.rows[0],
               });
             } else {
               throw new Error("Error happened while getting article");
