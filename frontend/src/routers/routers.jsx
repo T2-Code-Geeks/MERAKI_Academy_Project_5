@@ -5,6 +5,9 @@ import Main from "../layouts/Main/Main";
 import Register from "../pages/Register/Register";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import MainPage from "../components/Admin/MainPage/MainPage";
+import AdminLayOut from "../layouts/Admin/AdminLayOut";
+import UsersPage from "../components/Admin/UsersPage/UsersPage";
 
 
 export const router = createBrowserRouter([
@@ -31,7 +34,36 @@ export const router = createBrowserRouter([
         element:<ProductDetails/>,
         loader:productLoader
       },
+      {
+        path:"test"
+      }
     ],
   },
+  {
+    path:"admin",
+    element:<AdminLayOut/>,
+    children:[
+      {
+        path: "",
+        element: <MainPage />,
+      },
+      {
+        path: "users",
+        element: <UsersPage />,
+      },
+      {
+        path: "",
+        element: <MainPage />,
+      },
+      {
+        path: "",
+        element: <MainPage />,
+      },
+      {
+        path: "",
+        element: <MainPage />,
+      },
+    ]
+  }
 
 ]);

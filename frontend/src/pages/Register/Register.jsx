@@ -14,7 +14,8 @@ const Register = () => {
     return (
 
       <>
-      <div on onClick={toggleFn} className="register">Toggle user or employee <br/>
+      <div   className="register">
+        <h4 onClick={toggleFn}>Toggle user or employee </h4><br/>
        {toggle ? <UserRegister /> :<RegisterEmployee /> }
       </div>
      

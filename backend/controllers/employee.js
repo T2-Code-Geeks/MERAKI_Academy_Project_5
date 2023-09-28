@@ -100,6 +100,7 @@ const loginEmployee = (req, res) => {
     client
         .query(query, data)
         .then(async (results) => {
+            console.log(results);
             if (!results.rows.length) {
                 return res.status(403).json({
                     success: false,
