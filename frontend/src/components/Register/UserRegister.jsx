@@ -9,7 +9,7 @@ const UserRegister = () => {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [img, setImg] = useState("");
+    const [img] = useState("");
     const [age, setAge] = useState(0);
     const [country, setCountry] = useState("");
     const [address1, setAdress1] = useState("");
@@ -21,7 +21,7 @@ const UserRegister = () => {
         if (token) {
             navigate("/");
         }
-    }, [token]);
+    }, [token, navigate]);
 
     const handleUserRegister = async () => {
         try {
@@ -51,63 +51,60 @@ const UserRegister = () => {
     };
 
     return (
-        <div>user
-            {token ? (
-                navigate("/")
-            ) : (
-                <div>
-                    <input
-                        type="text"
-                        placeholder="First Name"
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <br />
-                    <input
-                        type="text"
-                        placeholder="Last Name"
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <br />
-                    <input
-                        type="number"
-                        placeholder="Age"
-                        onChange={(e) => setAge(e.target.value)}
-                    />
-                    <br />
-                    <input
-                        type="text"
-                        placeholder="Country"
-                        onChange={(e) => setCountry(e.target.value)}
-                    />
-                    <br />
-                    <input
-                        type="text"
-                        placeholder="Address 1"
-                        onChange={(e) => setAdress1(e.target.value)}
-                    />
-                    <br />
-                    <input
-                        type="text"
-                        placeholder="Address 2"
-                        onChange={(e) => setAdress2(e.target.value)}
-                    />
-                    <br />
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <br />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <br />
-                    <button onClick={handleUserRegister}>Register</button>
-                    <p>{message}</p>
-                </div>
-            )}
+        <div>
+            user
+            <div>
+                <input
+                    type="text"
+                    placeholder="First Name"
+                    onChange={(e) => setFirstName(e.target.value)}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Last Name"
+                    onChange={(e) => setLastName(e.target.value)}
+                />
+                <br />
+                <input
+                    type="number"
+                    placeholder="Age"
+                    onChange={(e) => setAge(e.target.value)}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Country"
+                    onChange={(e) => setCountry(e.target.value)}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Address 1"
+                    onChange={(e) => setAdress1(e.target.value)}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Address 2"
+                    onChange={(e) => setAdress2(e.target.value)}
+                />
+                <br />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <br />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <br />
+                <button onClick={handleUserRegister}>Register</button>
+                <p>{message}</p>
+            </div>
         </div>
     );
 };
