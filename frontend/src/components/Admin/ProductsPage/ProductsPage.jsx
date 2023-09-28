@@ -27,6 +27,15 @@ const dispatch=useDispatch()
       }
     }
   };
+  const updateProduct = async (id) => {
+    try {
+      const result = await axios.put(`http://localhost:5000/products/${id}`);
+      dispatch(updateProductById(result.data.result));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <>
