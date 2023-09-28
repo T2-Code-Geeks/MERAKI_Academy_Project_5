@@ -13,14 +13,13 @@ const Register = () => {
 
     return (
 
-      <>
-      <div   className="register">
-        <h4 onClick={toggleFn}>Toggle user or employee </h4><br/>
-       {toggle ? <UserRegister /> :<RegisterEmployee /> }
-      </div>
-     
-  </>
-      
+        <>
+            <div  className="register">
+                <h4 onClick={toggleFn}>Toggle user or employee</h4> <br />
+                {toggle ? <UserRegister /> : <RegisterEmployee />}
+            </div>
+        </>
+
     );
 };
 

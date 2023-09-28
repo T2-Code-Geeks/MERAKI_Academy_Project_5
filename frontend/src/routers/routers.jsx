@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Products from "../pages/Products/products/Products";
 import Main from "../layouts/Main/Main";
-
+import Employees,{EmployeesLoader} from "../pages/Employee/EmployessPage/Employee";
+import EmployeeDetails,{EmployeeLoader} from "../pages/Employee/EmployeeDetiles/EmployeeDetiles";
 import Register from "../pages/Register/Register";
+import ProfileEmployee from "../pages/Employee/EmployeeProfile/ProfileEmployee";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MainPage from "../components/Admin/MainPage/MainPage";
@@ -40,8 +42,21 @@ export const router = createBrowserRouter([
         loader:productLoader
       },
       {
-        path:"test"
-      }
+
+           path: "employees",
+        element: <Employees/>,
+        loader:EmployeesLoader,
+        children:[]
+      },
+         {
+        path:"employees/:id",
+        element:<EmployeeDetails/>,
+        loader:EmployeeLoader
+      },
+      {
+        path:"employeeProfile/:id",
+        element:<ProfileEmployee/>,
+      },
     ],
   },
   {
@@ -75,5 +90,7 @@ export const router = createBrowserRouter([
       },
     ]
   }
+
+
 
 ]);

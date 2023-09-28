@@ -4,7 +4,8 @@ export const authSlice = createSlice({
     name: "auth",
     initialState: {
         token: localStorage.getItem("token") || null,
-        userId: localStorage.getItem("userId") || null
+        userId: localStorage.getItem("userId") || null,
+        
     },
     reducers: {
         setLogin: (state, action) => {
@@ -15,11 +16,15 @@ export const authSlice = createSlice({
             state.userId = action.payload;
             localStorage.setItem("userId", state.userId);
         },
-        setLogout: (state, action) => {
+        setLogout: (state) => {
             state.token = null;
             state.userId = null;
             localStorage.clear();
-        }
+        },
+        setEmployee: (state, action) => {
+            state.employee = action.payload;
+           ;
+        },
     }
 })
 

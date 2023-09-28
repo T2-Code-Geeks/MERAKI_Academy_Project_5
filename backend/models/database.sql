@@ -173,4 +173,7 @@ INSERT INTO order_items (product_id) VALUES
     (3),
     (2);
 
-
+INSERT INTO employees (firstName, lastName, description, country) VALUES
+  ('Qtada', 'Ahmad', 'work in electrical',"Jordan"),
+ ('same', 'rame', 'work in machincal',"Ksa"),
+  ('ramez', 'salem', 'work in wood',"Jordan");

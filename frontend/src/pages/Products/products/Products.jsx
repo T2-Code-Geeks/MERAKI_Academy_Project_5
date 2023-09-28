@@ -5,7 +5,6 @@ import "./Products.css"
 
 const Products = () => {
   const { result } = useLoaderData();
-  console.log(result);
   // const filteredProducts=(cat)=>{
   // const updated=result.category.filter((x)=>x.category===cat)
   // }
