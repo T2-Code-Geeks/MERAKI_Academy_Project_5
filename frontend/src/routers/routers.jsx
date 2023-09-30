@@ -6,7 +6,9 @@ import EmployeeDetails, { EmployeeLoader } from "../pages/Employee/EmployeeDetil
 import Employees from "../pages/Employee/EmployessPage/Employee";
 import Register from "../pages/Register/Register";
 import ProfileEmployee from "../pages/Employee/EmployeeProfile/ProfileEmployee";
-import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
+import ProductDetails, {
+    productLoader,
+} from "../pages/Products/product/ProductDetails";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MainPage from "../components/Admin/MainPage/MainPage";
 import AdminLayOut from "../layouts/Admin/AdminLayOut";
@@ -16,82 +18,83 @@ import EmployeesPage from "../components/Admin/EmployeesPage/EmployeesPage";
 import ProductsCategories from "../components/Admin/ProductsCategories/ProductsCategories";
 import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
 import { productsLoader } from "../service/api/ProductsAPI/Products";
-
+import UserProfile, { profileInfoLoader } from "../pages/User/UserProfile";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Main />,
-    children: [
-      {
-        path: "login",
-        element: <LoginPage/>
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "products",
-        element: <Products />,
-        loader:productsLoader,
-        children:[]
-      },
-      {
-        path:"products/:id",
-        element:<ProductDetails/>,
-        loader:productLoader
-      },
-      {
-
-           path: "employees",
-        element: <Employees/>,
-        loader:EmployeesLoader,
-        children:[]
-      },
-         {
-        path:"employees/:id",
-        element:<EmployeeDetails/>,
-        loader:EmployeeLoader
-      },
-      {
-        path:"employeeProfile/:id",
-        element:<ProfileEmployee/>,
-      },
-    ],
-  },
-  {
-    path:"admin",
-    element:<AdminLayOut/>,
-    children:[
-      {
-        path: "",
-        element: <MainPage />,
-      },
-      {
-        path: "users",
-        element: <UsersPage />,
-      },
-      {
-        path: "employeeCategories",
-        element: <EmployeeCategories />,
-      },
-      {
-        path: "employees",
-        element: <EmployeesPage />,
-      },
-      {
-        path: "productsCategories",
-        element: <ProductsCategories />,
-      },
-      {
-        path: "products",
-        element: <ProductsPage />,
-        loader:productsLoader,
-      },
-    ]
-  }
-
-
-
+    {
+        path: "/",
+        element: <Main />,
+        children: [
+            {
+                path: "login",
+                element: <LoginPage />,
+            },
+            {
+                path: "register",
+                element: <Register />,
+            },
+            {
+                path: "products",
+                element: <Products />,
+                loader: productsLoader,
+                children: [],
+            },
+            {
+                path: "products/:id",
+                element: <ProductDetails />,
+                loader: productLoader,
+            },
+            {
+                path: "employees",
+                element: <Employees />,
+                loader: EmployeesLoader,
+                children: [],
+            },
+            {
+                path: "employees/:id",
+                element: <EmployeeDetails />,
+                loader: EmployeeLoader,
+            },
+            {
+                path: "employeeProfile/:id",
+                element: <ProfileEmployee />,
+            },
+            {
+                path: "user/:id",
+                element: <UserProfile />,
+                loader: profileInfoLoader
+            }
+        ],
+    },
+    {
+        path: "/admin",
+        element: <AdminLayOut />,
+        children: [
+            {
+                path: "",
+                element: <MainPage />,
+            },
+            {
+                path: "users",
+                element: <UsersPage />,
+            },
+            {
+                path: "employeeCategories",
+                element: <EmployeeCategories />,
+            },
+            {
+                path: "employees",
+                element: <EmployeesPage />,
+            },
+            {
+                path: "productsCategories",
+                element: <ProductsCategories />,
+            },
+            {
+                path: "products",
+                element: <ProductsPage />,
+                loader: productsLoader,
+            },
+        ],
+    },
 ]);

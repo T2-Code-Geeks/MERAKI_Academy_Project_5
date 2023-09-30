@@ -12,9 +12,11 @@ const Employees = () => {
           {result => (
             <div>
               {result?.map(Employee => (
-                <div className="productContainer" key={Employee.id}>
-                  <h2>{Employee.firstname}</h2>
-                  <p>{Employee.lastname}</p>
+
+                  <div className="productContainer" key={ Employee.id }>
+                  <h2>{Employee.firstname+" "+Employee.lastname}</h2>
+                  <p>{Employee.description}</p>
+
                   <Link to={`/employees/${Employee.id}`}>View Details</Link>
                 </div>
               ))}

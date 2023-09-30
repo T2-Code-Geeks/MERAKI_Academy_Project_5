@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const authSlice = createSlice({
+
+
   name: "auth",
   initialState: {
     token: localStorage.getItem("token") || null,
@@ -11,6 +13,7 @@ export const authSlice = createSlice({
     setLogin: (state, action) => {
       state.token = action.payload;
       localStorage.setItem("token", state.token);
+
     },
 
     setUserId: (state, action) => {

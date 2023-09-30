@@ -1,4 +1,3 @@
-
 import React from "react";
 import "./NavBar.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -13,8 +12,7 @@ const NavBar = () => {
         navigate("/login");
     };
 
-    const { token } = useSelector((state) => state.auth);
-
+    const { token, userId } = useSelector((state) => state.auth);
 
     return (
         <nav>
@@ -40,6 +38,9 @@ const NavBar = () => {
                     </NavLink>
                     <NavLink to="/products" className={"navbar-margin"}>
                         products
+                    </NavLink>
+                    <NavLink to={`/user/${userId}`} className={"navbar-margin"}>
+                        My Profile
                     </NavLink>
                     <NavLink onClick={handleLogout}>Logout</NavLink>
                 </div>
