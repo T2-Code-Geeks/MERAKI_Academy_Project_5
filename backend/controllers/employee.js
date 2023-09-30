@@ -87,6 +87,7 @@ const registerEmployee = async (req, res) => {
 // ! this function do login as employee ..
 
 const loginEmployee = (req, res) => {
+
     const password = req.body.password;
     const email = req.body.email.toLowerCase();
     const query = `SELECT * FROM employees WHERE email=$1`;
@@ -134,7 +135,7 @@ const loginEmployee = (req, res) => {
                 message: `Server Error`,
                 err: err.message,
             });
-        });
+    }
 };
 
 // ! update Account profile employee ...
