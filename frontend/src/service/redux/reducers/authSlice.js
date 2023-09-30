@@ -5,7 +5,7 @@ export const authSlice = createSlice({
     initialState: {
         token: localStorage.getItem("token") || null,
         userId: localStorage.getItem("userId") || null,
-        
+        employee:[]
     },
     reducers: {
         setLogin: (state, action) => {
@@ -25,8 +25,12 @@ export const authSlice = createSlice({
             state.employee = action.payload;
            ;
         },
+        updateProfileById:(state,action)=>{
+            // state.employee = state.employee.filter(({id})=>  id !== action.payload)
+
+        },
     }
 })
 
-export const { setLogin, setUserId, setLogout } = authSlice.actions;
+export const { setLogin, setUserId, setLogout, updateProfileById,setEmployee} = authSlice.actions;
 export default authSlice.reducer;

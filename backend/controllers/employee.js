@@ -52,10 +52,10 @@ const getAllCategoryes = (req, res) => {
 
 const registerEmployee = async (req, res) => {
     try {
-        const { firstName, lastName, age, country, email, password, role_id }= req.body;
+        const { firstName, lastName, age, country, email, password, role_id,category_id }= req.body;
         if (firstName && lastName && email && password) {
             const hashedPassword = await bcrypt.hash(password, 10);
-            const result = await client.query(`INSERT INTO employees (firstName, lastName, age, country, email, password, role_id) VALUES ($1,$2,$3,$4,$5,$6,$7)`, [firstName, lastName, age, country ,email.toLowerCase(), hashedPassword, 2]);
+            const result = await client.query(`INSERT INTO employees (firstName, lastName, age, country, email,password, role_id,category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`, [firstName, lastName, age, country ,email.toLowerCase(), hashedPassword, 2,category_id]);
             res.json({
                 success: true,
                 message: "Account Created",
@@ -264,6 +264,35 @@ const getEmployeeById = (req, res) => {
     });
 };
 
+const getALLEmployeesBycategory = (req, res) => {
+  const category_id = req.params.category_id;
+  const query = `SELECT * FROM employees  WHERE category_id=$1 AND employees.is_deleted=0;`;
+  const data = [category_id];
+
+  client
+    .query(query, data)
+    .then((result) => {
+      console.log(result)
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `All employee with id: ${category_id}`,
+          result: result.rows,
+        });
+      } else {
+        throw new Error("Error happened while getting employees");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+      console.log(err)
+    });
+};
+
 module.exports = {
   registerEmployee,
   loginEmployee,
@@ -273,4 +302,5 @@ module.exports = {
   getEmployeeById,
   CreateEmployeeCategory,
   getAllCategoryes,
+  getALLEmployeesBycategory,
 };
