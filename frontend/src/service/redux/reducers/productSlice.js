@@ -4,6 +4,7 @@ export const products = createSlice({
   name: "products",
   initialState: {
     products: [],
+    category:[],
     name: "products",
   },
   reducers: {
@@ -26,7 +27,22 @@ export const products = createSlice({
         (product) =>  product.id !== action.payload
       );
     },
-  
+    addCategory: (state, action) => {
+      state.category.push(action.payload);
+    },
+    updateCategoryById: (state, action) => {
+      const updatedCategory = action.payload;
+      state.category = state.category.map((category) =>
+      category.id === updatedCategory.id ? updatedCategory : category
+      );
+    },
+    deleteCategoryById: (state, action) => {
+     
+      state.category = state.category.filter(
+        
+        (category) =>  category.id !== action.payload
+      );
+    },
   },
 });
 export const {
@@ -34,5 +50,6 @@ export const {
   addProduct,
   updateProductById,
   deleteProductById,
+  addCategory,updateCategoryById,deleteCategoryById
 } = products.actions;
 export default products.reducer;

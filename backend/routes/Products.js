@@ -4,7 +4,7 @@ const authentication = require("../middleware/authentication");
 
 const { createNewCategory, updateCategoryById, deleteCategoryById, createNewProduct, updateProductById, deleteProductById, getAllCategory, getCategoryById, getProductById, getAllProducts } = require("../controllers/products");
 // ! Create New Category
-productsRouts.post("/category", authentication, createNewCategory);
+productsRouts.post("/category",  createNewCategory);
 // ! Update Category
 productsRouts.put("/category/:id", authentication, updateCategoryById);
 // ! Delete Category
