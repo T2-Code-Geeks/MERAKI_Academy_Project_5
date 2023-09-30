@@ -87,6 +87,7 @@ const registerEmployee = async (req, res) => {
 // ! this function do login as employee ..
 
 const loginEmployee = (req, res) => {
+<<<<<<< HEAD
     const password = req.body.password;
     const email = req.body.email.toLowerCase();
     const query = `SELECT * FROM employees WHERE email=$1`;
@@ -134,6 +135,21 @@ const loginEmployee = (req, res) => {
                 message: `Server Error`,
                 err: err.message,
             });
+=======
+  const password = req.body.password;
+  const email = req.body.email.toLowerCase();
+  const query = `SELECT * FROM employees WHERE email=$1`;
+  const data = [email];
+  client
+    .query(query, data)
+    .then(async (results) => {
+      if (!results.rows.length) {
+        return res.status(403).json({
+          success: false,
+          massege:
+            "The email doesn't exist or The password you’ve entered is incorrect",
+
+>>>>>>> c9ba6d3574473fc32c53fa89d2239128aee88ce1
         });
 };
 

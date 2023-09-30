@@ -14,11 +14,11 @@ productsRouts.get("/category", getAllCategory);
 // ! Get  category by id
 productsRouts.get("/category/:id", getCategoryById);
 // ! Create Product
-productsRouts.post("/", authentication, createNewProduct);
+productsRouts.post("/", createNewProduct);
 // ! Update Product
 productsRouts.put("/:id", authentication, updateProductById);
 // ! Delete Products
-productsRouts.delete("/:id", authentication, deleteProductById);
+productsRouts.delete("/:id", deleteProductById);
 // ! Get all Products
 productsRouts.get("/", getAllProducts);
 // ! Get  Product by id

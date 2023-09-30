@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Products,{ productsLoader } from "../pages/Products/products/Products";
+import Products from "../pages/Products/products/Products";
 import Main from "../layouts/Main/Main";
 import Employees,{EmployeesLoader} from "../pages/Employee/EmployessPage/Employee";
 import EmployeeDetails,{EmployeeLoader} from "../pages/Employee/EmployeeDetiles/EmployeeDetiles";
@@ -7,6 +7,14 @@ import Register from "../pages/Register/Register";
 import ProfileEmployee from "../pages/Employee/EmployeeProfile/ProfileEmployee";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import MainPage from "../components/Admin/MainPage/MainPage";
+import AdminLayOut from "../layouts/Admin/AdminLayOut";
+import UsersPage from "../components/Admin/UsersPage/UsersPage";
+import EmployeeCategories from "../components/Admin/EmployeeCategories/EmployeeCategories";
+import EmployeesPage from "../components/Admin/EmployeesPage/EmployeesPage";
+import ProductsCategories from "../components/Admin/ProductsCategories/ProductsCategories";
+import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
+import { productsLoader } from "../service/api/ProductsAPI/Products";
 
 
 export const router = createBrowserRouter([
@@ -34,12 +42,13 @@ export const router = createBrowserRouter([
         loader:productLoader
       },
       {
-        path: "employees",
+
+           path: "employees",
         element: <Employees/>,
         loader:EmployeesLoader,
         children:[]
       },
-      {
+         {
         path:"employees/:id",
         element:<EmployeeDetails/>,
         loader:EmployeeLoader
@@ -50,4 +59,38 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"admin",
+    element:<AdminLayOut/>,
+    children:[
+      {
+        path: "",
+        element: <MainPage />,
+      },
+      {
+        path: "users",
+        element: <UsersPage />,
+      },
+      {
+        path: "employeeCategories",
+        element: <EmployeeCategories />,
+      },
+      {
+        path: "employees",
+        element: <EmployeesPage />,
+      },
+      {
+        path: "productsCategories",
+        element: <ProductsCategories />,
+      },
+      {
+        path: "products",
+        element: <ProductsPage />,
+        loader:productsLoader,
+      },
+    ]
+  }
+
+
+
 ]);

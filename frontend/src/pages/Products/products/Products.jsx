@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { Suspense } from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
 import "./Products.css"
@@ -32,11 +32,4 @@ const Products = () => {
 
 export default Products;
 
-export const productsLoader = async () => {
 
-  const result =  axios.get("http://localhost:5000/products")
-  .then(res => {
-      return res.data.result
-  })
-  return {result}
-}
