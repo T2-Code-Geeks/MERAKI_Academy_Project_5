@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import { Await, Link, useLoaderData, useParams } from "react-router-dom";
 
 const EmployeeDetails = () => {
+
     const { id } = useParams();
     const { result } = useLoaderData(id);
 
@@ -29,11 +30,13 @@ const EmployeeDetails = () => {
 
 export default EmployeeDetails;
 
-export const EmployeeLoader = async ({ params }) => {
-    const result = axios
-        .get(`http://localhost:5000/employees/${params.id}`)
-        .then((res) => {
-            return res.data.result;
-        });
-    return { result };
+
+export const EmployeeLoader = async ({params}) => {
+  const result = axios
+    .get(`http://localhost:5000/employees/${params.id}`)
+    .then((res) => {
+      return res.data.result;
+    });
+  return { result };
 };
+
