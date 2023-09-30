@@ -1,9 +1,12 @@
 import axios from "axios";
-
-
 export const EmployeesLoader = async () => {
 
-    const result = axios.get("/empolyees").then(res => {
+    const result = await axios.get("http://localhost:5000/employees").then(res => {
         return res.data.result
+        
     })
-}
+   
+    return {result}
+    
+  }
+

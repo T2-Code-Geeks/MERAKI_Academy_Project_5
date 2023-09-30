@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Products from "../pages/Products/products/Products";
 import Main from "../layouts/Main/Main";
-import Employees,{EmployeesLoader} from "../pages/Employee/EmployessPage/Employee";
-import EmployeeDetails,{EmployeeLoader} from "../pages/Employee/EmployeeDetiles/EmployeeDetiles";
+import { EmployeesLoader} from "../service/api/EmployeeAPI/Employee";
+import EmployeeDetails, { EmployeeLoader } from "../pages/Employee/EmployeeDetiles/EmployeeDetiles";
+import Employees from "../pages/Employee/EmployessPage/Employee";
 import Register from "../pages/Register/Register";
 import ProfileEmployee from "../pages/Employee/EmployeeProfile/ProfileEmployee";
 import ProductDetails, { productLoader } from "../pages/Products/product/ProductDetails";

@@ -4,7 +4,7 @@ import { Await, Link, useLoaderData, useParams } from "react-router-dom";
 
 const EmployeeDetails = () => {
   const { id } = useParams();
-  const { result } = useLoaderData(id);
+  const { result } = useLoaderData();
 
   return (
     <>
@@ -16,8 +16,8 @@ const EmployeeDetails = () => {
         >
           {(Employee) => (
             <div className="productContainer">
-              <h2>{Employee.name}</h2>
-              <p>{Employee.description}</p>
+              <h2>{Employee.firstname}</h2>
+              <p>{Employee.lastname}</p>
               <Link to="/employees">Back to Employess</Link>
             </div>
           )}
@@ -30,7 +30,6 @@ const EmployeeDetails = () => {
 export default EmployeeDetails;
 
 export const EmployeeLoader = async ({params}) => {
-
   const result = axios
     .get(`http://localhost:5000/employees/${params.id}`)
     .then((res) => {
