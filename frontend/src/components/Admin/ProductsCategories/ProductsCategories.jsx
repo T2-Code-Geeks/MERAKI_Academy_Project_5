@@ -27,6 +27,9 @@ const ProductsCategories = () => {
       }
     }
   };
+
+
+
   return (
     <div>  
             <form onSubmit={addNewCategory}>
@@ -49,20 +52,22 @@ const ProductsCategories = () => {
     <Await resolve={result} errorElement={<p>Error loading products.</p>}>
       {result => (
         <div>
-          {result?.map(product => (
-            <div className="productContainer" key={product.id}>
-              <h2>{product.name}</h2>
-              <p>{product.description}</p>
+          {result?.map(category => (
+            <div className="productContainer" key={category.id}>
+              <h2>{category.name}</h2>
+              <p>{category.description}</p>
               <button onClick={()=>{
                 // deleteProduct(product.id)
-              }}>delete Products</button>
-              <Link to={`/products/${product.id}`}>View Details</Link>
+              }}>delete category</button>
+              <Link to={`/products/${category.id}`}>View Details</Link>
             </div>
           ))}
         </div>
       )}
     </Await>
-  </Suspense></div>
+  </Suspense>
+  
+  </div>
   )
 }
 
