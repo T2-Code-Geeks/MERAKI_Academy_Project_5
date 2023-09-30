@@ -1,0 +1,7 @@
+.Form{
+    position: fixed;
+    top: 10%;
+    left: 20%;
+    background-color: yellowgreen;
+    transform: translate(-20%, -20%);
+}

@@ -1,3 +1,4 @@
+
 import React,{ useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ProfileEmployee";
@@ -8,6 +9,7 @@ import {updateProfileById,setEmployee,} from "../../../service/redux/reducers/au
 //! ===============================================
 
 const ProfileEmployee = () => {
+
 
   const {employee} = useSelector((state) => {
     return {
@@ -102,6 +104,7 @@ const [updateBox, setUpdateBox] = useState(false);
       </div>}
     </>
   );
-};
 
+  
+}
 export default ProfileEmployee;

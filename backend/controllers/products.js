@@ -130,7 +130,7 @@ const createNewProduct = async (req, res) => {
   try {
     const { name, description, img, price, category_id, quantity } = req.body;
     const query =
-      "INSERT INTO products (name, description, img, price, category_id, quantity) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *";
+      "INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *";
     const data = [name, description, img, price, category_id, quantity];
     const result = await client.query(query, data);
     res.status(201).json({
@@ -169,7 +169,6 @@ const updateProductById = (req, res) => {
   client
     .query(query, data)
     .then((result) => {
-      console.log(result);
       if (result.rows.length > 0) {
         res.status(200).json({
           success: true,
@@ -253,7 +252,7 @@ const getAllProducts = (req, res) => {
               res.status(200).json({
                 success: true,
                 message: `The article with id: ${id}`,
-                result: result.rows,
+                result: result.rows[0],
               });
             } else {
               throw new Error("Error happened while getting article");

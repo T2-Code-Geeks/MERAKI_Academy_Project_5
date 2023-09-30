@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { Suspense } from "react";
-import { Await, Link, useLoaderData, useParams } from "react-router-dom";
+import { Await, Link, useLoaderData, /* useParams */ } from "react-router-dom";
 
 const ProductDetails = () => {
-  const { id } = useParams();
-  const { result } = useLoaderData(id);
-
+//   const { id } = useParams();
+  const { result } = useLoaderData();
   return (
     <>
       <h2>Product Details</h2>
@@ -14,10 +13,10 @@ const ProductDetails = () => {
           resolve={result}
           errorElement={<p>Error loading product details.</p>}
         >
-          {(product) => (
+          {result => (
             <div className="productContainer">
-              <h2>{product.name}</h2>
-              <p>{product.description}</p>
+              <h2>{result.name}</h2>
+              <p>{result.description}</p>
               <Link to="/products">Back to Products</Link>
             </div>
           )}

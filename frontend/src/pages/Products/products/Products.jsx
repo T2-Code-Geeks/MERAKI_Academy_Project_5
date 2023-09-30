@@ -1,10 +1,13 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { Suspense } from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
 import "./Products.css"
+
 const Products = () => {
   const { result } = useLoaderData();
-console.log(result);
+  // const filteredProducts=(cat)=>{
+  // const updated=result.category.filter((x)=>x.category===cat)
+  // }
   return (
     <>
       <h2>Products</h2>
@@ -29,10 +32,4 @@ console.log(result);
 
 export default Products;
 
-export const productsLoader = async () => {
 
-  const result = await axios.get("http://localhost:5000/products").then(res => {
-      return res.data.result
-  })
-  return {result}
-}
