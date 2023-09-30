@@ -14,7 +14,7 @@ import EmployeeCategories from "../components/Admin/EmployeeCategories/EmployeeC
 import EmployeesPage from "../components/Admin/EmployeesPage/EmployeesPage";
 import ProductsCategories from "../components/Admin/ProductsCategories/ProductsCategories";
 import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
-import { productsLoader } from "../service/api/ProductsAPI/Products";
+import { categoriesLoader, productsLoader } from "../service/api/ProductsAPI/Products";
 
 
 export const router = createBrowserRouter([
@@ -82,6 +82,7 @@ export const router = createBrowserRouter([
       {
         path: "productsCategories",
         element: <ProductsCategories />,
+        loader:categoriesLoader
       },
       {
         path: "products",
