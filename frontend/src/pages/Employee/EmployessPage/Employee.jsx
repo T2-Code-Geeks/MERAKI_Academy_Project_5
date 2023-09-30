@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
 import "./Employee.css"
 const Employees = () => {
@@ -13,8 +13,8 @@ const Employees = () => {
             <div>
               {result?.map(Employee => (
                 <div className="productContainer" key={Employee.id}>
-                  <h2>{Employee.name}</h2>
-                  <p>{Employee.description}</p>
+                  <h2>{Employee.firstname}</h2>
+                  <p>{Employee.lastname}</p>
                   <Link to={`/employees/${Employee.id}`}>View Details</Link>
                 </div>
               ))}
@@ -27,11 +27,3 @@ const Employees = () => {
 };
 
 export default Employees;
-
-export const EmployeesLoader = async () => {
-
-  const result = await axios.get("http://localhost:5000/employees").then(res => {
-      return res.data.result
-  })
-  return {result}
-}

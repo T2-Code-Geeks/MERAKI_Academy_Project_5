@@ -14,8 +14,8 @@ const ProfileEmployee = () => {
         employee:state.auth.employee,
     };
   });
-const[firstName,setFirstName]=useState("");
-const[lastName,setLastName]=useState("");
+const[firstname,setFirstName]=useState("");
+const[lastname,setLastName]=useState("");
 const[ description,setDescription]=useState("");
 const[ work_hours,setWork_hours]=useState("");
 const[ country,setCountry]=useState("");
@@ -36,7 +36,8 @@ const [updateBox, setUpdateBox] = useState(false);
     try {
       const result = await axios.get(`http://localhost:5000/employees/${id}`);
       if (result.data) {
-        dispatch(setEmployee(result.data.result[0]));
+        console.log(result.data)
+        dispatch(setEmployee(result.data.result));
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -55,8 +56,8 @@ const [updateBox, setUpdateBox] = useState(false);
   const updateProfile = async (id) => {
     try {
       await axios.put(`http://localhost:5000/employees/${id}`, {
-        firstName,
-        lastName,
+        firstname,
+        lastname,
         description,
         work_hours,
         country,
@@ -64,26 +65,13 @@ const [updateBox, setUpdateBox] = useState(false);
         img,
         age,
       });
-      dispatch(
-        updateProfileById({
-          firstName,
-          lastName,
-          description,
-          work_hours,
-          country,
-          category_id,
-          img,
-          age,
-        })
-      );
-      profile();
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <>
-      <div>
+     {employee&& <div>
         <p>Employee Profile</p>
         <p>Employee Name : {employee.firstname}</p>
         <p>Last Name : {employee.lastname}</p>
@@ -94,12 +82,12 @@ const [updateBox, setUpdateBox] = useState(false);
         <button
           onClick={() => {
             dispatch(updateProfileById({ 
-              id:id, 
-              firstName,
-              lastName,
+              id:employee.id, 
+              firstname:firstname,
+              lastname:lastname,
               // description,
               // work_hours,
-              country,
+              country:country,
               // category_id,
               // img,
               // age,
@@ -111,7 +99,7 @@ const [updateBox, setUpdateBox] = useState(false);
             navigate("/");
           }}
         > Back to main </button>
-      </div>
+      </div>}
     </>
   );
 };

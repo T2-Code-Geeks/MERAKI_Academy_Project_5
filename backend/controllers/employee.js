@@ -239,23 +239,26 @@ const getAllEmployees = (req, res) => {
 
 const getEmployeeById = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT firstName,lastName,description, work_hours ,country,category_id ,img,age FROM employees  WHERE employees.id=$1 AND employees.is_deleted=0;`;
+console.log(req.params.id)
+  const query = `SELECT firstName,lastName,description, work_hours ,country,category_id ,img,age FROM employees  WHERE id=$1 AND is_deleted=0;`;
   const data = [id];
 
   client
     .query(query, data)
     .then((result) => {
+      console.log(result.rows)
       if (result.rows.length !== 0) {
         res.status(200).json({
           success: true,
           message: `The employee with id: ${id}`,
-          result: result.rows,
+          result: result.rows[0],
         });
       } else {
         throw new Error("Error happened while getting employee");
       }
     })
     .catch((err) => {
+      console.log(err)
       res.status(500).json({
         success: false,
         message: "Server error",
