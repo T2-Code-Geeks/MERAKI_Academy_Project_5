@@ -7,9 +7,9 @@ const { userRegister, userLogin, UpdateUserById, deleteUserById, getAllUsers, ge
 
 userRouter.post("/", userRegister);
 userRouter.post("/login", userLogin);
-userRouter.put("/:id", authentication, UpdateUserById);
+userRouter.put("/:id", UpdateUserById);
 userRouter.delete("/:id", authentication, deleteUserById);
 userRouter.get("/", authentication, getAllUsers);
-userRouter.get("/:id", authentication, getUserById);
+userRouter.get("/:id", getUserById);
 
 module.exports = userRouter;
