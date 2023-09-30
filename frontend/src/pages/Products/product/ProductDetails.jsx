@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { Suspense } from "react";
-import { Await, Link, useLoaderData, useParams } from "react-router-dom";
+import { Await, Link, useLoaderData, /* useParams */ } from "react-router-dom";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+//   const { id } = useParams();
   const { result } = useLoaderData();
-  console.log("result",result);
   return (
     <>
       <h2>Product Details</h2>
@@ -34,7 +33,6 @@ export const productLoader = async ({params}) => {
   const result = axios
     .get(`http://localhost:5000/products/${params.id}`)
     .then((res) => {
-      console.log("res",res.data.result);
       return res.data.result;
     });
   return { result };
