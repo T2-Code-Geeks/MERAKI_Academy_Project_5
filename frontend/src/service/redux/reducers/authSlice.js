@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//!============================================================================================
+
 export const authSlice = createSlice({
-
-
   name: "auth",
   initialState: {
     token: localStorage.getItem("token") || null,
     userId: localStorage.getItem("userId") || null,
     employee: [],
+    category:[],
+    employeeByCate:[]
   },
   reducers: {
     setLogin: (state, action) => {
@@ -32,16 +34,23 @@ export const authSlice = createSlice({
       const updatedUser = {
         ...state.employee,
         firstname: action.payload.firstname,
-        lastname: action.payload.lastname,
+        lastname: action.payload.lastname ,
         country: action.payload.country,
       };
 
       state.employee = updatedUser;
       return state;
     },
+    setcategory: (state, action) => {
+      state.category = action.payload;
+    },
+    setEmployeeByCategory: (state, action) => {
+      state.employeeByCate = action.payload;
+    },
   },
 });
 
+//!============================================================================================
 
 export const {
   setLogin,
@@ -49,5 +58,7 @@ export const {
   setLogout,
   updateProfileById,
   setEmployee,
+  setcategory,
+  setEmployeeByCategory
 } = authSlice.actions;
 export default authSlice.reducer;
