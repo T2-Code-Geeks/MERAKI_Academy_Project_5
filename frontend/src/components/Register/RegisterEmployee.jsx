@@ -43,7 +43,6 @@ const RegisterEmployee = () => {
             );
 
             if (result.data) {
-                console.log(result.data);
                 setStatus(true);
                 setMessage(result.data.message);
             } else {

@@ -171,7 +171,6 @@ const updateProductById = (req, res) => {
   client
     .query(query, data)
     .then((result) => {
-      console.log(result);
       if (result.rows.length > 0) {
         res.status(200).json({
           success: true,

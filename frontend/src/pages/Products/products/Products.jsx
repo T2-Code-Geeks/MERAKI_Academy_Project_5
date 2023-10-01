@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { Suspense } from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
 import "./Products.css"
