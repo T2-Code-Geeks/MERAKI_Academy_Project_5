@@ -18,7 +18,7 @@ import EmployeesPage from "../components/Admin/EmployeesPage/EmployeesPage";
 import ProductsCategories from "../components/Admin/ProductsCategories/ProductsCategories";
 import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
 
-import { productsLoader } from "../service/api/ProductsAPI/Products";
+import { categoriesLoader, productsLoader } from "../service/api/ProductsAPI/Products";
 import UserProfile, { profileInfoLoader } from "../pages/User/UserProfile";
 
 export const router = createBrowserRouter([
@@ -90,6 +90,7 @@ export const router = createBrowserRouter([
             {
                 path: "productsCategories",
                 element: <ProductsCategories />,
+                loader:categoriesLoader
             },
             {
                 path: "products",

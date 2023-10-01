@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addCategory ,deleteProductById, updateProductById} from '../../../service/redux/reducers/productSlice';
 
 const ProductsCategories = () => {
-  const { result } = useLoaderData();
+  const  {result}  = useLoaderData();
   const dispatch=useDispatch()
   const [addCategoryState, setAddCategoryState] = useState({})
 
