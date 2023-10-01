@@ -20,6 +20,8 @@ import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
 
 import { productsLoader } from "../service/api/ProductsAPI/Products";
 import UserProfile, { profileInfoLoader } from "../pages/User/UserProfile";
+import CategoryEmployees from "../pages/Employee/EmployeesCategory/EmployeesCategory"
+import  EmployeesByCategory  from "../pages/Employee/EmployeesByCategory/EmployeesByCategory"
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +66,14 @@ export const router = createBrowserRouter([
                 path: "user/:id",
                 element: <UserProfile />,
                 loader: profileInfoLoader
+            }
+            , {
+                path: "category",
+                element: <CategoryEmployees/>,
+            }
+            , {
+                path: "employeeSByCategory/:id",
+                element: <EmployeesByCategory/>,
             }
         ],
     },
