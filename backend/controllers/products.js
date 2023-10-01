@@ -146,6 +146,8 @@ const createNewProduct = async (req, res) => {
     });
   }
 };
+
+
 // ! Update Product
 const updateProductById = (req, res) => {
   const id = req.params.id;

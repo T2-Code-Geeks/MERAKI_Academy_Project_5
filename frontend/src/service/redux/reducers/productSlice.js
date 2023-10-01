@@ -18,6 +18,8 @@ export const products = createSlice({
       const updatedProduct = action.payload;
       state.products = state.products.map((product) =>
       product.id === updatedProduct.id ? updatedProduct : product
+     
+    
       );
     },
     deleteProductById: (state, action) => {

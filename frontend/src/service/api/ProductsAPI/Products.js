@@ -1,9 +1,6 @@
 import axios from "axios"
-
-export const productsLoader = async () => {
-
-
-    const result =  axios.get("http://localhost:5000/products")
+export const productsLoader = async () => { 
+    const result = await axios.get("http://localhost:5000/products")
     .then(res => {
       
         return res.data.result

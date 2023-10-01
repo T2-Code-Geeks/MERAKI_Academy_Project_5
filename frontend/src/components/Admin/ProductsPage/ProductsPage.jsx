@@ -95,7 +95,7 @@ const ProductsPage = () => {
           }
         />
         <br />
-        <button>Add Products</button>
+        <button >Add Products</button>
       </form>
       <Suspense fallback={<p>Loading...</p>}>
         <Await resolve={result} errorElement={<p>Error loading products.</p>}>
@@ -109,11 +109,16 @@ const ProductsPage = () => {
                     placeholder="Product name "
                     onChange={(e) =>
                       setUpdatedProduct({
-                        ...updateProduct,
+                        ...updatedProduct,
                         name: e.target.value,
                       })
                     }
-                  /><button onClick={()=>{updateProduct(product.id)}}>update</button>
+                  /><button onClick={()=>{
+                  
+                    updateProduct(product.id)
+                   
+                    
+                    }}>update</button>
                   <p>{product.description}</p>
                   <button
                     onClick={() => {
