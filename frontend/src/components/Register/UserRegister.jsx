@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 // import axios from "axios";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Avatar } from "@mui/material";
