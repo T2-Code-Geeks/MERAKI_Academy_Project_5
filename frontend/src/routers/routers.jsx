@@ -105,7 +105,7 @@ export const router = createBrowserRouter([
             {
                 path: "products",
                 element: <ProductsPage />,
-                loader: productsLoader,
+                
             },
         ],
     },

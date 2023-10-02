@@ -24,9 +24,7 @@ useEffect(()=>{
   const getAllCategory = async () => {
     try {
       const result = await axios.get("http://localhost:5000/products/category");
-      console.log(result.data.result);
       if (result.data.success) {
-        console.log("asdasd");
         dispatch(setCategory(result.data.result));
       }
     } catch (error) {
