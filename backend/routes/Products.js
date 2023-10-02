@@ -23,7 +23,9 @@ productsRouts.delete("/:id", deleteProductById);
 productsRouts.get("/", getAllProducts);
 // ! Get  Product by id
 productsRouts.get("/:id", getProductById);
+
 // ! Get  Product by category
 productsRouts.get("/category/products/:id", getProductsByCategory);
+
 
 module.exports = productsRouts;
