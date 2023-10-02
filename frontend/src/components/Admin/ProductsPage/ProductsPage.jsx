@@ -1,21 +1,31 @@
 import axios from "axios";
 import React, { Suspense, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Await, useLoaderData } from "react-router";
 import { Link } from "react-router-dom";
 import {
   addProduct,
   deleteProductById,
+  setProducts,
   updateProductById,
 } from "../../../service/redux/reducers/productSlice";
 
 const ProductsPage = () => {
-  const { result } = useLoaderData();
+  const {products}=useSelector(state=>state.products)
   const [addProducts, setAddProducts] = useState({});
   const [updatedProduct, setUpdatedProduct] = useState({});
 
   const dispatch = useDispatch();
-
+  const getAllProducts = async () => {
+    try {
+      const result = await axios.get("http://localhost:5000/products/category");
+      if (result.data.success) {
+        dispatch(setProducts(result.data.result));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const addNewProduct = async (e) => {
     e.preventDefault();
     try {
@@ -96,11 +106,8 @@ const ProductsPage = () => {
         <br />
         <button >Add Products</button>
       </form>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Await resolve={result} errorElement={<p>Error loading products.</p>}>
-          {(result) => (
-            <div>
-              {result?.map((product) => (
+      
+              {products&&products?.map((product) => (
                 <div className="productContainer" key={product.id}>
                   <h2>{product.name}</h2>
                   <input
@@ -129,10 +136,7 @@ const ProductsPage = () => {
                   <Link to={`/products/${product.id}`}>View Details</Link>
                 </div>
               ))}
-            </div>
-          )}
-        </Await>
-      </Suspense>
+        
     </>
   );
 };
