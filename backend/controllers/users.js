@@ -191,7 +191,7 @@ const addToBasket = async (req, res) => {
 const getUserBasket = async (req, res) => {
     try {
         const { user_id } = req.token;
-        const result = await client.query(`SELECT * FROM order_items WHERE user_id=$1`, [user_id]);
+        const result = await client.query(`SELECT * FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1`, [user_id]);
         res.json({
             success: true,
             result: result.rows
