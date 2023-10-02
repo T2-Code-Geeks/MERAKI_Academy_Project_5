@@ -5,9 +5,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCategory,
-  deleteProductById,
   setCategory,
-  updateProductById,
+  updateCategoryById,
 } from "../../../service/redux/reducers/productSlice";
 
 const ProductsCategories = () => {
@@ -15,6 +14,8 @@ const ProductsCategories = () => {
   );
   const dispatch = useDispatch();
   const [addCategoryState, setAddCategoryState] = useState({});
+  const [updateCategoryState, setUpdateCategoryState] = useState({});
+
 useEffect(()=>{
   getAllCategory()
 },[])
@@ -49,7 +50,15 @@ console.log(result.data);
       }
     }
   };
-
+  const updateCategory = async (id) => {
+    try {
+      const result = await axios.put(`http://localhost:5000/products/category/${id}`,updateCategoryState);
+      
+      dispatch(updateCategoryById(result.data.result));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <form onSubmit={addNewCategory}>
@@ -79,6 +88,10 @@ console.log(result.data);
               {category?.map((category) => (
                 <div className="productContainer" key={category.id}>
                   <h2>{category.name}</h2>
+                  <input onChange={(e)=>{
+                    setUpdateCategoryState({...updateCategoryState,name:e.target.value})
+                  }}/>
+                  <button onClick={()=>updateCategory(category.id)}>update</button>
                   <p>{category.description}</p>
                   <button
                     onClick={() => {
