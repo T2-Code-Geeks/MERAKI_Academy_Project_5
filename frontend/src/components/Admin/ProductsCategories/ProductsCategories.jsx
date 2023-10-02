@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCategory,
+  deleteCategoryById,
   setCategory,
   updateCategoryById,
 } from "../../../service/redux/reducers/productSlice";
@@ -40,7 +41,6 @@ useEffect(()=>{
         "http://localhost:5000/products/category",
         addCategoryState
       );
-console.log(result.data);
       if (result.data.success) {
         dispatch(addCategory(result.data.result));
       }
@@ -55,6 +55,14 @@ console.log(result.data);
       const result = await axios.put(`http://localhost:5000/products/category/${id}`,updateCategoryState);
       
       dispatch(updateCategoryById(result.data.result));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteCategory = async (id) => {
+    try {
+      const result = await axios.delete(`http://localhost:5000/products/category/${id}`);
+      dispatch(deleteCategoryById(id));
     } catch (error) {
       console.log(error);
     }
@@ -95,7 +103,7 @@ console.log(result.data);
                   <p>{category.description}</p>
                   <button
                     onClick={() => {
-                      // deleteProduct(product.id)
+                      deleteCategory(category.id)
                     }}
                   >
                     delete category
