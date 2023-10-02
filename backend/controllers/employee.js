@@ -7,7 +7,7 @@ const saltRounds = parseInt(process.env.SALT);
 const CreateEmployeeCategory = async (req, res) => {
     const { category } = req.body;
 
-    const query = `INSERT INTO employeeCategory (category) VALUES ($1)`;
+    const query = `INSERT INTO employeeCategory (category) VALUES ($1) RETURNING *`;
     const data = [category];
     client
         .query(query, data)
@@ -15,6 +15,7 @@ const CreateEmployeeCategory = async (req, res) => {
             res.status(200).json({
                 success: true,
                 message: "category created successfully",
+                result:result.rows
             });
         })
         .catch((err) => {
@@ -39,10 +40,11 @@ const getAllCategoryes = (req, res) => {
             });
         })
         .catch((err) => {
+            console.log(err)
             res.status(500).json({
                 success: false,
                 message: "Server error",
-                err: err,
+                err: "hello",
             });
         });
 };
@@ -56,7 +58,7 @@ const registerEmployee = async (req, res) => {
         const { firstName, lastName, age, country, email, password, role_id,category_id }= req.body;
         if (firstName && lastName && email && password) {
             const hashedPassword = await bcrypt.hash(password, 10);
-            const result = await client.query(`INSERT INTO employees (firstName, lastName, age, country, email,password, role_id,category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`, [firstName, lastName, age, country ,email.toLowerCase(), hashedPassword, 2,category_id]);
+            const result = await client.query(`INSERT INTO employees (firstName, lastName, age, country, email,password, role_id,category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`, [firstName, lastName, age, country ,email.toLowerCase(), hashedPassword, 1,category_id]);
 
             res.json({
                 success: true,
@@ -136,21 +138,6 @@ const loginEmployee = (req, res) => {
                 message: `Server Error`,
                 err: err.message,
             });
-            const password = req.body.password;
-            const email = req.body.email.toLowerCase();
-            const query = `SELECT * FROM employees WHERE email=$1`;
-            const data = [email];
-            client
-                .query(query, data)
-                .then(async (results) => {
-                    if (!results.rows.length) {
-                        return res.status(403).json({
-                            success: false,
-                            massege:
-                                "The email doesn't exist or The password you’ve entered is incorrect",
-                        });
-                    }
-                })
         })
 }
 
@@ -230,7 +217,6 @@ const deleteEmployeeById = (req, res) => {
 // ! get all employees function  ...
 const getAllEmployees = (req, res) => {
     const query = `SELECT * FROM employees a WHERE a.is_deleted=0 ;`;
-
     client
         .query(query)
         .then((result) => {
@@ -298,7 +284,10 @@ const getALLEmployeesBycategory = (req, res) => {
           result: result.rows,
         });
       } else {
-        throw new Error("Error happened while getting employees");
+        res.status(200).json({
+            success: false,
+            message: `No Employee At the section`,
+          })
       }
     })
     .catch((err) => {
