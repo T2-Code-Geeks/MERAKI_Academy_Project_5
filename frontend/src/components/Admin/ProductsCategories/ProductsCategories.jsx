@@ -16,7 +16,7 @@ const ProductsCategories = () => {
     
       const result = await axios.post(
         "http://localhost:5000/products/category",addCategoryState)
-      console.log(result);
+      
       if (result.data.success) {
       
         dispatch(addCategory(result.data.result))

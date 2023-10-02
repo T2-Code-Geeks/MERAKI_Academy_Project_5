@@ -25,7 +25,7 @@ const UserProfile = () => {
         } else {
             navigate("/login");
         }
-    },[]);
+    },[token]);
 
     const handleUpdate = async () => {
         try {
