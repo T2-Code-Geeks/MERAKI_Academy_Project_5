@@ -1,0 +1,12 @@
+#main{
+    display:flex;
+    padding-top:0.5px;
+}
+
+#sidebar{
+    flex:1
+}
+
+#outlet{
+    flex:7
+}
