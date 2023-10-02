@@ -18,7 +18,7 @@ import EmployeesPage from "../components/Admin/EmployeesPage/EmployeesPage";
 import ProductsCategories from "../components/Admin/ProductsCategories/ProductsCategories";
 import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
 import { productsLoader } from "../service/api/ProductsAPI/Products";
-import UserProfile, { profileInfoLoader } from "../pages/User/UserProfile";
+import UserProfile from "../pages/User/UserProfile";
 
 export const router = createBrowserRouter([
     {
@@ -61,8 +61,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "user/:id",
-                element: <UserProfile />,
-                loader: profileInfoLoader
+                element: <UserProfile />
             }
         ],
     },
