@@ -189,7 +189,21 @@ const addToBasket = async (req, res) => {
     }
 }
 
-
+const getUserBasket = async (req, res) => {
+    try {
+        const { user_id } = req.token;
+        const result = await client.query(`SELECT * FROM order_items WHERE user_id=$1`, [user_id]);
+        res.json({
+            success: true,
+            result: result.rows
+        });
+    } catch (error) {
+        res.json({
+            success: true,
+            error: error.message
+        });
+    }
+}
 
 module.exports = {
     userRegister,
