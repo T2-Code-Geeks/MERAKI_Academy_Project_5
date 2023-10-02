@@ -1,10 +1,10 @@
 #main{
     display:flex;
-    padding-top:0.5px;
 }
 
 #sidebar{
-    flex:1
+    flex:1;
+    hight:calc(100vh - 64px)
 }
 
 #outlet{

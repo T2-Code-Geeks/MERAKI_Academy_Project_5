@@ -18,7 +18,6 @@ import EmployeesPage from "../components/Admin/EmployeesPage/EmployeesPage";
 import ProductsCategories from "../components/Admin/ProductsCategories/ProductsCategories";
 import ProductsPage from "../components/Admin/ProductsPage/ProductsPage";
 import { categoriesLoader, productsLoader } from "../service/api/ProductsAPI/Products";
-import UserProfile, { profileInfoLoader } from "../pages/User/UserProfile";
 import UserProfile from "../pages/User/UserProfile";
 import CategoryEmployees from "../pages/Employee/EmployeesCategory/EmployeesCategory"
 import  EmployeesByCategory  from "../pages/Employee/EmployeesByCategory/EmployeesByCategory"
@@ -101,7 +100,7 @@ export const router = createBrowserRouter([
             {
                 path: "productsCategories",
                 element: <ProductsCategories />,
-                loader:categoriesLoader
+               
             },
             {
                 path: "products",

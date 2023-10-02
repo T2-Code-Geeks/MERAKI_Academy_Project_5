@@ -9,7 +9,7 @@ export const products = createSlice({
   },
   reducers: {
     setProducts: (state, action) => {
-      state.articles = action.payload;
+      state.products = action.payload;
     },
     addProduct: (state, action) => {
       state.products.push(action.payload);
@@ -28,6 +28,9 @@ export const products = createSlice({
         
         (product) =>  product.id !== action.payload
       );
+    },
+    setCategory: (state, action) => {
+      state.category = action.payload;
     },
     addCategory: (state, action) => {
       state.category.push(action.payload);
@@ -51,7 +54,7 @@ export const {
   setProducts,
   addProduct,
   updateProductById,
-  deleteProductById,
+  deleteProductById,setCategory,
   addCategory,updateCategoryById,deleteCategoryById
 } = products.actions;
 export default products.reducer;
