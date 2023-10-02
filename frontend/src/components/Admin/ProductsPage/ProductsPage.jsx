@@ -23,7 +23,6 @@ const ProductsPage = () => {
         "http://localhost:5000/products/",
         addProducts
       );
-      console.log(result);
       if (result.data.success) {
         dispatch(addProduct(result.data.result));
       }
@@ -36,7 +35,7 @@ const ProductsPage = () => {
   const updateProduct = async (id) => {
     try {
       const result = await axios.put(`http://localhost:5000/products/${id}`,updatedProduct);
-      console.log(result.data.result);
+      
       dispatch(updateProductById(result.data.result));
     } catch (error) {
       console.log(error);

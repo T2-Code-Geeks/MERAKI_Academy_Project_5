@@ -54,7 +54,7 @@ const EmployeeLogin = () => {
     return (
         <>
             <div>
-                <p>Login:</p>
+                <p>Employee Login:</p>
                 <form
                     onSubmit={(e) => {
                         Login(e);
