@@ -10,7 +10,7 @@ const createNewCategory = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "category Created",
-      role: result.rows[0],
+      result: result.rows[0],
     });
   } catch (error) {
     res.status(500).json({
@@ -77,61 +77,61 @@ const deleteCategoryById = (req, res) => {
       });
     });
 };
-// ! Get all category 
+// ! Get all category
 const getAllCategory = (req, res) => {
-    const query = `SELECT * FROM product_category  WHERE is_deleted=0;`;
-  
-    client
-      .query(query)
-      .then((result) => {
+  const query = `SELECT * FROM product_category  WHERE is_deleted=0;`;
+
+  client
+    .query(query)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "All the category",
+        result: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+// ! Get  category by id
+const getCategoryById = (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT * FROM product_category  WHERE id=$1;`;
+  const data = [id];
+
+  client
+    .query(query, data)
+    .then((result) => {
+      if (result.rows.length !== 0) {
         res.status(200).json({
           success: true,
-          message: "All the category",
+          message: `The article with id: ${id}`,
           result: result.rows,
         });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
-        });
+      } else {
+        throw new Error("Error happened while getting article");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
       });
-  };
-  // ! Get  category by id
-  const getCategoryById = (req, res) => {
-    const id = req.params.id;
-    const query = `SELECT * FROM product_category  WHERE id=$1;`;
-    const data = [id];
-  
-    client
-      .query(query, data)
-      .then((result) => {
-        if (result.rows.length !== 0) {
-          res.status(200).json({
-            success: true,
-            message: `The article with id: ${id}`,
-            result: result.rows,
-          });
-        } else {
-          throw new Error("Error happened while getting article");
-        }
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
-        });
-      });
-  };
+    });
+};
 // ! Create Product
 const createNewProduct = async (req, res) => {
   try {
-    const { name, description, img, price, category_id, quantity } = req.body;
+    const { name, description, img, price, category_id, inventory_ID } = req.body;
     const query =
       "INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *";
-    const data = [name, description, img, price, category_id, quantity];
+    const data = [name, description, img, price, category_id, inventory_ID];
     const result = await client.query(query, data);
     res.status(201).json({
       success: true,
@@ -146,16 +146,18 @@ const createNewProduct = async (req, res) => {
     });
   }
 };
+
+
 // ! Update Product
 const updateProductById = (req, res) => {
   const id = req.params.id;
-  let { name, description, img, price, category_id, quantity } = req.body;
+  let { name, description, img, price, category_id, inventory_ID } = req.body;
 
   const query = `UPDATE products SET name = COALESCE($1,name),   description = COALESCE($2, description),
     img = COALESCE($3, img),
     price = COALESCE($4, price),
     category_id = COALESCE($5, category_id),
-    quantity = COALESCE($6, quantity)
+    inventory_ID = COALESCE($6, inventory_ID)
      WHERE id=$7 AND is_deleted = 0  RETURNING *;`;
   const data = [
     name || null,
@@ -163,7 +165,7 @@ const updateProductById = (req, res) => {
     img || null,
     price || null,
     category_id || null,
-    quantity || null,
+    inventory_ID || null,
     id,
   ];
   client
@@ -218,58 +220,91 @@ const deleteProductById = (req, res) => {
       });
     });
 };
-// ! Get all Products 
+// ! Get all Products
 const getAllProducts = (req, res) => {
-    const query = `SELECT * FROM products  WHERE is_deleted=0;`;
-  
-    client
-      .query(query)
-      .then((result) => {
+  const query = `SELECT * FROM products  WHERE is_deleted=0;`;
+
+  client
+    .query(query)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "All the category",
+        result: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+// ! Get  Products by id
+const getProductById = (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT * FROM products  WHERE id=$1;`;
+  const data = [id];
+
+  client
+    .query(query, data)
+    .then((result) => {
+      if (result.rows.length !== 0) {
         res.status(200).json({
           success: true,
-          message: "All the category",
+          message: `The product with id: ${id}`,
+          result: result.rows[0],
+        });
+      } else {
+        throw new Error("Error happened while getting article");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+// ! Get  Products by Category
+const getProductsByCategory = (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT * FROM products  WHERE category_id=$1;`;
+  const data = [id];
+
+  client
+    .query(query, data)
+    .then((result) => {
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `The products with category: ${id}`,
           result: result.rows,
         });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
-        });
+      } else {
+        throw new Error("Error happened while getting article");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
       });
-  };
-    // ! Get  Products by id
-    const getProductById = (req, res) => {
-        const id = req.params.id;
-        const query = `SELECT * FROM products  WHERE id=$1;`;
-        const data = [id];
-      
-        client
-          .query(query, data)
-          .then((result) => {
-            if (result.rows.length !== 0) {
-              res.status(200).json({
-                success: true,
-                message: `The article with id: ${id}`,
-                result: result.rows[0],
-              });
-            } else {
-              throw new Error("Error happened while getting article");
-            }
-          })
-          .catch((err) => {
-            res.status(500).json({
-              success: false,
-              message: "Server error",
-              err: err,
-            });
-          });
-      };
+    });
+};
 module.exports = {
   createNewCategory,
   updateCategoryById,
   deleteCategoryById,
   createNewProduct,
-  updateProductById,deleteProductById,getAllCategory,getCategoryById,getAllProducts,getProductById
+  updateProductById,
+  deleteProductById,
+  getAllCategory,
+  getCategoryById,
+  getAllProducts,
+  getProductById,
+  getProductsByCategory,
 };

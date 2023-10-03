@@ -145,10 +145,12 @@ const getUserById = async (req, res) => {
         const { id } = req.params;
         const result = await client.query(`SELECT id,firstName,lastName,img,age,country,address1,address2,email FROM users WHERE id=$1 AND is_deleted=0`, [id]);
         if (result.rows.length) {
-            res.json({
+            res.status(201).json({
                 success: true,
                 result: result.rows[0]
             })
+
+
         } else {
             res.json({
                 success: true,
@@ -160,11 +162,57 @@ const getUserById = async (req, res) => {
     }
 }
 
+const addToBasket = async (req, res) => {
+    try {
+        const { user_id } = req.token;
+        const { product_id, quantity } = req.body;
+        const result = await client.query(`SELECT * FROM order_items WHERE product_id=$1 AND user_id=$2`, [product_id, user_id]);
+        if (result.rows.length) {
+            await client.query(`UPDATE order_items SET quantity = $1 WHERE product_id = $2 AND user_id=$3 RETURNING *`, [quantity, product_id, user_id]);
+            const result = await client.query(`SELECT * FROM order_items INNER JOIN products ON products.id = $1 AND order_items.product_id=$1 WHERE user_id = $2`, [product_id, user_id]);
+            res.status(200).json({
+                success: true,
+                result: result.rows
+            });
+        } else {
+            const update = await client.query(`INSERT INTO order_items (quantity, product_id, user_id) VALUES ($1,$2,$3) RETURNING *`, [quantity, product_id, user_id]);
+            res.status(200).json({
+                success: true,
+                result: update.rowsZ
+            });
+        }
+    } catch (error) {
+        res.json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        });
+    }
+}
+
+const getUserBasket = async (req, res) => {
+    try {
+        const { user_id } = req.token;
+        const result = await client.query(`SELECT * FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1`, [user_id]);
+        res.json({
+            success: true,
+            result: result.rows
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            error: error.message
+        });
+    }
+}
+
 module.exports = {
     userRegister,
     userLogin,
     UpdateUserById,
     deleteUserById,
     getAllUsers,
-    getUserById
+    getUserById,
+    addToBasket,
+    getUserBasket
 }

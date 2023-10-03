@@ -1,0 +1,12 @@
+#main{
+    display:flex;
+}
+
+#sidebar{
+    flex:1;
+    hight:calc(100vh - 64px)
+}
+
+#outlet{
+    flex:7
+}

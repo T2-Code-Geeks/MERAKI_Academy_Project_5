@@ -4,13 +4,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../service/redux/reducers/authSlice";
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(setLogout());
-    navigate("/login");
-  };
+    const handleLogout = () => {
+        dispatch(setLogout());
+        navigate("/login");
+    };
 
 
   const { token,userId,employeeId } = useSelector((state) => {

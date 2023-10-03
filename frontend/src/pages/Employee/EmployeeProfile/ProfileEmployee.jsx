@@ -8,9 +8,12 @@ import {
   setEmployee,
 } from "../../../service/redux/reducers/employeeSlice";
 
+
+
 //!============================================================================================
 
 const ProfileEmployee = () => {
+
   const { employee, employeeId } = useSelector((state) => {
     return {
       employee: state.employee.employee,
@@ -29,11 +32,13 @@ const ProfileEmployee = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //!============================================================================================
 
-  useEffect(() => {
-    profile();
-  }, []);
+    //!============================================================================================
+
+    useEffect(() => {
+        profile();
+    }, []);
+
 
   const profile = async () => {
     try {
@@ -89,7 +94,8 @@ const ProfileEmployee = () => {
     }
   };
 
-  //!============================================================================================
+    //!============================================================================================
+
 
   return (
     <>
