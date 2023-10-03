@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./EmployeesCategory";
-import { setcategory } from "../../../service/redux/reducers/authSlice";
+import { setcategory } from "../../../service/redux/reducers/employeeSlice";
 import { useNavigate } from "react-router-dom";
 const CategoryEmployees = () => {
 
@@ -10,7 +10,7 @@ const CategoryEmployees = () => {
   const dispatch = useDispatch();
   const { category } = useSelector((state) => {
     return {
-      category: state.auth.category,
+      category: state.employee.category,
     };
   });
   useEffect(() => {

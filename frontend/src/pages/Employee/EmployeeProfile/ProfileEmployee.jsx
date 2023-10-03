@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./ProfileEmployee";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateProfileById,
   setEmployee,
-} from "../../../service/redux/reducers/authSlice";
+} from "../../../service/redux/reducers/employeeSlice";
 
 //!============================================================================================
 
 const ProfileEmployee = () => {
-  const { employee,userId } = useSelector((state) => {
+  const { employee, employeeId } = useSelector((state) => {
     return {
-      employee: state.auth.employee,
-      userId:state.auth.userId
+      employee: state.employee.employee,
+      employeeId: state.employee.employeeId
     };
   });
   const [firstname, setFirstName] = useState("");
@@ -37,7 +37,7 @@ const ProfileEmployee = () => {
 
   const profile = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/employees/${userId}`);
+      const result = await axios.get(`http://localhost:5000/employees/${employeeId}`);
       if (result.data) {
         console.log(result.data);
         dispatch(setEmployee(result.data.result));
@@ -49,17 +49,17 @@ const ProfileEmployee = () => {
       console.log(error);
     }
   };
- //!============================================================================================
+  //!============================================================================================
   // const handleUpdateClick = (article) => {
   //   setUpdateBox(!updateBox);
   //   if (updateBox) updateProfile(article.id);
   // };
-//!============================================================================================
+  //!============================================================================================
   const updateProfile = async () => {
     try {
-      const result=await axios.put(`http://localhost:5000/employees/${userId}`, {
-      firstName:firstname,
-        lastName:lastname,
+      const result = await axios.put(`http://localhost:5000/employees/${employeeId}`, {
+        firstName: firstname,
+        lastName: lastname,
         description,
         work_hours,
         country,
@@ -67,23 +67,22 @@ const ProfileEmployee = () => {
         img,
         age,
       });
-      if(result.data)
-      {
+      if (result.data) {
         console.log(result);
-// dispa
-dispatch(
-  updateProfileById({
-    id: employee.id ,
-    firstname: firstname || employee.firstname,
-    lastname: lastname || employee.lastname ,
-    // description,
-    // work_hours,
-    country: country || employee.country,
-    // category_id,
-    // img,
-    // age,
-  })
-);
+        // dispa
+        dispatch(
+          updateProfileById({
+            id: employee.id,
+            firstname: firstname || employee.firstname,
+            lastname: lastname || employee.lastname,
+            // description,
+            // work_hours,
+            country: country || employee.country,
+            // category_id,
+            // img,
+            // age,
+          })
+        );
       }
     } catch (error) {
       console.log(error);
@@ -126,7 +125,7 @@ dispatch(
           />
           <button
             onClick={() => {
-             updateProfile()
+              updateProfile()
             }}
           >
             {" "}

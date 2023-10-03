@@ -12,8 +12,15 @@ const NavBar = () => {
     navigate("/login");
   };
 
-  const { token, userId } = useSelector((state) => state.auth);
 
+  const { token,userId,employeeId } = useSelector((state) => {
+    return {
+      token:state.auth.token,
+      userId:state.auth.userId,
+      token:state.employee.token,
+      employeeId: state.employee.employeeId
+    };
+  });
   return (
     <nav>
       {!token ? (
