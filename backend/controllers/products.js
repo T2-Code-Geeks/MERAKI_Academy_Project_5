@@ -10,7 +10,7 @@ const createNewCategory = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "category Created",
-      role: result.rows[0],
+      result: result.rows[0],
     });
   } catch (error) {
     res.status(500).json({
