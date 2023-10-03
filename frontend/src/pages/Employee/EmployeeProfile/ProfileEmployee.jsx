@@ -55,11 +55,11 @@ const ProfileEmployee = () => {
   //   if (updateBox) updateProfile(article.id);
   // };
 //!============================================================================================
-  const updateProfile = async (id) => {
+  const updateProfile = async () => {
     try {
-      await axios.put(`http://localhost:5000/employees/${id}`, {
-        firstname,
-        lastname,
+      const result=await axios.put(`http://localhost:5000/employees/${userId}`, {
+      firstName:firstname,
+        lastName:lastname,
         description,
         work_hours,
         country,
@@ -67,6 +67,24 @@ const ProfileEmployee = () => {
         img,
         age,
       });
+      if(result.data)
+      {
+        console.log(result);
+// dispa
+dispatch(
+  updateProfileById({
+    id: employee.id ,
+    firstname: firstname || employee.firstname,
+    lastname: lastname || employee.lastname ,
+    // description,
+    // work_hours,
+    country: country || employee.country,
+    // category_id,
+    // img,
+    // age,
+  })
+);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -108,19 +126,7 @@ const ProfileEmployee = () => {
           />
           <button
             onClick={() => {
-              dispatch(
-                updateProfileById({
-                  id: employee.id ,
-                  firstname: firstname || employee.firstname,
-                  lastname: lastname || employee.lastname ,
-                  // description,
-                  // work_hours,
-                  country: country || employee.country,
-                  // category_id,
-                  // img,
-                  // age,
-                })
-              );
+             updateProfile()
             }}
           >
             {" "}
