@@ -21,6 +21,7 @@ const CategoryEmployees = () => {
             const result = await axios.get(
                 `http://localhost:5000/employees/categoryes/all`
             );
+            console.log(result.data)
             if (result.data) {
                 dispatch(setcategory(result.data.result));
             } else throw Error;

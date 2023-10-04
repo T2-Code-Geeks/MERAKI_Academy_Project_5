@@ -13,10 +13,12 @@ const {
   getAllCategoryes,
   getALLEmployeesBycategory,
   getFeadbackFromUser,
-  deleteComment
+  deleteComment,
+  getAllFeadbackFromUser
 } = require("../controllers/employee");
-employeeRouter.post("/feadback/user", getFeadbackFromUser);
+employeeRouter.post("/feadback/user",authentication ,getFeadbackFromUser);
 employeeRouter.get("/:id", getEmployeeById);
+employeeRouter.get("/allcomment/:id",getAllFeadbackFromUser)
 employeeRouter.get("/categoryes/all", getAllCategoryes);
 employeeRouter.get("/ByCategory/:category_id", getALLEmployeesBycategory);
 employeeRouter.post("/register", registerEmployee);
