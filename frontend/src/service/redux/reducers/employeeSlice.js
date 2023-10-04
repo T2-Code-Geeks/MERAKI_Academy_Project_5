@@ -51,8 +51,8 @@ export const employeeSlice = createSlice({
     setComment:(state,action)=>{
       state.comments=action.payload
     },
-    addComment:(state,action)=>{
-      state.comments.push(action.payload)
+    deletecomment:(state,action)=>{
+      state.comments = state.comments.filter((comment)=>  comment.id !== action.payload);
     }
 
   },
@@ -69,6 +69,7 @@ export const {
   setcategory,
   setEmployeeByCategory,
   setComment,
-  addComment
+  addComment,
+  deletecomment
 } = employeeSlice.actions;
 export default employeeSlice.reducer;

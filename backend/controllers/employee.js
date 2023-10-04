@@ -299,15 +299,16 @@ const getALLEmployeesBycategory = (req, res) => {
 
 const getFeadbackFromUser = async(req,res)=>{
     try {
-        const {user_id,employee_id}=req.params
-        const {comment  } = req.body;
+        // const {user_id,employee_id}=req.params remember this well be take from token .....
+        const {user_id}=req.params
+        const {comment,employee_id } = req.body;
         if (comment) {
-            const result = await client.query(`INSERT INTO feadback_user (comment,user_id,employee_id) VALUES ($1,$2,$3)`, [comment,user_id,employee_id]);
-
+            const result = await client.query(`INSERT INTO feadback_user (comment,user_id,employee_id) VALUES ($1,$2,$3) RETURNING * `, [comment,user_id,employee_id]);
+        
             res.json({
                 success: true,
                 message: "Feadback has been Created",
-                result: result.rows[0]
+                result: result.rows
             })
         } else {
             res.json({
@@ -334,8 +335,8 @@ const getFeadbackFromUser = async(req,res)=>{
 
 const deleteComment =async(req,res)=>{
 try {
-const {user_id}=req.params
-const results = await client.query(`DELETE FROM feadback_user WHERE user_id=($1);`,[user_id]);
+const {id}=req.params
+const results = await client.query(`DELETE FROM feadback_user WHERE id =($1);`,[id]);
 if(results){
     res.status(200).json({
         success:true,
