@@ -14,6 +14,8 @@ const roleRouter = require("./routes/role");
 const productsRouts = require("./routes/products");
 const employeeRouter = require("./routes/employee");
 const userRouter = require("./routes/Users");
+const socketAuth = require("./middleware/socketAuth");
+const messageHandler = require("./controllers/message");
 
 // Router Endpoint ----------------------------
 app.use("/role", roleRouter);
@@ -32,21 +34,19 @@ const clients={}
 const server = http.createServer(app);
 const io = socket(server, { cors: { origin: "*" } });
 
-io.use((socket,next)=>{
-  const headers=socket.handshake.headers;
-  if (!headers.token) {
-    next(new Error("Invalid"))
-  }else{
-    socket.user={token:headers.token,user_id:headers.user_id};
-    next()
-  }
-})
+io.use(socketAuth)
 
 io.on("connection", (socket) => {
 console.log(socket.user);
   const userID=socket.handshake.headers.user_id;
   clients[userID]={socket_id:socket.id,userID};
 console.log(clients);
+
+
+
+messageHandler(socket,io)
+
+
 socket.on("disconnect",()=>{
 
   for (const key in clients) {
@@ -61,10 +61,6 @@ socket.on("disconnect",()=>{
 
 
 
-    socket.on("message", (data) => {
-      // well log the sent message
-      console.log(data);
-    });
   });
 
 server.listen(PORT, () => {
