@@ -136,9 +136,10 @@ const createNewProduct = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Product Created",
-      role: result.rows[0],
+      result: result.rows[0],
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "Server Error",
