@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./EmployeeLogin.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin, setUserId } from "../../service/redux/reducers/authSlice";
+import { setLogin, setEmployeeId } from "../../service/redux/reducers/employeeSlice";
 import axios from "axios";
 
 //! ===============================================
@@ -10,7 +10,7 @@ const EmployeeLogin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { token } = useSelector((state) => state.auth);
+    const { token } = useSelector((state) => state.employee);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -31,7 +31,7 @@ const EmployeeLogin = () => {
             if (result.data) {
                 setMessage("");
                 dispatch(setLogin(result.data.token));
-                dispatch(setUserId(result.data.employee_id));
+                dispatch(setEmployeeId(result.data.employee_id));
                 setStatus(true);
             } else throw Error;
         } catch (error) {
@@ -48,7 +48,7 @@ const EmployeeLogin = () => {
         if (token) {
             navigate("/");
         }
-    });
+    },[]);
     //! ===============================================
 
     return (
@@ -65,13 +65,13 @@ const EmployeeLogin = () => {
                     <input
                         type="email"
                         placeholder="Email"
-                        onChange={ (e) => { setEmail(e.target.value) } }
+                        onChange={(e) => { setEmail(e.target.value) }}
                     />
                     <br />
                     <input
                         type="password"
                         placeholder="Password"
-                        onChange={ (e) => { setPassword(e.target.value) } }
+                        onChange={(e) => { setPassword(e.target.value) }}
                     />
                     <br />
                     <button
