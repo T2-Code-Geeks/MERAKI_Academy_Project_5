@@ -22,9 +22,11 @@ const ProductsPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [productToDeleteId, setProductToDeleteId] = useState(null);
-
+  const [categoryNames, setCategoryNames] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   useEffect(() => {
     getAllProducts();
+    getAllCategory()
   }, []);
   const dispatch = useDispatch();
   const getAllProducts = async () => {
@@ -32,6 +34,17 @@ const ProductsPage = () => {
       const result = await axios.get("http://localhost:5000/products");
       if (result.data.success) {
         dispatch(setProducts(result.data.result));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllCategory = async () => {
+    try {
+      const result = await axios.get("http://localhost:5000/products/category");
+      console.log(result.data);
+      if (result.data.success) {
+        setCategoryNames(result.data.result);
       }
     } catch (error) {
       console.log(error);
@@ -424,24 +437,25 @@ const ProductsPage = () => {
                     setAddProducts({ ...addProducts, price: e.target.value })
                   }
                 />
-                <label
-                  htmlFor="productName"
-                  className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
-                >
-                  Product category_id
-                </label>
-                <input
-                  type="text"
-                  id="productName"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Enter product category_id"
-                  onChange={(e) =>
-                    setAddProducts({
-                      ...addProducts,
-                      category_id: e.target.value,
-                    })
-                  }
-                />
+               <label
+  htmlFor="category"
+  className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
+>
+  Product Category
+</label>
+<select
+  id="category"
+  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+  onChange={(e) => setSelectedCategory(e.target.value)}
+  value={selectedCategory}
+>
+  <option value="">Select a category</option>
+  {categoryNames.map((category) => (
+    <option key={category.id} value={category.id}>
+      {category.name}
+    </option>
+  ))}
+</select>
                 <label
                   htmlFor="productName"
                   className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
