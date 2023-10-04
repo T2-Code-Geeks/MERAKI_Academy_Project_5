@@ -6,11 +6,11 @@ import { useDispatch } from "react-redux";
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const { token } = useSelector((state) => state.auth);
+    const { tokenUser } = useSelector((state) => state.auth);
     const { cart } = useSelector((state) => state.cart);
     const [quantity, setQuantity] = useState("");
     useEffect(() => {
-        if (token) {
+        if (tokenUser) {
             getBasket();
         }
     }, []);
@@ -19,7 +19,7 @@ const Cart = () => {
         try {
             const result = await axios.get(
                 "http://localhost:5000/users/basket/get",
-                { headers: { Authorization: `Bearer ${token}` } }
+                { headers: { Authorization: `Bearer ${tokenUser}` } }
             );
             dispatch(setCart(result.data.result));
         } catch (error) {
@@ -32,9 +32,8 @@ const Cart = () => {
             const result = await axios.post(
                 "http://localhost:5000/users/basket",
                 { product_id, quantity },
-                { headers: { Authorization: `Bearer ${token}` } }
+                { headers: { Authorization: `Bearer ${tokenUser}` } }
             );
-            console.log(result.data.result);
             dispatch(updateItemById(result.data.result[0]));
         } catch (error) {
             console.log(error.message);

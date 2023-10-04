@@ -8,7 +8,7 @@ import { addToCart } from "../../../service/redux/reducers/cart";
 
 const Products = () => {
     const { result } = useLoaderData();
-    const { token } = useSelector((state) => state.auth);
+    const { tokenUser } = useSelector((state) => state.auth);
     const [message, setMessage] = useState("");
     const [productId, setProductId] = useState("");
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Products = () => {
             const result = await axios.post(
                 "http://localhost:5000/users/basket",
                 { product_id, quantity: 1 },
-                { headers: { Authorization: `Bearer ${token}` } }
+                { headers: { Authorization: `Bearer ${tokenUser}` } }
             );
             if (result.data.success) {
                 setMessage("Added To cart");

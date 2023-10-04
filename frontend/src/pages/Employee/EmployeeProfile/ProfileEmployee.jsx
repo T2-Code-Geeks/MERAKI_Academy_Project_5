@@ -44,7 +44,6 @@ const ProfileEmployee = () => {
     try {
       const result = await axios.get(`http://localhost:5000/employees/${employeeId}`);
       if (result.data) {
-        console.log(result.data);
         dispatch(setEmployee(result.data.result));
       } else throw Error;
     } catch (error) {

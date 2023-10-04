@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const UserProfile = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { token } = useSelector((state) => state.auth);
+    const { tokenUser } = useSelector((state) => state.auth);
     const { userId } = useSelector((state) => state.auth);
     const [updating, setUpdating] = useState(false);
     const [userInfo, setUserInfo] = useState("");
@@ -20,12 +20,12 @@ const UserProfile = () => {
     };
 
     useEffect(() => {
-        if (token) {
+        if (tokenUser) {
             profileInfo();
         } else {
             navigate("/login");
         }
-    },[token]);
+    },[tokenUser]);
 
     const handleUpdate = async () => {
         try {

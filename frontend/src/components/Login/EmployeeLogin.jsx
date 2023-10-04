@@ -48,7 +48,7 @@ const EmployeeLogin = () => {
         if (token) {
             navigate("/");
         }
-    },[]);
+    },[token]);
     //! ===============================================
 
     return (

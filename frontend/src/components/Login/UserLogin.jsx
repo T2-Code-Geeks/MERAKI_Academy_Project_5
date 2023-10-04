@@ -6,14 +6,14 @@ import axios from "axios";
 import { setLogin, setUserId } from "../../service/redux/reducers/authSlice";
 
 const UserLogin = () => {
-    const { token } = useSelector((state) => state.auth);
+    const { tokenUser } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [logins, setLogins] = useState("");
     const [message, setMessage] = useState();
 
     useEffect(() => {
-        if (token) {
+        if (tokenUser) {
             navigate("/");
         }
     });

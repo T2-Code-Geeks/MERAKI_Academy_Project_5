@@ -6,16 +6,16 @@ import axios from "axios";
 import { Avatar } from "@mui/material";
 
 const UserRegister = () => {
-  const { token } = useSelector((state) => state.auth);
+  const { tokenUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
   const [message, setMessage] = useState("");
   const imageInputRef = useRef(null);
   useEffect(() => {
-    if (token) {
+    if (tokenUser) {
       navigate("/");
     }
-  }, [token, navigate]);
+  }, [tokenUser, navigate]);
 
   const handleUserRegister = async () => {
     try {
