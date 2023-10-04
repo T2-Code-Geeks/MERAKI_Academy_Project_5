@@ -1,4 +1,6 @@
 const express = require("express");
+const http = require("http");
+const socket = require("socket.io");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
@@ -24,7 +26,48 @@ app.use("/users", userRouter);
 
 app.use("*", (req, res) => res.status(404).json("NO content at this path"));
 
-app.listen(PORT, () => {
+
+// ! Socket.io
+const clients={}
+const server = http.createServer(app);
+const io = socket(server, { cors: { origin: "*" } });
+
+io.use((socket,next)=>{
+  const headers=socket.handshake.headers;
+  if (!headers.token) {
+    next(new Error("Invalid"))
+  }else{
+    socket.user={token:headers.token,user_id:headers.user_id};
+    next()
+  }
+})
+
+io.on("connection", (socket) => {
+console.log(socket.user);
+  const userID=socket.handshake.headers.user_id;
+  clients[userID]={socket_id:socket.id,userID};
+console.log(clients);
+socket.on("disconnect",()=>{
+
+  for (const key in clients) {
+    if (clients[key].socket_id===socket.id) {
+  
+      delete clients[key]
+    }
+  }
+  console.log(clients);
+})
+
+
+
+
+    socket.on("message", (data) => {
+      // well log the sent message
+      console.log(data);
+    });
+  });
+
+server.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
     console.log("===========================================");
 });
