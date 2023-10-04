@@ -206,6 +206,22 @@ const getUserBasket = async (req, res) => {
     }
 }
 
+const getAllOrdersDetails = async (req, res) => {
+    try {
+        const result = await client.query(`SELECT * FROM order_details`);
+        res.json({
+            success: true,
+            result: result.rows
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.json({
+            success: false,
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     userRegister,
     userLogin,
@@ -214,5 +230,6 @@ module.exports = {
     getAllUsers,
     getUserById,
     addToBasket,
-    getUserBasket
+    getUserBasket,
+    getAllOrdersDetails
 }
