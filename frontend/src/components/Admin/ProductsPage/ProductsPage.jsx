@@ -19,6 +19,10 @@ const ProductsPage = () => {
   const [openAddProduct, setOpenAddProduct] = useState(false);
   const [openUpdateProduct, setOpenUpdateProduct] = useState(false);
   const [updateProductId, setUpdateProductId] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [productToDeleteId, setProductToDeleteId] = useState(null);
+
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -62,12 +66,26 @@ const ProductsPage = () => {
     }
   };
 
-  const deleteProduct = async (id) => {
-    try {
-      const result = await axios.delete(`http://localhost:5000/products/${id}`);
-      dispatch(deleteProductById(id));
-    } catch (error) {
-      console.log(error);
+  const openDeleteConfirmation = (productId) => {
+    setProductToDeleteId(productId);
+    setOpenDelete(true);
+  };
+
+  const closeDeleteConfirmation = () => {
+    setProductToDeleteId(null);
+    setOpenDelete(false);
+  };
+  const deleteProduct = async () => {
+    if(productToDeleteId){
+
+      try {
+        const result = await axios.delete(`http://localhost:5000/products/${productToDeleteId}`);
+        dispatch(deleteProductById(productToDeleteId));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        closeDeleteConfirmation();
+      }
     }
   };
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -161,7 +179,7 @@ const ProductsPage = () => {
                 <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                   {products &&
                     products.map((product) => (
-                      <tr key={product.id}>
+                      <tr key={product?.id}>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                           <div className="inline-flex items-center gap-x-3">
                             <input
@@ -176,23 +194,23 @@ const ProductsPage = () => {
                               />
                               <div>
                                 <h2 className="font-medium text-gray-800 dark:text-white">
-                                  {product.name}
+                                  {product?.name}
                                 </h2>
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          {product.name}
+                          {product?.description}
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          {product.name}
+                          {product?.category_id}
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          {product.name}
+                          {product?.name}
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-green-600 whitespace-nowrap">
-                          {product.name}
+                          {product?.price}$
                         </td>
                         <td className="px-2 py-4 text-sm font-medium text-blue-600 whitespace-nowrap">
                           <button
@@ -217,7 +235,7 @@ const ProductsPage = () => {
                           <button
                             className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none gap-x-3"
                             onClick={() => {
-                              deleteProduct(product.id);
+                              openDeleteConfirmation(product.id);
                             }}
                           >
                             <svg
@@ -599,6 +617,34 @@ const ProductsPage = () => {
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-500 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                 >
                   Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Delete Confirmation popup */}
+      {openDelete && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="modal-overlay fixed inset-0 bg-gray-600 opacity-50"></div>
+
+          <div className="modal-container bg-white dark:bg-gray-800 w-96 mx-auto rounded shadow-lg z-50">
+            <div className="modal-content p-4">
+              <p className="text-gray-800 dark:text-white text-lg">
+                Are you sure you want to delete this product?
+              </p>
+              <div className="flex justify-end mt-4">
+                <button
+                  onClick={closeDeleteConfirmation}
+                  className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 mr-2"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={deleteProduct}
+                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                  Confirm
                 </button>
               </div>
             </div>
