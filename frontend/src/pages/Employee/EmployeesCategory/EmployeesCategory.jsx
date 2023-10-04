@@ -10,12 +10,13 @@ const CategoryEmployees = () => {
         Category();
     }, []);
 
-  const navigate=useNavigate();
-  const dispatch = useDispatch();
-  const { category } = useSelector((state) => {
-    return {
-      category: state.employee.category,
-    }}
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { category } = useSelector((state) => {
+        return {
+            category: state.employee.category
+        }
+    });
     const Category = async () => {
         try {
             const result = await axios.get(
