@@ -9,7 +9,8 @@ export const employeeSlice = createSlice({
     employeeId: localStorage.getItem("employeeId") || null,
     employee: [],
     category:[],
-    employeeByCate:[]
+    employeeByCate:[],
+    comments:[]
   },
   reducers: {
     setLogin: (state, action) => {
@@ -47,6 +48,13 @@ export const employeeSlice = createSlice({
     setEmployeeByCategory: (state, action) => {
       state.employeeByCate = action.payload;
     },
+    setComment:(state,action)=>{
+      state.comments=action.payload
+    },
+    addComment:(state,action)=>{
+      state.comments.push(action.payload)
+    }
+
   },
 });
 
@@ -59,6 +67,8 @@ export const {
   updateProfileById,
   setEmployee,
   setcategory,
-  setEmployeeByCategory
+  setEmployeeByCategory,
+  setComment,
+  addComment
 } = employeeSlice.actions;
 export default employeeSlice.reducer;

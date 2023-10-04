@@ -3,17 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 //!============================================================================================
 
 export const authSlice = createSlice({
+
   name: "auth",
   initialState: {
     token: localStorage.getItem("token") || null,
     userId: localStorage.getItem("userId") || null,
   },
-  reducers: {
-    setLogin: (state, action) => {
-      state.token = action.payload;
-      localStorage.setItem("token", state.token);
 
-    },
+
+    reducers: {
+        setLogin: (state, action) => {
+            state.token = action.payload;
+            localStorage.setItem("token", state.token);
+        },
 
     setUserId: (state, action) => {
       state.userId = action.payload;
@@ -25,6 +27,7 @@ export const authSlice = createSlice({
       localStorage.clear();
     },
   },
+    
 });
 
 //!============================================================================================

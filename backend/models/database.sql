@@ -1,6 +1,7 @@
 DROP DATABASE  project_5_database;
 CREATE DATABASE project_5_database;
 \c project_5_database;
+
 CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
     role VARCHAR(255),
@@ -13,7 +14,6 @@ CREATE TABLE permissions(
     created_at timestamp DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0
 );
-
 CREATE TABLE role_permission (
     id SERIAL PRIMARY KEY,
     role_id INT,
@@ -74,11 +74,11 @@ CREATE TABLE products (
 CREATE TABLE order_items (
     id SERIAL PRIMARY KEY,
     product_id INT,
+    user_id INT,
     quantity INT,
-    inventory_ID INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
-     FOREIGN KEY (inventory_ID) REFERENCES product_category(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 CREATE TABLE employeeCategory(
@@ -131,6 +131,15 @@ CREATE Table hiring (
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
 
+CREATE TABLE feadback_user (
+id SERIAL PRIMARY KEY,
+user_id INT ,
+employee_id INT,
+comment TEXT,
+FOREIGN KEY (user_id) REFERENCES users(id),
+FOREIGN KEY (employee_id) REFERENCES employees(id)
+);
+
 --  psql -U postgres -f ./models/database.sql
 
 
@@ -155,25 +164,27 @@ INSERT INTO role_permission (role_id, permission_id) VALUES
     (3, 5);
     
 INSERT INTO product_inventory (quantity) VALUES (10),
- (15),
- (8);
+    (15),
+    (8);
 INSERT INTO product_category (name, description) VALUES
     ('‘عدة نجارة', 'Category 1 Description'),
     ('عدة حدادة', 'Category 2 Description'),
     ('عدة كهربائي', 'Category 3 Description');
 
 INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES
-  ('Product 1', 'Description for Product 1', 'img1.jpg', 20, 1, 1),
- ('Product 2', 'Description for Product 2', 'img2.jpg', 25, 3, 2),
-  ('Product 3', 'Description for Product 3', 'img3.jpg', 30, 2, 3);
+    ('Product 1', 'Description for Product 1', 'img1.jpg', 20, 1, 1),
+    ('Product 2', 'Description for Product 2', 'img2.jpg', 25, 3, 2),
+    ('Product 3', 'Description for Product 3', 'img3.jpg', 30, 2, 3);
 
 
-INSERT INTO order_items (product_id) VALUES
-    (1),
-    (3),
-    (2);
+-- INSERT INTO order_items (product_id, quantity, ) VALUES
+--     (1),
+--     (3),
+--     (2);
 
 INSERT INTO employees (firstName, lastName, description, country) VALUES
-  ('Qtada', 'Ahmad', 'work in electrical','Jordan'),
- ('same', 'rame', 'work in machincal','Ksa'),
-  ('ramez', 'salem', 'work in wood','Jordan');
+
+    ('Qtada', 'Ahmad', 'work in electrical','Jordan'),
+    ('same', 'rame', 'work in machincal','Ksa'),
+    ('ramez', 'salem', 'work in wood','Jordan');
+
