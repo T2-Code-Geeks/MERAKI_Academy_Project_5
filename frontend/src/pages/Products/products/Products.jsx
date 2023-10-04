@@ -4,7 +4,6 @@ import { Await, Link, useLoaderData } from "react-router-dom";
 import "./Products.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../service/redux/reducers/cart";
 
 const Products = () => {
     const { result } = useLoaderData();
@@ -18,6 +17,12 @@ const Products = () => {
 
     const addToCart = async (product_id) => {
         try {
+            if (!tokenUser) {
+                setMessage("Login Please");
+                setTimeout(() => {
+                    setMessage("");
+                }, [1500]);
+            }
             setProductId(product_id);
             const result = await axios.post(
                 "http://localhost:5000/users/basket",
