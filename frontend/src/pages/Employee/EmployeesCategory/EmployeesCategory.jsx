@@ -10,18 +10,20 @@ const CategoryEmployees = () => {
         Category();
     }, []);
 
+
   const navigate=useNavigate();
   const dispatch = useDispatch();
   const { category } = useSelector((state) => {
     return {
       category: state.employee.category,
     }})
+
     const Category = async () => {
         try {
             const result = await axios.get(
                 `http://localhost:5000/employees/categoryes/all`
             );
-            console.log(result.data)
+
             if (result.data) {
                 dispatch(setcategory(result.data.result));
             } else throw Error;

@@ -2,7 +2,9 @@ const express = require("express");
 const productsRouts = express.Router();
 const authentication = require("../middleware/authentication");
 
-const { createNewCategory, updateCategoryById, deleteCategoryById, createNewProduct, updateProductById, deleteProductById, getAllCategory, getCategoryById, getProductById, getAllProducts, getProductsByCategory } = require("../controllers/products");
+
+const { createNewCategory, updateCategoryById, deleteCategoryById, createNewProduct, updateProductById, deleteProductById, getAllCategory, getCategoryById, getProductById, getAllProducts, getProductsByCategory, getAllOrdersDetails, updateStatus, newOrder } = require("../controllers/products");
+
 // ! Create New Category
 productsRouts.post("/category",  createNewCategory);
 // ! Update Category
@@ -26,6 +28,9 @@ productsRouts.get("/:id", getProductById);
 
 // ! Get  Product by category
 productsRouts.get("/category/products/:id", getProductsByCategory);
+productsRouts.get("/All/Orders", getAllOrdersDetails);
+productsRouts.put("/status/:productId", updateStatus);
+productsRouts.post("/order", newOrder);
 
 
 module.exports = productsRouts;

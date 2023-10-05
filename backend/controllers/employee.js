@@ -7,6 +7,7 @@ const saltRounds = parseInt(process.env.SALT);
 const CreateEmployeeCategory = async (req, res) => {
   const { category } = req.body;
 
+
   const query = `INSERT INTO employeeCategory (category) VALUES ($1) RETURNING *`;
   const data = [category];
   client
@@ -78,6 +79,7 @@ const registerEmployee = async (req, res) => {
           category_id,
         ]
       );
+
 
       res.json({
         success: true,
@@ -258,63 +260,65 @@ const getAllEmployees = (req, res) => {
 //! get employee by id ...
 
 const getEmployeeById = (req, res) => {
-  const id = req.params.id;
-  const query = `SELECT firstName,lastName,description, work_hours ,country,category_id ,img,age FROM employees  WHERE id=$1 AND is_deleted=0;`;
-  const data = [id];
 
-  client
-    .query(query, data)
-    .then((result) => {
-      console.log(result.rows);
-      if (result.rows.length !== 0) {
-        res.status(200).json({
-          success: true,
-          message: `The employee with id: ${id}`,
-          result: result.rows[0],
+
+    const id = req.params.id;
+    const query = `SELECT firstName,lastName,description, work_hours ,country,category_id ,img,age FROM employees  WHERE id=$1 AND is_deleted=0;`;
+    const data = [id];
+
+    client
+        .query(query, data)
+        .then((result) => {
+            if (result.rows.length !== 0) {
+                res.status(200).json({
+                    success: true,
+                    message: `The employee with id: ${id}`,
+                    result: result.rows[0],
+                });
+            } else {
+                throw new Error("Error happened while getting employee");
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).json({
+                success: false,
+                message: "Server error",
+                err: err,
+            });
         });
-      } else {
-        throw new Error("Error happened while getting employee");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        err: err,
-      });
-    });
 };
 
 const getALLEmployeesBycategory = (req, res) => {
-  const category_id = req.params.category_id;
-  const query = `SELECT * FROM employees  WHERE category_id=$1 AND employees.is_deleted=0;`;
-  const data = [category_id];
+    const category_id = req.params.category_id;
+    const query = `SELECT * FROM employees  WHERE category_id=$1 AND employees.is_deleted=0;`;
+    const data = [category_id];
 
-  client
-    .query(query, data)
-    .then((result) => {
-      if (result.rows.length !== 0) {
-        res.status(200).json({
-          success: true,
-          message: `All employee with id: ${category_id}`,
-          result: result.rows,
+    client
+        .query(query, data)
+        .then((result) => {
+            if (result.rows.length !== 0) {
+                res.status(200).json({
+                    success: true,
+                    message: `All employee with id: ${category_id}`,
+                    result: result.rows,
+                });
+            } else {
+                res.status(200).json({
+                    success: false,
+                    message: `No Employee At the section`,
+                })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({
+                success: false,
+                message: "Server error",
+                err: err,
+            });
+            console.log(err)
         });
-      } else {
-        res.status(200).json({
-          success: false,
-          message: `No Employee At the section`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        err: err,
-      });
-      console.log(err);
-    });
+
 };
 
 const getFeadbackFromUser = async (req, res) => {
@@ -421,3 +425,4 @@ module.exports = {
   deleteComment,
   getAllFeadbackFromUser,
 };
+
