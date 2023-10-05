@@ -29,4 +29,27 @@ const CreateNewConversation = async(req, res) => {
   }
 };
 
-module.exports = { CreateNewConversation };
+// ! Get Conversation By user id
+
+const getConversationById=async (req,res)=>{
+try {
+    
+const conversation=await conversationModal.find({members:{$in:[req.token.user_id]}})
+res.status(200).json({
+    success:true,
+    message:"Created new Conversation",
+    result:conversation
+})
+
+} catch (error) {
+    res.status(500).json({
+        success:false,
+        message:"Server Error",
+        err:error.message
+       }) 
+}
+};
+
+
+
+module.exports = { CreateNewConversation ,getConversationById};
