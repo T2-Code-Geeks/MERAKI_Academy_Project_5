@@ -10,7 +10,7 @@ const AdminLayOut = () => {
             <header>
                 <NavBar />
             </header>
-            <main id="main">
+            <main id="main" className=" bg-white dark:bg-gray-700">
                 <SideBar id="sidebar"/>
                 <Outlet  id="outlet"/>
             </main>
