@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setComment,
@@ -21,6 +21,26 @@ const EmployeeDetails = () => {
       token: state.employee.token,
     };
   });
+
+   //!=============================================================================================================
+
+   useEffect(()=>{
+    allCommentsUser()
+  },[])
+  
+  const allCommentsUser= async()=>{
+   try {
+    const results =  await axios.get(`http://localhost:5000/employees/allcomment/${id}`)
+    console.log(results)
+    if(results){
+     dispatch(setComment(results.data.result))
+    }
+   } catch (error) {
+    if (error.response.data.success) {
+    setMassege(error.response.data.massege);
+    }
+   }
+  }; 
   //! ======================================== show comment ====================================================
 
   const addFeadBackFromUser = async () => {
@@ -39,8 +59,9 @@ const EmployeeDetails = () => {
           },
         }
       );
-      if (results) {
-        dispatch(addNewComment({ comment: comment }));
+      console.log(results);
+      if (results.data.success) {
+        dispatch(addNewComment(results.data.result[0]));
       }
     } catch (error) {
       console.log(error);
@@ -50,14 +71,12 @@ const EmployeeDetails = () => {
     }
   };
   //! ======================================== delete comment ====================================================
-  const deleteComment = async (id) => {
+  const DeleteCommentUser = async (id) => {
     try {
       const result = await axios.delete(
         `http://localhost:5000/employees/comment/${id}`
       );
-      if (result) {
-        dispatch(deleteComment(result.comment));
-      }
+        dispatch(deletecomment(id));
     } catch (error) {
       if (error.response.data.success) {
         setMassege(error.response.data.massege);
@@ -85,25 +104,8 @@ const EmployeeDetails = () => {
       }
     }
   };
-  //!=============================================================================================================
-
-  useEffect(()=>{
-    allCommentsUser()
-  },[])
-  
-  const allCommentsUser=()=>{
-   try {
-    const results = axios.get(`http://localhost:5000/employees/allcomment/${id}`)
-    console.log(results);
-    if(results){
-     dispatch(setComment(results))
-    }
-   } catch (error) {
-    if (error.response.data.success) {
-    setMassege(error.response.data.massege);
-    }
-   }
-  }; 
+ 
+   //!==============================================================================================================
   return (
     <>
       <h2>Employee Details</h2>
@@ -118,14 +120,14 @@ const EmployeeDetails = () => {
             setcomment(e.target.value);
           }}
         />
-        {/* {comments && comments.map((comment, id) => {
+         {comments && comments.map((comment, id) => {
                 return (
                   <>
-                    <p>{comment}</p>
-                    <button key={comment.id} onClick={() => { deleteComment(comment.id) }}>Delete Comment</button>
+                    <p>{comments[id].comment}</p>
+                    <button key={comments[id].id} onClick={() => { DeleteCommentUser(comments[id].id) }}>Delete Comment</button>
                   </>
                 )
-              })}  */}
+              })}  
         <button on onClick={(e) => addFeadBackFromUser()}>
           Addcomment
         </button>
