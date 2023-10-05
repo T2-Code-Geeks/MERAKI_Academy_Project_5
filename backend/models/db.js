@@ -14,5 +14,14 @@ try {
 } catch (error) {
     console.log("Client didn't connect", error.message, error.stack);
 }
-
+// ! Connect To MongoDB
+const mongoose = require("mongoose");
+mongoose.connect(process.env.DB_URI).then(
+  () => {
+    console.log("DB Ready To Use");
+  },
+  (err) => {
+    console.log(err);
+  }
+);
 module.exports = client;

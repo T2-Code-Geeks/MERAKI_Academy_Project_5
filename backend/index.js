@@ -16,13 +16,14 @@ const employeeRouter = require("./routes/employee");
 const userRouter = require("./routes/Users");
 const socketAuth = require("./middleware/socketAuth");
 const messageHandler = require("./controllers/message");
+const conversationRouter = require("./routes/conversation");
 
 // Router Endpoint ----------------------------
 app.use("/role", roleRouter);
 app.use("/employees",employeeRouter);
 app.use("/products", productsRouts);
 app.use("/users", userRouter);
-
+app.use("/conversation", conversationRouter);
 
 // ! Handles any other endpoints 
 
