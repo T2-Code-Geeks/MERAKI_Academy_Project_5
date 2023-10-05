@@ -27,6 +27,7 @@ const UserProfile = () => {
         }
     },[token]);
 
+
     const handleUpdate = async () => {
         try {
             const updatedInfo = await axios.put(`http://localhost:5000/users/${userId}`, userInfo);

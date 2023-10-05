@@ -1,17 +1,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./EmployeesByCategory.css";
-import { setEmployeeByCategory } from "../../../service/redux/reducers/authSlice";
+import { setEmployeeByCategory } from "../../../service/redux/reducers/employeeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //!============================================================================================
 
 export const EmployeesByCategory = () => {
-    const [massege, setMassege] = useState("");
-    const dispatch = useDispatch();
-    const { id } = useParams();
-    const { employeeByCate } = useSelector((state) => state.auth);
-    //!============================================================================================
+
+  const [massege, setMassege] = useState("");
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { employeeByCate } = useSelector((state) => {
+    return {
+      employeeByCate: state.employee.employeeByCate,
+    };
+  });
+  //!============================================================================================
+
 
     useEffect(() => {
         getEmployeeByCategory();
