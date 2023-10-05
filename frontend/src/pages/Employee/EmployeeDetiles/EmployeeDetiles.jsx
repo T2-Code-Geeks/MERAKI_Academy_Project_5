@@ -21,26 +21,26 @@ const EmployeeDetails = () => {
       token: state.employee.token,
     };
   });
+  console.log(comments);
+  //!=============================================================================================================
 
-   //!=============================================================================================================
-
-   useEffect(()=>{
+  useEffect(() => {
     allCommentsUser()
-  },[])
-  
-  const allCommentsUser= async()=>{
-   try {
-    const results =  await axios.get(`http://localhost:5000/employees/allcomment/${id}`)
-    console.log(results)
-    if(results){
-     dispatch(setComment(results.data.result))
+  }, [])
+
+  const allCommentsUser = async () => {
+    try {
+      const results = await axios.get(`http://localhost:5000/employees/allcomment/${id}`)
+      console.log(results)
+      if (results) {
+        dispatch(setComment(results.data.result))
+      }
+    } catch (error) {
+      if (error.response.data.success) {
+        setMassege(error.response.data.massege);
+      }
     }
-   } catch (error) {
-    if (error.response.data.success) {
-    setMassege(error.response.data.massege);
-    }
-   }
-  }; 
+  };
   //! ======================================== show comment ====================================================
 
   const addFeadBackFromUser = async () => {
@@ -76,7 +76,7 @@ const EmployeeDetails = () => {
       const result = await axios.delete(
         `http://localhost:5000/employees/comment/${id}`
       );
-        dispatch(deletecomment(id));
+      dispatch(deletecomment(id));
     } catch (error) {
       if (error.response.data.success) {
         setMassege(error.response.data.massege);
@@ -104,8 +104,8 @@ const EmployeeDetails = () => {
       }
     }
   };
- 
-   //!==============================================================================================================
+
+  //!==============================================================================================================
   return (
     <>
       <h2>Employee Details</h2>
@@ -120,14 +120,16 @@ const EmployeeDetails = () => {
             setcomment(e.target.value);
           }}
         />
-         {comments && comments.map((comment, id) => {
-                return (
-                  <>
-                    <p>{comments[id].comment}</p>
-                    <button key={comments[id].id} onClick={() => { DeleteCommentUser(comments[id].id) }}>Delete Comment</button>
-                  </>
-                )
-              })}  
+        {<h2> {comments.length}: comments</h2>}
+        {comments && comments.map((comment, id) => {
+          return (
+            <>
+              <p>{comments[id].comment}</p>
+
+              <button key={comments[id].id} onClick={() => { DeleteCommentUser(comments[id].id) }}>Delete Comment</button>
+            </>
+          )
+        })}
         <button on onClick={(e) => addFeadBackFromUser()}>
           Addcomment
         </button>

@@ -182,14 +182,16 @@ const updateProductById = (req, res) => {
           success: true,
           message: `products with id: ${id} updated successfully `,
           result: result.rows[0],
-        });
+    });
       } else {
         res.status(404).json({
           success: false,
           message: `No product with id: ${id} found`,
 
-        });
+    });
 };
+    })}
+
 // ! Delete Products
 const deleteProductById = (req, res) => {
     const id = req.params.id;
@@ -361,4 +363,4 @@ module.exports = {
     getAllOrdersDetails,
     updateStatus,
     newOrder
-};
+}

@@ -1,5 +1,6 @@
 import React, { Suspense} from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
+import {  useSelector } from "react-redux";
 import "./Employee.css"
 const Employees = () => {
   const { result } = useLoaderData();
@@ -15,7 +16,6 @@ const Employees = () => {
                   <div className="productContainer" key={ Employee.id }>
                   <h2>{Employee.firstname+" "+Employee.lastname}</h2>
                   <p>{Employee.description}</p>
-
                   <Link to={`/employees/${Employee.id}`}>View Details</Link>
                 </div>
               ))}

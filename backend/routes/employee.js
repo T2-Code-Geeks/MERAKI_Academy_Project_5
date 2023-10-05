@@ -14,7 +14,9 @@ const {
   getALLEmployeesBycategory,
   getFeadbackFromUser,
   deleteComment,
-  getAllFeadbackFromUser
+  getAllFeadbackFromUser,
+  getAllHiring,
+  updateHiring
 } = require("../controllers/employee");
 employeeRouter.post("/feadback/user",authentication ,getFeadbackFromUser);
 employeeRouter.get("/:id", getEmployeeById);
@@ -25,6 +27,8 @@ employeeRouter.post("/register", registerEmployee);
 employeeRouter.post("/login", loginEmployee);
 employeeRouter.put("/:id", updateEmployeeById);
 employeeRouter.delete("/:id", deleteEmployeeById);
+employeeRouter.post("/hiring",authentication,getAllHiring);
+employeeRouter.put("/updateHiring/:id",authentication,updateHiring)
 employeeRouter.delete("/comment/:id",deleteComment)
 employeeRouter.get("/", getAllEmployees);
 employeeRouter.post("/", CreateEmployeeCategory);
