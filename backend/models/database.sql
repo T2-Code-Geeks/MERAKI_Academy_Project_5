@@ -130,10 +130,7 @@ CREATE Table hiring (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
-
 --  psql -U postgres -f ./models/database.sql
-
-
 INSERT INTO roles (role) VALUES
     ('Admin'),
     ('Employee'),

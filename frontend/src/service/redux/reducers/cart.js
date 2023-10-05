@@ -14,7 +14,7 @@ export const cart = createSlice({
         },
         updateItemById: (state, action) => {
             const updatedCart = action.payload;
-            state.cart = state.cart.map((item) =>
+            state.cart = state.cart.map((item) => 
                 item.id === updatedCart.id ? updatedCart : item
             );
         },

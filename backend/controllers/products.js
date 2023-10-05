@@ -373,5 +373,5 @@ module.exports = {
     getAllOrdersDetails,
     updateStatus,
     newOrder,
-    getAllOrderDetailsById
+    getAllOrderDetailsById,
 };
