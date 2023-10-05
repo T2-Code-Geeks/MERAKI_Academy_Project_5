@@ -11,7 +11,7 @@ const db = require("./models/db");
 
 // ! Router Name -------------------
 const roleRouter = require("./routes/role");
-const productsRouts = require("./routes/products");
+const productsRouts = require("./routes/Products");
 const employeeRouter = require("./routes/employee");
 const userRouter = require("./routes/Users");
 const socketAuth = require("./middleware/socketAuth");

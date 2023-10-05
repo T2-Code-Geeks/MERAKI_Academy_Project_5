@@ -114,7 +114,7 @@ CREATE TABLE order_details (
     total DECIMAL,
     shipping_date TIMESTAMP,
     created_at TIMESTAMP DEFAULT NOW(),
-    shipping_status VARCHAR(255),
+    shipping_status VARCHAR(255) DEFAULT 'Pending',
     is_deleted SMALLINT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (payment_id) REFERENCES user_payment(id),
@@ -129,6 +129,15 @@ CREATE Table hiring (
     is_deleted SMALLINT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
+);
+
+CREATE TABLE feadback_user (
+id SERIAL PRIMARY KEY,
+user_id INT ,
+employee_id INT,
+comment TEXT,
+FOREIGN KEY (user_id) REFERENCES users(id),
+FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
 
 --  psql -U postgres -f ./models/database.sql

@@ -4,16 +4,23 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../service/redux/reducers/authSlice";
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(setLogout());
-    navigate("/login");
-  };
+    const handleLogout = () => {
+        dispatch(setLogout());
+        navigate("/login");
+    };
 
-  const { token, userId } = useSelector((state) => state.auth);
 
+  const { token,userId,employeeId } = useSelector((state) => {
+    return {
+      token:state.auth.token,
+      userId:state.auth.userId,
+      token:state.employee.token,
+      employeeId: state.employee.employeeId
+    };
+  });
   return (
     <nav>
       {!token ? (
@@ -45,6 +52,7 @@ const NavBar = () => {
           <NavLink onClick={handleLogout}>Logout</NavLink>
           <NavLink to="/category">Employee Category </NavLink>
           <NavLink to="employeeProfile/:id">Employee Profile</NavLink>
+          <NavLink to="employees">Employess</NavLink>
         </div>
       )}
     </nav>
