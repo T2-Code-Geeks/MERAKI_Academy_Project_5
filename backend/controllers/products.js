@@ -309,7 +309,7 @@ const getProductsByCategory = (req, res) => {
 
 const newOrder = (req, res) => {
     try {
-        
+
     } catch (error) {
         console.log(error.message);
         res.json({
@@ -351,6 +351,24 @@ const updateStatus = async (req, res) => {
         })
     }
 }
+
+const getAllOrderDetailsById = async (req, res) => {
+    try {
+        const { user_id } = req.token;
+        const result = await client.query(`SELECT * FROM order_details WHERE user_id=$1`, [user_id]);
+        res.json({
+            success: true,
+            result: result.rows
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.json({
+            success: false,
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     createNewCategory,
     updateCategoryById,
@@ -365,6 +383,7 @@ module.exports = {
     getProductsByCategory,
     getAllOrdersDetails,
     updateStatus,
-    newOrder
+    newOrder,
+    getAllOrderDetailsById,
 };
     

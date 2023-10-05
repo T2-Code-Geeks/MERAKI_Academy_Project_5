@@ -18,11 +18,11 @@ const RegisterEmployee = () => {
     const [status, setStatus] = useState(false);
 
     //!=================================================
-    const { token } = useSelector((state) => state.auth);
+    const { tokenUser } = useSelector((state) => state.auth);
     //!=================================================
     const navigate = useNavigate();
     useEffect(() => {
-        if (token) {
+        if (tokenUser) {
             navigate("/");
         }
     });
@@ -61,7 +61,7 @@ const RegisterEmployee = () => {
 
     return (
         <>
-            {!token ? (
+            {!tokenUser ? (
                 <div className="Form">
                     <>
                         <p className="Title">Register employee:</p>
