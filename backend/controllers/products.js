@@ -138,9 +138,10 @@ const createNewProduct = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Product Created",
-      role: result.rows[0],
+      result: result.rows[0],
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -220,7 +221,13 @@ const deleteProductById = (req, res) => {
 // ! Get all Products
 const getAllProducts = (req, res) => {
 
-    const query = `SELECT * FROM products  WHERE is_deleted=0;`;
+  const query = `
+    SELECT products.*, product_category.name AS category_name
+    FROM products
+    INNER JOIN product_category ON products.category_id = product_category.id
+    WHERE products.is_deleted = 0;
+  `;
+
 
     client
         .query(query)
@@ -239,6 +246,7 @@ const getAllProducts = (req, res) => {
             });
         });
 };
+
 // ! Get  Products by id
 const getProductById = (req, res) => {
     const id = req.params.id;
