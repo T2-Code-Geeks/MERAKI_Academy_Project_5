@@ -36,8 +36,25 @@ const CreateNewMessage = async (req, res) => {
   }
 };
 
-// ! Get message By user id
+// ! Get message By conversation Id
 
+const getMessagesByConversationId = async (req, res) => {
+  try {
+    const messages = await messageModal.find({
+      conversationId: req.params.conversationId,
+    });
+    res.status(200).json({
+      success: true,
+      message: "All Messages",
+      result: messages,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: error.message,
+    });
+  }
+};
 
-
-module.exports = { CreateNewMessage, getConversationById, messageHandler };
+module.exports = { CreateNewMessage, getMessagesByConversationId, messageHandler };

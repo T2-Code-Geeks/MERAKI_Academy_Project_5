@@ -1,10 +1,10 @@
 const express = require("express");
 const authentication = require("../middleware/authentication");
-const { CreateNewMessage } = require("../controllers/message");
+const { CreateNewMessage, getMessagesByConversationId } = require("../controllers/message");
 const messageRouter = express.Router();
 
 messageRouter.post("/",authentication,CreateNewMessage)
 
-// messageRouter.get("/",authentication,getConversationById)
+messageRouter.get("/:conversationId",authentication,getMessagesByConversationId)
 
 module.exports = messageRouter;
