@@ -4,7 +4,7 @@ const messageSchema = new mongoose.Schema(
   {
     conversationId: { type: String },
     sender: { type: String },
-    test: { type: String },
+    text: { type: String },
   },
   { timestamps: true }
 );
