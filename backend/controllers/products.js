@@ -157,40 +157,45 @@ const updateProductById = (req, res) => {
   const id = req.params.id;
   let { name, description, img, price, category_id, inventory_ID } = req.body;
 
-
-    const query = `UPDATE products SET name = COALESCE($1,name),   description = COALESCE($2, description),
-    img = COALESCE($3, img),
-    price = COALESCE($4, price),
-    category_id = COALESCE($5, category_id),
-    inventory_ID = COALESCE($6, inventory_ID)
-     WHERE id=$7 AND is_deleted = 0  RETURNING *;`;
-
+  const query = `UPDATE products SET name = COALESCE($1,name),   description = COALESCE($2, description),
+  img = COALESCE($3, img),
+  price = COALESCE($4, price),
+  category_id = COALESCE($5, category_id),
+  inventory_ID = COALESCE($6, inventory_ID)
+   WHERE id=$7 AND is_deleted = 0  RETURNING *;`;
   const data = [
-    name || null,
-    description || null,
-    img || null,
-    price || null,
-    category_id || null,
-    inventory_ID || null,
-    id,
+      name || null,
+      description||  null,
+      img || null,
+      price||  null,
+      category_id || null,
+      inventory_ID || null,
+      id,
   ];
   client
-    .query(query, data)
-    .then((result) => {
-      if (result.rows.length > 0) {
-        res.status(200).json({
-          success: true,
-          message: `products with id: ${id} updated successfully `,
-          result: result.rows[0],
-        });
-      } else {
-        res.status(404).json({
-          success: false,
-          message: `No product with id: ${id} found`,
-
-        });
-};
-// ! Delete Products
+      .query(query, data)
+      .then((result) => {
+          if (result.rows.length > 0) {
+              res.status(200).json({
+                  success: true,
+                  message: `products with id: ${id} updated successfully `,
+                  result: result.rows[0],
+              });
+          } else {
+              res.status(404).json({
+                  success: false,
+                  message: `No product with id: ${id} found`,
+              });
+          }
+      })
+      .catch((err) => {
+          res.status(500).json({
+              success: false,
+              message: "Server error",
+              err: err,
+          });
+      });
+};// ! Delete Products
 const deleteProductById = (req, res) => {
     const id = req.params.id;
     const query = `UPDATE products SET is_deleted=1 
@@ -362,3 +367,4 @@ module.exports = {
     updateStatus,
     newOrder
 };
+    
