@@ -37,6 +37,11 @@ const io = socket(server, { cors: { origin: "*" } });
 io.use(socketAuth)
 
 io.on("connection", (socket) => {
+
+// socket.use((socket,next)=>{
+//   next();
+//   })
+
 console.log(socket.user);
   const userID=socket.handshake.headers.user_id;
   clients[userID]={socket_id:socket.id,userID};
