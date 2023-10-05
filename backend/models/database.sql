@@ -131,6 +131,15 @@ CREATE Table hiring (
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
 
+CREATE TABLE feadback_user (
+id SERIAL PRIMARY KEY,
+user_id INT ,
+employee_id INT,
+comment TEXT,
+FOREIGN KEY (user_id) REFERENCES users(id),
+FOREIGN KEY (employee_id) REFERENCES employees(id)
+);
+
 --  psql -U postgres -f ./models/database.sql
 
 

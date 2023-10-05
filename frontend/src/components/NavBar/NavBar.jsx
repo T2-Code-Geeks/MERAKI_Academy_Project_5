@@ -52,6 +52,7 @@ const NavBar = () => {
           <NavLink onClick={handleLogout}>Logout</NavLink>
           <NavLink to="/category">Employee Category </NavLink>
           <NavLink to="employeeProfile/:id">Employee Profile</NavLink>
+          <NavLink to="employees">Employess</NavLink>
         </div>
       )}
     </nav>
