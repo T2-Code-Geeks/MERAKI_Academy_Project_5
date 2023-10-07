@@ -8,6 +8,7 @@ import {
 } from "../../../service/redux/reducers/employeeSlice";
 import { useParams, Link } from "react-router-dom";
 
+  //!=================================== show detailes employee ... ====================================================
 const EmployeeDetails = () => {
   const [comment, setcomment] = useState("");
   const [massege, setMassege] = useState("");
@@ -21,12 +22,14 @@ const EmployeeDetails = () => {
       token: state.employee.token,
     };
   });
-  console.log(comments);
-  //!=============================================================================================================
+
+  //!======================================================================
 
   useEffect(() => {
     allCommentsUser()
   }, [])
+
+ //! ======================================== show comments =================================================
 
   const allCommentsUser = async () => {
     try {
@@ -41,7 +44,8 @@ const EmployeeDetails = () => {
       }
     }
   };
-  //! ======================================== show comment ====================================================
+ 
+ //! ======================================== add comment ====================================================
 
   const addFeadBackFromUser = async () => {
     const commentss = {
@@ -70,7 +74,9 @@ const EmployeeDetails = () => {
       }
     }
   };
+
   //! ======================================== delete comment ====================================================
+  
   const DeleteCommentUser = async (id) => {
     try {
       const result = await axios.delete(
@@ -84,11 +90,13 @@ const EmployeeDetails = () => {
     }
   };
 
-  //! ============================================================================================================
+  //! ======================================================================
 
   useEffect(() => {
     getEmployeeDetails()
   }, []);
+
+   //!======================================================================
 
   const getEmployeeDetails = async () => {
     try {
@@ -105,7 +113,8 @@ const EmployeeDetails = () => {
     }
   };
 
-  //!==============================================================================================================
+  //!========================================================================
+
   return (
     <>
       <h2>Employee Details</h2>
@@ -139,4 +148,7 @@ const EmployeeDetails = () => {
     </>
   );
 };
+
+//! ======================================== export function  ====================================================
+
 export default EmployeeDetails;

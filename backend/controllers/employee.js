@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = parseInt(process.env.SALT);
 
-//! create category function ...
+//! ================ create category function ...  ===================================
+
 const CreateEmployeeCategory = async (req, res) => {
   const { category } = req.body;
 
@@ -28,8 +29,10 @@ const CreateEmployeeCategory = async (req, res) => {
     });
 };
 
-//! get all categorys ...
+//! ================ get all categorys ...  ===================================
+
 const getAllCategoryes = (req, res) => {
+
   const query = `SELECT * FROM employeeCategory WHERE is_deleted=0 ;`;
   client
     .query(query)
@@ -45,14 +48,15 @@ const getAllCategoryes = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: "hello",
+        err: err.massege,
       });
     });
 };
 
-//! this function create account as employee ...
+//! ================ create account as employee ...  ===================================
 
 const registerEmployee = async (req, res) => {
+
   try {
     const {
       firstName,
@@ -65,7 +69,7 @@ const registerEmployee = async (req, res) => {
       category_id,
     } = req.body;
     if (firstName && lastName && email && password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
       const result = await client.query(
         `INSERT INTO employees (firstName, lastName, age, country, email,password, role_id,category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
         [
@@ -79,8 +83,6 @@ const registerEmployee = async (req, res) => {
           category_id,
         ]
       );
-
-
       res.json({
         success: true,
         message: "Account Created",
@@ -109,9 +111,10 @@ const registerEmployee = async (req, res) => {
   }
 };
 
-// ! this function do login as employee ..
+//! ================ login as employee ...  ===================================
 
 const loginEmployee = (req, res) => {
+  
   const password = req.body.password;
   const email = req.body.email.toLowerCase();
   const query = `SELECT * FROM employees WHERE email=$1`;
@@ -162,10 +165,10 @@ const loginEmployee = (req, res) => {
       });
     });
 };
-
-// ! update Account profile employee ...
+//! ================ update Account profile employee ... ===================================
 
 const updateEmployeeById = (req, res) => {
+
   const id = req.params.id;
   const {
     firstName,
@@ -210,8 +213,11 @@ const updateEmployeeById = (req, res) => {
       });
     });
 };
-//! delete employee account by id ...
+
+//! ================ delete employee account by id ... ===================================
+
 const deleteEmployeeById = (req, res) => {
+  
   const id = req.params.id;
   const query = `UPDATE employees SET is_deleted=1 WHERE id=$1;`;
   const data = [id];
@@ -235,9 +241,10 @@ const deleteEmployeeById = (req, res) => {
       });
     });
 };
+//! ================ get all employees function  ... ===================================
 
-// ! get all employees function  ...
 const getAllEmployees = (req, res) => {
+  
   const query = `SELECT * FROM employees a WHERE a.is_deleted=0 ;`;
   client
     .query(query)
@@ -256,11 +263,9 @@ const getAllEmployees = (req, res) => {
       });
     });
 };
-
-//! get employee by id ...
+//! ================ get employee by id ... ===================================
 
 const getEmployeeById = (req, res) => {
-
 
   const id = req.params.id;
   const query = `SELECT firstName,lastName,description, work_hours ,country,category_id ,img,age FROM employees  WHERE id=$1 AND is_deleted=0;`;
@@ -289,9 +294,10 @@ const getEmployeeById = (req, res) => {
     });
 };
 
-//! get employee by category ...
+//! ================ get employee by category ... ===================================
 
 const getALLEmployeesBycategory = (req, res) => {
+
   const category_id = req.params.category_id;
   const query = `SELECT * FROM employees  WHERE category_id=$1 AND employees.is_deleted=0;`;
   const data = [category_id];
@@ -320,14 +326,15 @@ const getALLEmployeesBycategory = (req, res) => {
       });
       console.log(err)
     });
-
 };
 
-//! get feadback from user  ...
+//! ================ get feadback from user  ... ===================================
 
 const getFeadbackFromUser = async (req, res) => {
+
   try {
-    // const {user_id,employee_id}=req.params remember this well be take from token .....
+    //! const {user_id,employee_id}=req.params remember this well be take from token .....
+
     const { user_id } = req.token;
     const { comment, employee_id } = req.body;
     if (comment) {
@@ -364,9 +371,10 @@ const getFeadbackFromUser = async (req, res) => {
   }
 };
 
-//! get all feadback frrom user ...
+//! ================ get all feadback frrom user ... ===================================
 
 const getAllFeadbackFromUser = async (req, res) => {
+
   const { id } = req.params
   try {
     const result = await client.query(`SELECT * FROM feadback_user a WHERE a.employee_id=($1);`, [id]);
@@ -392,9 +400,10 @@ const getAllFeadbackFromUser = async (req, res) => {
   }
 };
 
-//! delete comment user  ...
+//! ================ delete comment user  ... ===================================
 
 const deleteComment = async (req, res) => {
+
   try {
     const { id } = req.params;
     const results = await client.query(
@@ -421,9 +430,10 @@ const deleteComment = async (req, res) => {
   }
 };
 
-//! get all hiring of employee ...
+//! ================ get all hiring of employee ... ===================================
 
 const getAllHiring = (req, res) => {
+
   try {
     const { employee_id } = req.token;
     const query =
@@ -444,9 +454,10 @@ const getAllHiring = (req, res) => {
   }
 };
 
-//! update hiring by employee ...
+//! ================ update hiring by employee ... ===================================
 
 const updateHiring = (req, res) => {
+
   const { id } = req.params;
   const { employee_id } = req.token;
   const { Date, Status } = req.body;
@@ -477,11 +488,9 @@ const updateHiring = (req, res) => {
         err: err,
       });
     });
-
-
-
 }
 
+//! ================ export fuctions  ... ===================================
 module.exports = {
   registerEmployee,
   loginEmployee,

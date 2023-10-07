@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//!============================================================================================
+//!======================================== employee Slice ... ====================================================
 
 export const employeeSlice = createSlice({
+
   name: "employee",
   initialState: {
     token: localStorage.getItem("token") || null,
@@ -10,15 +11,15 @@ export const employeeSlice = createSlice({
     employee: [],
     category: [],
     employeeByCate: [],
-    comments: []
+    comments: [],
+    Hiring: []
   },
+
   reducers: {
     setLogin: (state, action) => {
       state.token = action.payload;
       localStorage.setItem("token", state.token);
-
     },
-
     setEmployeeId: (state, action) => {
       state.employeeId = action.payload;
       localStorage.setItem("employeeId", state.employeeId);
@@ -38,7 +39,6 @@ export const employeeSlice = createSlice({
         lastname: action.payload.lastname,
         country: action.payload.country,
       };
-
       state.employee = updatedUser;
       return state;
     },
@@ -58,12 +58,23 @@ export const employeeSlice = createSlice({
     deletecomment: (state, action) => {
       state.comments = state.comments.filter((comments) => comments.id !== action.payload);
     }
-   
-  },
-});
+    ,
+    setHiring: (state, action) => {
+      state.Hiring = action.payload;
+    },
+    updateHiringState:(state,action)=>{
+      const updatedStatus = {
+        ...state.employee,
+        state: action.payload.Status,
+      
+      };
+      state.Hiring = updatedStatus;
+      return state;
+    },
+    }
+  })
 
-//!============================================================================================
-
+//!=========================================== export function =================================================
 export const {
   setLogin,
   setEmployeeId,
@@ -74,6 +85,7 @@ export const {
   setEmployeeByCategory,
   setComment,
   addNewComment,
-  deletecomment
+  deletecomment,
+  setHiring
 } = employeeSlice.actions;
 export default employeeSlice.reducer;
