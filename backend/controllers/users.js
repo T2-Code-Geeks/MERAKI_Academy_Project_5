@@ -213,6 +213,7 @@ const deleteCartItem = async (req, res) => {
         const { itemId } = req.params;
         const { user_id } = req.token;
         const result = await client.query(`DELETE FROM order_items WHERE user_id=$1 AND id=$2 RETURNING *`, [user_id, itemId]);
+        console.log(result.rows);
         res.json({
             success: true,
             result: result.rows[0]

@@ -32,6 +32,10 @@ const Cart = () => {
     const updateQuantity = async (product_id, quantity, itemId) => {
         try {
             if (quantity < 1) {
+                const result = await axios.delete(`http://localhost:5000/users/basket/${itemId}`, {
+                    headers: { Authorization: `Bearer ${tokenUser}` },
+                });
+                dispatch(deleteItemById(result.data.result.id))
             } else {
                 const result = await axios.post(
                     "http://localhost:5000/users/basket",
