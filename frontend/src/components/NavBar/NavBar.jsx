@@ -13,7 +13,6 @@ const NavBar = () => {
         dispatch(employeelogout());
         navigate("/login");
     };
-
     const { tokenUser, userId } = useSelector((state) => state.auth);
     const { token } = useSelector((state) => state.employee);
     return (
@@ -61,6 +60,7 @@ const NavBar = () => {
             )}
         </nav>
     );
+
 };
 
 export default NavBar;
