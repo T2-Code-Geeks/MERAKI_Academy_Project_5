@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import socketInt from "../../socket";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import Conversation from "./Conversation";
 const Messages = () => {
   const [conversations, setConversation] = useState([]);
-  const [user,setUser]=useState(null)
+  const [member, setMember] = useState([])
+
+  const [currentChat, setCurrentChat] = useState(null)
+  const [messages, setMessages] = useState([])
   const { token,userId,employeeId } = useSelector((state) => {
     return {
       token:state.auth.token,
@@ -25,57 +29,13 @@ const Messages = () => {
       });
       console.log("data",res.data);
       setConversation(res.data.result)
+      setMember(res.data.result?.map(m=>m))
     } catch (error) {
       console.log(error);
     }
   };
-const getUser=async()=>{
-  let employeeToChatID;
-  let userToChatId;
-const member=conversations?.map(m=>{
-   {
-     employeeToChatID= m.members?.find((m)=>m!==parseInt(userId))
-const userToChatId=m?.members?.find(m=>m!==parseInt(employeeId))}
+
   
-})
-
-console.log("mem",employeeToChatID);
-
-if (employeeToChatID) {
-  try {
-  const res =await axios.get(`http://localhost:5000/employees/${employeeToChatID}`)
-
-  console.log(res.data);
-
-} catch (error) {
-  console.log(error);
-
-}
-} 
-else {
-  
-  try {
-    const res =await axios.get(`http://localhost:5000/users/${userToChatId}`)
-  
-    console.log(res.data);
-  
-  } catch (error) {
-    console.log(error);
-  
-  }
-
-
-}
-
-}
-
-useEffect(() => {
-  
-  getUser()
-}, [conversations])
-
-
-
   return (
     <div className="flex h-screen antialiased text-gray-800">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
@@ -120,20 +80,14 @@ useEffect(() => {
             <div className="flex flex-row items-center justify-between text-xs">
               <span className="font-bold">Active Conversations</span>
               <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">
-                {conversations.length}
+                {conversations?.length}
               </span>
             </div>
         {conversations&&conversations.map(con=>{
           return (
-               <div className="flex flex-col space-y-1 mt-4 -mx-2 h-12 overflow-y-auto" key={con._id}>
-          <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2" >
-            <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
-              H
-            </div>
-            <div className="ml-2 text-sm font-semibold">Henry Boyd</div>
-          </button>
-
-        </div>
+      <div key={con._id} onClick={()=>{setCurrentChat(con)}}>
+        <Conversation conversations={con}/>
+      </div>
           )
         })
         
@@ -141,7 +95,7 @@ useEffect(() => {
           </div>
         </div>
         <div className="flex flex-col flex-auto h-full p-6">
-          <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
+       {currentChat?   <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
             <div className="flex flex-col h-full overflow-x-auto mb-4">
               <div className="flex flex-col h-full">
                 <div className="grid grid-cols-12 gap-y-2">
@@ -179,9 +133,9 @@ useEffect(() => {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
                       ></path>
                     </svg>
@@ -202,9 +156,9 @@ useEffect(() => {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
                       </svg>
@@ -223,9 +177,9 @@ useEffect(() => {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                         ></path>
                       </svg>
@@ -235,7 +189,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
-        </div>
+        :<div>please Open Chat</div>}</div>
       </div>
     </div>
   );
