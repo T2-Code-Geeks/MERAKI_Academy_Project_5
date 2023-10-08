@@ -121,11 +121,14 @@ CREATE TABLE order_details (
     FOREIGN KEY (product_id) REFERENCES products(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
-CREATE Table hiring (
+CREATE TABLE hiring (
     id SERIAL PRIMARY KEY,
     user_id INT,
     employee_id INT,
-    created_at timestamp DEFAULT NOW(),
+    note TEXT,
+    Date timestamp,
+    Status TEXT DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
