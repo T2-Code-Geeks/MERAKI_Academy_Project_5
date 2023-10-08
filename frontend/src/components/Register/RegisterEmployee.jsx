@@ -21,7 +21,7 @@ const RegisterEmployee = () => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (tokenUser) {
+        if (token) {
             navigate("/");
         }
     });

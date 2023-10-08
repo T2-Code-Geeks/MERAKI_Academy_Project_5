@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./EmployeeLogin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogin, setEmployeeId } from "../../service/redux/reducers/employeeSlice";
 import axios from "axios";

@@ -32,4 +32,5 @@ const Employees = () => {
     </>
   );
 };
+export default Employees
 //!====================================== export function ==========================================
