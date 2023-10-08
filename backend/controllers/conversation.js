@@ -6,7 +6,7 @@ const CreateNewConversation = async(req, res) => {
     console.log(req.token);
   const newConversation = new conversationModal({
     members: [
-        req.token.user_id, 
+        req.token.user_id||req.token.employee_id, 
         req.body.receiverId
     ],
   });
@@ -34,10 +34,10 @@ const CreateNewConversation = async(req, res) => {
 const getConversationById=async (req,res)=>{
 try {
     
-const conversation=await conversationModal.find({members:{$in:[req.token.user_id]}})
+const conversation=await conversationModal.find({members:{$in:[req.token.user_id||req.token.employee_id]}})
 res.status(200).json({
     success:true,
-    message:"Created new Conversation",
+    message:"get  Conversations",
     result:conversation
 })
 

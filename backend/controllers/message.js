@@ -12,10 +12,11 @@ const messageHandler = (socket, io) => {
 // ! new message
 
 const CreateNewMessage = async (req, res) => {
-  const sender = req.token.user_id;
+  const userSender = req.token.user_id;
+  const employeeSender=req.token.employee_id;
   const { conversationId, text } = req.body;
   const newMessage = new messageModal({
-    sender,
+    sender:userSender||employeeSender,
     conversationId,
     text,
   });

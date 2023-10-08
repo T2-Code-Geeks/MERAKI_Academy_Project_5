@@ -135,6 +135,7 @@ const loginEmployee = (req, res) => {
               "The email doesn't exist or The password you’ve entered is incorrect",
           });
         }
+        console.log(results.rows[0]);
         const payload = {
           employee_id: results.rows[0].id,
           role_id: results.rows[0].role_id,
