@@ -134,6 +134,17 @@ CREATE TABLE hiring (
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
 
+CREATE Table services (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    employee_id INT,
+    created_at timestamp DEFAULT NOW(),
+    is_deleted SMALLINT DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (employee_id) REFERENCES employees(id)
+);
+
+
 CREATE TABLE feadback_user (
 id SERIAL PRIMARY KEY,
 user_id INT ,
@@ -143,9 +154,8 @@ FOREIGN KEY (user_id) REFERENCES users(id),
 FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
 
+
 --  psql -U postgres -f ./models/database.sql
-
-
 INSERT INTO roles (role) VALUES
     ('Admin'),
     ('Employee'),

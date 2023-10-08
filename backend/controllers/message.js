@@ -3,6 +3,7 @@ const messageHandler=(socket,io)=>{
 
         console.log(data);
         data.success=true;
+        socket.to("room-"+data.to).emit("message",data)
         socket.emit("message",data)
       });
        

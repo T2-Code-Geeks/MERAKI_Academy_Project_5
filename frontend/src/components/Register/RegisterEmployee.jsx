@@ -13,13 +13,15 @@ const RegisterEmployee = () => {
     const [status, setStatus] = useState(false);
     //!=================================================
 
-    const { token } = useSelector((state) => state.auth);
+
+    const { token } = useSelector((state) => state.employee);
+
 
     //!=================================================
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (token) {
+        if (tokenUser) {
             navigate("/");
         }
     });
@@ -51,6 +53,7 @@ const RegisterEmployee = () => {
     };
 
     //!=================================================
+
 
     return (<>
         <form className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
@@ -148,6 +151,7 @@ const RegisterEmployee = () => {
                 data-logo_alignment="left">
             </div>
         </> );
+
 };
 export default RegisterEmployee;
 <script src="https://accounts.google.com/gsi/client" async></script>

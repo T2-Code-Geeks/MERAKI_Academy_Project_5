@@ -21,7 +21,6 @@ export const EmployeesByCategory = () => {
 
     useEffect(() => {
         getEmployeeByCategory();
-        console.log("dsafasdf");
     }, []);
 
     //!=====================================================
