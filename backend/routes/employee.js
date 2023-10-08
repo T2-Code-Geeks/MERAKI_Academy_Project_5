@@ -1,7 +1,7 @@
 const express = require("express");
 const employeeRouter = express.Router();
+//!================================== import sections =============================================
 const authentication = require("../middleware/authentication");
-
 const {
   registerEmployee,
   loginEmployee,
@@ -14,8 +14,12 @@ const {
   getALLEmployeesBycategory,
   getFeadbackFromUser,
   deleteComment,
-  getAllFeadbackFromUser
+  getAllFeadbackFromUser,
+  getAllHiring,
+  updateHiring
 } = require("../controllers/employee");
+//!================================== import path section  =============================================
+
 employeeRouter.post("/feadback/user",authentication ,getFeadbackFromUser);
 employeeRouter.get("/:id", getEmployeeById);
 employeeRouter.get("/allcomment/:id",getAllFeadbackFromUser)
@@ -25,8 +29,12 @@ employeeRouter.post("/register", registerEmployee);
 employeeRouter.post("/login", loginEmployee);
 employeeRouter.put("/:id", updateEmployeeById);
 employeeRouter.delete("/:id", deleteEmployeeById);
+employeeRouter.get("/hiring",authentication,getAllHiring);
+employeeRouter.put("/updateHiring/:id",authentication,updateHiring)
 employeeRouter.delete("/comment/:id",deleteComment)
 employeeRouter.get("/", getAllEmployees);
 employeeRouter.post("/", CreateEmployeeCategory);
+
+//!==================================  exports router  =============================================
 
 module.exports = employeeRouter;

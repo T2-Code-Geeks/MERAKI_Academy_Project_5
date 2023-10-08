@@ -121,16 +121,19 @@ CREATE TABLE order_details (
     FOREIGN KEY (product_id) REFERENCES products(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
-CREATE Table hiring (
+CREATE TABLE hiring (
     id SERIAL PRIMARY KEY,
     user_id INT,
     employee_id INT,
-    created_at timestamp DEFAULT NOW(),
+    note TEXT,
+    Date timestamp,
+    Status TEXT DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
-<<<<<<< HEAD
+
 CREATE Table services (
     id SERIAL PRIMARY KEY,
     user_id INT,
@@ -140,7 +143,7 @@ CREATE Table services (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
-=======
+
 
 CREATE TABLE feadback_user (
 id SERIAL PRIMARY KEY,
@@ -151,10 +154,8 @@ FOREIGN KEY (user_id) REFERENCES users(id),
 FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
 
->>>>>>> 2e6808daf599a91cd1f727cce9029def5d073b26
+
 --  psql -U postgres -f ./models/database.sql
-
-
 INSERT INTO roles (role) VALUES
     ('Admin'),
     ('Employee'),

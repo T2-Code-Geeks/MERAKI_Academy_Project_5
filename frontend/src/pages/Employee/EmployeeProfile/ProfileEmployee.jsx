@@ -7,10 +7,7 @@ import {
   updateProfileById,
   setEmployee,
 } from "../../../service/redux/reducers/employeeSlice";
-
-
-
-//!============================================================================================
+//!===================================== Profile Employee ... =======================================================
 
 const ProfileEmployee = () => {
 
@@ -33,18 +30,18 @@ const ProfileEmployee = () => {
   const navigate = useNavigate();
 
 
-    //!============================================================================================
+    //!========================================================
 
     useEffect(() => {
         profile();
     }, []);
 
+    //!========================================================
 
   const profile = async () => {
     try {
       const result = await axios.get(`http://localhost:5000/employees/${employeeId}`);
       if (result.data) {
-        console.log(result.data);
         dispatch(setEmployee(result.data.result));
       } else throw Error;
     } catch (error) {
@@ -54,12 +51,9 @@ const ProfileEmployee = () => {
       console.log(error);
     }
   };
-  //!============================================================================================
-  // const handleUpdateClick = (article) => {
-  //   setUpdateBox(!updateBox);
-  //   if (updateBox) updateProfile(article.id);
-  // };
-  //!============================================================================================
+
+  //!========================================================
+
   const updateProfile = async () => {
     try {
       const result = await axios.put(`http://localhost:5000/employees/${employeeId}`, {
@@ -73,8 +67,6 @@ const ProfileEmployee = () => {
         age,
       });
       if (result.data) {
-        console.log(result);
-        // dispa
         dispatch(
           updateProfileById({
             id: employee.id,
@@ -94,8 +86,7 @@ const ProfileEmployee = () => {
     }
   };
 
-    //!============================================================================================
-
+  //!========================================================
 
   return (
     <>
@@ -150,5 +141,7 @@ const ProfileEmployee = () => {
     </>
   );
 };
+
+//!============================================= Export function ... ===================================================
 
 export default ProfileEmployee;

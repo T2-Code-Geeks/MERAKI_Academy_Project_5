@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogin, setEmployeeId } from "../../service/redux/reducers/employeeSlice";
 import axios from "axios";
 
-//! ===============================================
+//! ================ login as employee ...  ===================================
+
 const EmployeeLogin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const EmployeeLogin = () => {
     //! ===============================================
 
     const Login = async (e) => {
+
         e.preventDefault();
         try {
             const result = await axios.post(
@@ -44,12 +46,15 @@ const EmployeeLogin = () => {
             setStatus(false);
         }
     };
+
     //! ===============================================
+
     useEffect(() => {
         if (token) {
             navigate("/");
         }
     },[token]);
+
     //! ===============================================
 
     return (
@@ -91,5 +96,7 @@ const EmployeeLogin = () => {
         </>
     );
 };
+
+//! ================ export function ...  ===================================
 
 export default EmployeeLogin;

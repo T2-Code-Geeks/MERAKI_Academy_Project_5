@@ -8,6 +8,7 @@ import {
 } from "../../../service/redux/reducers/employeeSlice";
 import { useParams, Link } from "react-router-dom";
 
+  //!=================================== show detailes employee ... ====================================================
 const EmployeeDetails = () => {
   const [comment, setcomment] = useState("");
   const [massege, setMassege] = useState("");
@@ -22,26 +23,29 @@ const EmployeeDetails = () => {
     };
   });
 
-   //!=============================================================================================================
+  //!======================================================================
 
-   useEffect(()=>{
+  useEffect(() => {
     allCommentsUser()
-  },[])
-  
-  const allCommentsUser= async()=>{
-   try {
-    const results =  await axios.get(`http://localhost:5000/employees/allcomment/${id}`)
-    console.log(results)
-    if(results){
-     dispatch(setComment(results.data.result))
+  }, [])
+
+ //! ======================================== show comments =================================================
+
+  const allCommentsUser = async () => {
+    try {
+      const results = await axios.get(`http://localhost:5000/employees/allcomment/${id}`)
+      console.log(results)
+      if (results) {
+        dispatch(setComment(results.data.result))
+      }
+    } catch (error) {
+      if (error.response.data.success) {
+        setMassege(error.response.data.massege);
+      }
     }
-   } catch (error) {
-    if (error.response.data.success) {
-    setMassege(error.response.data.massege);
-    }
-   }
-  }; 
-  //! ======================================== show comment ====================================================
+  };
+ 
+ //! ======================================== add comment ====================================================
 
   const addFeadBackFromUser = async () => {
     const commentss = {
@@ -70,13 +74,15 @@ const EmployeeDetails = () => {
       }
     }
   };
+
   //! ======================================== delete comment ====================================================
+  
   const DeleteCommentUser = async (id) => {
     try {
       const result = await axios.delete(
         `http://localhost:5000/employees/comment/${id}`
       );
-        dispatch(deletecomment(id));
+      dispatch(deletecomment(id));
     } catch (error) {
       if (error.response.data.success) {
         setMassege(error.response.data.massege);
@@ -84,11 +90,13 @@ const EmployeeDetails = () => {
     }
   };
 
-  //! ============================================================================================================
+  //! ======================================================================
 
   useEffect(() => {
     getEmployeeDetails()
   }, []);
+
+   //!======================================================================
 
   const getEmployeeDetails = async () => {
     try {
@@ -104,8 +112,9 @@ const EmployeeDetails = () => {
       }
     }
   };
- 
-   //!==============================================================================================================
+
+  //!========================================================================
+
   return (
     <>
       <h2>Employee Details</h2>
@@ -120,14 +129,16 @@ const EmployeeDetails = () => {
             setcomment(e.target.value);
           }}
         />
-         {comments && comments.map((comment, id) => {
-                return (
-                  <>
-                    <p>{comments[id].comment}</p>
-                    <button key={comments[id].id} onClick={() => { DeleteCommentUser(comments[id].id) }}>Delete Comment</button>
-                  </>
-                )
-              })}  
+        {<h2> {comments.length}: comments</h2>}
+        {comments && comments.map((comment, id) => {
+          return (
+            <>
+              <p>{comments[id].comment}</p>
+
+              <button key={comments[id].id} onClick={() => { DeleteCommentUser(comments[id].id) }}>Delete Comment</button>
+            </>
+          )
+        })}
         <button on onClick={(e) => addFeadBackFromUser()}>
           Addcomment
         </button>
@@ -137,4 +148,7 @@ const EmployeeDetails = () => {
     </>
   );
 };
+
+//! ======================================== export function  ====================================================
+
 export default EmployeeDetails;

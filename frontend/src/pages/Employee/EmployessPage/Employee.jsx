@@ -1,8 +1,15 @@
-import React, { Suspense} from 'react';
+import React, { Suspense } from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
 import "./Employee.css"
+//!==================================== Employess packge ==========================================
+
 const Employees = () => {
+
+  //!=================================================
+
   const { result } = useLoaderData();
+
+  //!=================================================
   return (
     <>
       <h2>Employees</h2>
@@ -12,10 +19,9 @@ const Employees = () => {
             <div>
               {result?.map(Employee => (
 
-                  <div className="productContainer" key={ Employee.id }>
-                  <h2>{Employee.firstname+" "+Employee.lastname}</h2>
+                <div className="productContainer" key={Employee.id}>
+                  <h2>{Employee.firstname + " " + Employee.lastname}</h2>
                   <p>{Employee.description}</p>
-
                   <Link to={`/employees/${Employee.id}`}>View Details</Link>
                 </div>
               ))}
@@ -26,5 +32,4 @@ const Employees = () => {
     </>
   );
 };
-
-export default Employees;
+//!====================================== export function ==========================================
