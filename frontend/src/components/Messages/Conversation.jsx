@@ -22,9 +22,7 @@ const friendId=conversations.members.find(m=>m!==parseInt(userId)||parseInt(empl
     try {
     const res = await axios.get(`http://localhost:5000/employees/${friendId}`)
   
-    console.log(res.data.result
-      );
-      console.log(res.data.result);
+   
   setUser(res.data.result)
   } catch (error) {
     console.log(error);
@@ -36,7 +34,6 @@ const friendId=conversations.members.find(m=>m!==parseInt(userId)||parseInt(empl
     try {
       const res =await axios.get(`http://localhost:5000/users/${friendId}`)
     
-      console.log(res.data);
       setUser(res.data.result)
   
     } catch (error) {
