@@ -17,7 +17,7 @@ const NavBar = () => {
     const { token } = useSelector((state) => state.employee);
     return (
         <nav>
-            {tokenUser ? (
+            {token ? (
                 <div>
                     <NavLink className="navlink" to="/">
                         home
