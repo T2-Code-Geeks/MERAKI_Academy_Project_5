@@ -3,7 +3,7 @@ const productsRouts = express.Router();
 const authentication = require("../middleware/authentication");
 
 
-const { createNewCategory, updateCategoryById, deleteCategoryById, createNewProduct, updateProductById, deleteProductById, getAllCategory, getCategoryById, getProductById, getAllProducts, getProductsByCategory, getAllOrdersDetails, updateStatus, newOrder, getAllOrderDetailsById } = require("../controllers/products");
+const { createNewCategory, updateCategoryById, deleteCategoryById, createNewProduct, updateProductById, deleteProductById, getAllCategory, getCategoryById, getProductById, getAllProducts, getProductsByCategory, getAllOrdersDetails, updateStatus, newOrder, getAllOrderDetailsById, createNewOrderDetails } = require("../controllers/products");
 
 
 
@@ -34,6 +34,6 @@ productsRouts.get("/All/Orders", getAllOrdersDetails);
 productsRouts.put("/status/:productId", updateStatus);
 productsRouts.post("/order", newOrder);
 productsRouts.get("/order/all", authentication, getAllOrderDetailsById);
-
+productsRouts.post("/new/OrderDetail", createNewOrderDetails);
 
 module.exports = productsRouts;

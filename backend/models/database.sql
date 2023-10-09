@@ -39,12 +39,6 @@ CREATE TABLE users (
     is_deleted SMALLINT DEFAULT 0,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
-CREATE TABLE user_payment (
-    id SERIAL PRIMARY KEY,
-    user_id INT,
-    payment_method VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
 CREATE TABLE product_category (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -108,18 +102,14 @@ CREATE TABLE employees (
 CREATE TABLE order_details (
     id SERIAL PRIMARY KEY,
     user_id INT,
-    employee_id INT,
-    payment_id INT,
-    product_id INT,
+    order_items JSON,
+    payment_method VARCHAR(255),
     total DECIMAL,
     shipping_date TIMESTAMP,
     created_at TIMESTAMP DEFAULT NOW(),
     shipping_status VARCHAR(255) DEFAULT 'Pending',
     is_deleted SMALLINT DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (payment_id) REFERENCES user_payment(id),
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (employee_id) REFERENCES employees(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 CREATE Table hiring (
     id SERIAL PRIMARY KEY,
@@ -153,6 +143,7 @@ FOREIGN KEY (employee_id) REFERENCES employees(id)
 
 
 --  psql -U postgres -f ./models/database.sql
+
 INSERT INTO roles (role) VALUES
     ('Admin'),
     ('Employee'),
@@ -185,12 +176,6 @@ INSERT INTO products (name, description, img, price, category_id, inventory_id) 
     ('Product 1', 'Description for Product 1', 'img1.jpg', 20, 1, 1),
     ('Product 2', 'Description for Product 2', 'img2.jpg', 25, 3, 2),
     ('Product 3', 'Description for Product 3', 'img3.jpg', 30, 2, 3);
-
-
--- INSERT INTO order_items (product_id, quantity, ) VALUES
---     (1),
---     (3),
---     (2);
 
 INSERT INTO employees (firstName, lastName, description, country) VALUES
 

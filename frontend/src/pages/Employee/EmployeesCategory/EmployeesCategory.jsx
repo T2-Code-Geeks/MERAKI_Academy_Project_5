@@ -1,22 +1,21 @@
 import axios from "axios";
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./EmployeesCategory";
 import { setcategory } from "../../../service/redux/reducers/employeeSlice";
 import { useNavigate } from "react-router-dom";
 const CategoryEmployees = () => {
-   
     useEffect(() => {
         Category();
     }, []);
 
-
-  const navigate=useNavigate();
-  const dispatch = useDispatch();
-  const { category } = useSelector((state) => {
-    return {
-      category: state.employee.category,
-    }})
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { category } = useSelector((state) => {
+        return {
+            category: state.employee.category,
+        };
+    });
 
     const Category = async () => {
         try {
@@ -37,24 +36,23 @@ const CategoryEmployees = () => {
 
     return (
         <>
-            { category &&
+            {category &&
                 category.map((category, i) => {
                     return (
                         <div>
                             <button
-                                key={ category.id }
-                                onClick={ () => {
+                                key={category.id}
+                                onClick={() => {
                                     navigate(
                                         `/employeeSByCategory/${category.id}`
-                                    )
-                                } }
+                                    );
+                                }}
                             >
-                                { category.category }
+                                {category.category}
                             </button>
                         </div>
                     );
-                }) }
-            
+                })}
         </>
     );
 };
