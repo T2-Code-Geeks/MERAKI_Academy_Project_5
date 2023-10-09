@@ -55,6 +55,7 @@ const Messages = () => {
             headers: { Authorization: `Bearer ${tokenUser}` },
           }
         );
+        console.log(res.data.result);
         setMessages(res.data.result);
       } catch (error) {
         console.log(error);
@@ -79,10 +80,35 @@ const Messages = () => {
   }, [currentChat]);
 
 
-  
+
 const handelSubmit=async(e)=>{
   e.preventDefault();
 
+  const message={
+    text:newMessage,
+    conversationId:currentChat._id,
+  }
+
+if (tokenUser) {
+  try {
+    const res=await axios.post("http://localhost:5000/messages",message, {
+      headers: { Authorization: `Bearer ${tokenUser}` } });
+      console.log(res.data);
+    setMessages([...messages,res.data.result])
+  } catch (error) {
+    console.log(error);
+  }
+}
+if (token) {
+  try {
+    const res=await axios.post("http://localhost:5000/messages",message, {
+      headers: { Authorization: `Bearer ${token}` } });
+    setMessages([...messages,res.data.result])
+    setNewMessage("")
+  } catch (error) {
+    console.log(error);
+  }
+}
 }
   return (
     <div className="flex h-screen antialiased text-gray-800">
