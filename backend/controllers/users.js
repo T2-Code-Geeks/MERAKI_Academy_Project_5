@@ -165,13 +165,12 @@ const getUserById = async (req, res) => {
 const addToBasket = async (req, res) => {
     try {
         const { user_id } = req.token;
-        const {  product_id, quantity } = req.body;
-        const result = await client.query(`SELECT *, order_items.id FROM order_items WHERE product_id=$1 AND user_id=$2`, [product_id, user_id]);
-
+        const { product_id, quantity } = req.body;
+        const result = await client.query(`SELECT *, order_items.id FROM order_items WHERE product_id=$1 AND user_id=$2 AND is_deleted=0`, [product_id, user_id]);
         if (result.rows.length) {
-            await client.query(`UPDATE order_items SET quantity = $1 WHERE product_id = $2 AND user_id=$3 RETURNING *`, [quantity, product_id, user_id]);
-            const result = await client.query(`SELECT *,order_items.id FROM order_items INNER JOIN products ON products.id = $1 AND order_items.product_id=$1 WHERE user_id = $2`, [product_id, user_id]);
-            const remainingItems = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1`, [user_id]);
+            await client.query(`UPDATE order_items SET quantity = $1 WHERE product_id = $2 AND user_id=$3 AND is_deleted=0 RETURNING *`, [quantity, product_id, user_id]);
+            const result = await client.query(`SELECT *,order_items.id FROM order_items INNER JOIN products ON products.id = $1 AND order_items.product_id=$1 WHERE user_id = $2 AND order_items.is_deleted=0`, [product_id, user_id]);
+            const remainingItems = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
             res.status(200).json({
                 success: true,
                 result: result.rows,
@@ -197,7 +196,7 @@ const addToBasket = async (req, res) => {
 const getUserBasket = async (req, res) => {
     try {
         const { user_id } = req.token;
-        const result = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1`, [user_id]);
+        const result = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
         res.json({
             success: true,
             result: result.rows
@@ -215,11 +214,11 @@ const deleteCartItem = async (req, res) => {
         const { itemId } = req.params;
         const { user_id } = req.token;
         const result = await client.query(`DELETE FROM order_items WHERE user_id=$1 AND id=$2 RETURNING *`, [user_id, itemId]);
-        const remainingItems = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1`, [user_id]);
+        const remainingItems = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
         res.json({
             success: true,
             result: result.rows[0],
-            remaining:remainingItems.rows
+            remaining: remainingItems.rows
         })
     } catch (error) {
         console.log(error.message);
@@ -229,8 +228,6 @@ const deleteCartItem = async (req, res) => {
         })
     }
 }
-
-
 
 module.exports = {
     userRegister,

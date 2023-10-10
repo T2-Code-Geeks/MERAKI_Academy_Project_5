@@ -8,11 +8,11 @@ const { createNewCategory, updateCategoryById, deleteCategoryById, createNewProd
 
 
 // ! Create New Category
-productsRouts.post("/category",  createNewCategory);
+productsRouts.post("/category", createNewCategory);
 // ! Update Category
-productsRouts.put("/category/:id",updateCategoryById);
+productsRouts.put("/category/:id", updateCategoryById);
 // ! Delete Category
-productsRouts.delete("/category/:id",  deleteCategoryById);
+productsRouts.delete("/category/:id", deleteCategoryById);
 // ! Get all category 
 productsRouts.get("/category", getAllCategory);
 // ! Get  category by id
@@ -20,7 +20,7 @@ productsRouts.get("/category/:id", getCategoryById);
 // ! Create Product
 productsRouts.post("/", createNewProduct);
 // ! Update Product
-productsRouts.put("/:id",  updateProductById);
+productsRouts.put("/:id", updateProductById);
 // ! Delete Products
 productsRouts.delete("/:id", deleteProductById);
 // ! Get all Products
@@ -34,6 +34,6 @@ productsRouts.get("/All/Orders", getAllOrdersDetails);
 productsRouts.put("/status/:productId", updateStatus);
 productsRouts.post("/order", newOrder);
 productsRouts.get("/order/all", authentication, getAllOrderDetailsById);
-productsRouts.post("/new/OrderDetail", createNewOrderDetails);
+productsRouts.post("/new/OrderDetail", authentication, createNewOrderDetails);
 
 module.exports = productsRouts;

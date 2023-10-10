@@ -26,7 +26,6 @@ const Cart = () => {
                 "http://localhost:5000/users/basket/get",
                 { headers: { Authorization: `Bearer ${tokenUser}` } }
             );
-
             if (result.data.result.length) {
                 let sumPrice = 0;
                 result.data.result.forEach((item) => {
@@ -121,9 +120,7 @@ const Cart = () => {
                 })}
             <h6>Total: {sum}</h6>
             <NavLink to={"/checkout"}>
-                <button disabled={buttonBoolean}>
-                    Checkout
-                </button>
+                <button disabled={buttonBoolean}>Checkout</button>
             </NavLink>
         </div>
     );
