@@ -30,6 +30,7 @@ import Cart from "../pages/Products/cart/Cart";
 import Checkout from "../pages/Products/Checkout/Checkout";
 
 import Messages from "../components/Messages/Messages";
+import Home from "../pages/Home/Home";
 
 
 
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Main />,
         children: [
+            {
+                path: "",
+                element: <Home />,
+            },
             {
                 path: "login",
                 element: <LoginPage />,
