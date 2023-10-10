@@ -13,17 +13,16 @@ const CategoryEmployees = () => {
         Category();
     }, []);
 
-    //!==============================================   
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const { category } = useSelector((state) => {
         return {
             category: state.employee.category,
-        }
+        };
     });
 
     //!==============================================   
+
 
     const Category = async () => {
         try {
@@ -54,16 +53,15 @@ const CategoryEmployees = () => {
                                 key={category.id}
                                 onClick={() => {
                                     navigate(
-                                        `/employeeSByCategory/${category.id}`
-                                    )
+                                        `/employeeSByCategory/${category.id}`)
+
                                 }}
                             >
                                 {category.category}
                             </button>
                         </div>
-                    );
+                    )
                 })}
-
         </>
     );
 };

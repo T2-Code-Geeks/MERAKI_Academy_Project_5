@@ -20,15 +20,15 @@ const NavBar = () => {
             {token ? (
                 <div>
                     <NavLink className="navlink" to="/">
-                        home
-                    </NavLink>
-                    <NavLink to="/products" className={"navbar-margin"}>
-                        products
+                        Home
                     </NavLink>
                     <NavLink to={`/user/${userId}`} className={"navbar-margin"}>
                         My Profile
                     </NavLink>
-                    <NavLink to="/category">Employee Category </NavLink>
+                    <NavLink to="/category">Services </NavLink>
+                    <NavLink to="/products" className={"navbar-margin"}>
+                        Products
+                    </NavLink>
                     <NavLink to={"/cart"}>Cart </NavLink>
                     <NavLink onClick={handleLogout}>Logout</NavLink>
                 </div>
@@ -37,10 +37,8 @@ const NavBar = () => {
                     <NavLink className="navlink" to="/">
                         home
                     </NavLink>
-                    <NavLink to="/products" className={"navbar-margin"}>
-                        products
-                    </NavLink>
                     <NavLink to="employeeProfile/:id">Employee Profile</NavLink>
+                    <NavLink onClick={handleLogout}>Logout</NavLink>
                 </div>
             ) : (
                 <div>
@@ -60,7 +58,6 @@ const NavBar = () => {
             )}
         </nav>
     );
-
 };
 
 export default NavBar;
