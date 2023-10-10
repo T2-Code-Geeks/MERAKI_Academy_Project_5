@@ -11,7 +11,6 @@ const Messages = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [to, setTo] = useState([]);
-
   const scroll = useRef();
   const socket = useRef();
 
@@ -46,9 +45,9 @@ const Messages = () => {
   };
   useEffect(() => {
     socket.current.on("message", (data) => {
-      console.log(data.message?.text);
-      // alert(data?.message?.text)
-      setMessages((prev) => [...prev, data?.message?.text]);
+      console.log(data);
+      // alert(data)
+      setMessages( [...messages,data.message]);
     });
     return () => socket.current.off("message");
   }, [messages,socket.current]);
@@ -129,7 +128,7 @@ const Messages = () => {
   };
   useEffect(() => {
     getMessages();
-  }, [currentChat,messages]);
+  }, [currentChat]);
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -176,6 +175,7 @@ const Messages = () => {
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+  console.log(messages);
 
   return (
     <div className="flex h-screen antialiased text-gray-800">

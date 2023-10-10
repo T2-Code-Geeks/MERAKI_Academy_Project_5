@@ -224,32 +224,63 @@ const deleteProductById = (req, res) => {
 };
 // ! Get all Products
 const getAllProducts = (req, res) => {
-
-    const query = `
-    SELECT products.*, product_category.name AS category_name
-    FROM products
-    INNER JOIN product_category ON products.category_id = product_category.id
-    WHERE products.is_deleted = 0;
-  `;
-
-
+    const page = req.query.page || 1;
+    const itemsPerPage = 10;
+    const offset = (page - 1) * itemsPerPage;
+  
+    const countQuery = `
+      SELECT COUNT(*) AS total_count
+      FROM products
+      INNER JOIN product_category ON products.category_id = product_category.id
+      JOIN product_inventory ON products.inventory_ID = product_inventory.id
+      WHERE products.is_deleted = 0;
+    `;
+  
+    const productsQuery = `
+      SELECT products.*, product_category.name AS category_name
+      FROM products
+      INNER JOIN product_category ON products.category_id = product_category.id
+      JOIN product_inventory ON products.inventory_ID = product_inventory.id
+      WHERE products.is_deleted = 0
+      LIMIT $1 OFFSET $2;
+    `;
+  
+    const values = [itemsPerPage, offset];
+  
     client
-        .query(query)
-        .then((result) => {
+      .query(countQuery)
+      .then((countResult) => {
+        const totalItems = countResult.rows[0].total_count;
+  
+
+        client
+          .query(productsQuery, values)
+          .then((productsResult) => {
             res.status(200).json({
-                success: true,
-                message: "All the category",
-                result: result.rows,
+              success: true,
+              message: "Products for page " + page,
+              result: productsResult.rows,
+              totalItems: totalItems, 
+              totalPages: Math.ceil(totalItems / itemsPerPage),
             });
-        })
-        .catch((err) => {
+          })
+          .catch((err) => {
             res.status(500).json({
-                success: false,
-                message: "Server error",
-                err: err,
+              success: false,
+              message: "Server error",
+              err: err,
             });
+          });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
         });
-};
+      });
+  };
+  
 
 // ! Get  Products by id
 const getProductById = (req, res) => {
