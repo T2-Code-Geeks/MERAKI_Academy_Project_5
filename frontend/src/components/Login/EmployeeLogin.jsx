@@ -1,141 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin, setEmployeeId } from "../../service/redux/reducers/employeeSlice";
+import {
+  setLogin,
+  setEmployeeId,
+} from "../../service/redux/reducers/employeeSlice";
 import axios from "axios";
 
 //! ================ login as employee ...  ===================================
 
 const EmployeeLogin = () => {
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [userInfo, setUserInfo] = useState({});
     const { token } = useSelector((state) => state.employee);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
-    const [status, setStatus] = useState(false);
 
-    //! ===============================================
 
-    const Login = async (e) => {
+  const Login = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await axios.post("http://localhost:5000/employees/login", 
+      userInfo
+      );
+      if (result.data) {
+        console.log(result.data);
+        setMessage("");
+        dispatch(setLogin(result.data.token));
+        dispatch(setEmployeeId(result.data.employee_id));
+      } else throw Error;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        console.log(error);
+        return setMessage(error.response.data.message);
+      }
+      setMessage("There's somthing error while Login , Try Again...");
+    }
+  };
 
-        e.preventDefault();
-        try {
-            const result = await axios.post(
-                "http://localhost:5000/employees/login",
-                {
-                    email,
-                    password,
-                }
-            );
-            if (result.data) {
-                console.log(result.data)
-                setMessage("");
-                dispatch(setLogin(result.data.token));
-                dispatch(setEmployeeId(result.data.employee_id));
-                setStatus(true);
-            } else throw Error;
-        } catch (error) {
-            if (error.response && error.response.data) {
-                console.log(error);
-                return setMessage(error.response.data.message);
-            }
-            setMessage("There's somthing error while Login , Try Again...");
-            setStatus(false);
-        }
-    };
+  //! ===============================================
 
-    //! ===============================================
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
-    useEffect(() => {
-        if (token) {
-            navigate("/");
-        }
-    },[token]);
+  //! ===============================================
 
-    //! ===============================================
-
+ 
     return (
         <form className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
-        <div>
-            <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                First Name
-            </label>
-            <input
-                type="text"
-                placeholder="John"
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                onChange={(e) =>
-                    setUserInfo({ ...userInfo, firstName: e.target.value })
-                }
-            />
-        </div>
-        <div>
-            <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Last name
-            </label>
-            <input
-                type="text"
-                placeholder="Snow"
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                onChange={(e) =>
-                    setUserInfo({ ...userInfo, lastName: e.target.value })
-                }
-            />
-        </div>
-        <div>
-            <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Age
-            </label>
-            <input
-                type="text"
-                placeholder="Age"
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                onChange={(e) =>
-                    setUserInfo({ ...userInfo, age: e.target.value })
-                }
-            />
-        </div>
-        <div>
-            <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Country
-            </label>
-            <input
-                type="text"
-                placeholder="Country"
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                onChange={(e) =>
-                    setUserInfo({ ...userInfo, country: e.target.value })
-                }
-            />
-        </div>
-        <div>
-            <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Address 1
-            </label>
-            <input
-                type="text"
-                placeholder="Address 1"
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                onChange={(e) =>
-                    setUserInfo({ ...userInfo, address1: e.target.value })
-                }
-            />
-        </div>{" "}
-        <div>
-            <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Address 2
-            </label>
-            <input
-                type="text"
-                placeholder="Address 2"
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                onChange={(e) =>
-                    setUserInfo({ ...userInfo, address2: e.target.value })
-                }
-            />
-        </div>
+      
         <div>
             <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                 Email address
@@ -164,7 +81,7 @@ const EmployeeLogin = () => {
         </div>
         <button
             className="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-            onClick={"handleUserRegister"}
+            onClick={Login}
         >
             <span>Sign Up </span>
             <p>{message}</p>
@@ -183,6 +100,7 @@ const EmployeeLogin = () => {
         </button>
     </form>
     );
+
 };
 
 //! ================ export function ...  ===================================

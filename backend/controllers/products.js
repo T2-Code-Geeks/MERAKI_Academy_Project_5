@@ -399,6 +399,29 @@ const getAllOrderDetailsById = async (req, res) => {
     }
 }
 
+const createNewOrderDetails = async (req, res) => {
+    try {
+        const { user_id } = req.token;
+        let { order_items, paymentMethod, total } = req.body;
+        order_items = JSON.stringify(order_items);
+         
+        const result = await client.query(`INSERT INTO order_details (user_id, order_items, payment_method, total) VALUES ($1,$2,$3,$4) RETURNING *`, [user_id, order_items, paymentMethod, total]);
+        
+        await client.query(`UPDATE order_items SET is_deleted=1 WHERE user_id = $1`,[user_id])
+        res.json({
+            success: true,
+            result: result.rows[0]
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     createNewCategory,
     updateCategoryById,
@@ -415,4 +438,5 @@ module.exports = {
     updateStatus,
     newOrder,
     getAllOrderDetailsById,
+    createNewOrderDetails
 };

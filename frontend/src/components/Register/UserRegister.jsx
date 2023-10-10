@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Avatar } from "@mui/material";
-
 const UserRegister = () => {
     const { tokenUser } = useSelector((state) => state.auth);
     const navigate = useNavigate();
@@ -37,7 +36,6 @@ const UserRegister = () => {
             console.log(error.message);
         }
     };
-
     const clickInput = () => {
         imageInputRef.current.click();
     };
@@ -58,7 +56,7 @@ const UserRegister = () => {
             .catch((err) => console.log(err));
     };
 
-    return (
+    return (<>
         <form className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
             <div>
                 <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
@@ -184,7 +182,7 @@ const UserRegister = () => {
                 </svg>
             </button>
         </form>
-    );
+        </>);
 };
 
 export default UserRegister;

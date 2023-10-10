@@ -14,19 +14,23 @@ export const cart = createSlice({
         },
         updateItemById: (state, action) => {
             const updatedCart = action.payload;
-            state.cart = state.cart.map((item) => 
+            state.cart = state.cart.map((item) =>
                 item.id === updatedCart.id ? updatedCart : item
             );
         },
         deleteItemById: (state, action) => {
             state.cart = state.cart.filter((item) => item.id !== action.payload);
         },
-    },
+        clearCart: (state, action) => {
+            state.cart = [];
+        }
+    }
 });
 export const {
     setCart,
     addToCart,
     updateItemById,
     deleteItemById,
+    clearCart
 } = cart.actions;
 export default cart.reducer;
