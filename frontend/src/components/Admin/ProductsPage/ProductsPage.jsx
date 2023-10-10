@@ -15,7 +15,9 @@ const ProductsPage = () => {
   const [addProducts, setAddProducts] = useState({});
   const [updatedProduct, setUpdatedProduct] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(1);
+
   const [openAddProduct, setOpenAddProduct] = useState(false);
   const [openUpdateProduct, setOpenUpdateProduct] = useState(false);
   const [updateProductId, setUpdateProductId] = useState(null);
@@ -25,15 +27,20 @@ const ProductsPage = () => {
   const [categoryNames, setCategoryNames] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   useEffect(() => {
-    getAllProducts();
+    getAllProducts(currentPage);
     getAllCategory();
-  }, []);
+  }, [currentPage]);
   const dispatch = useDispatch();
-  const getAllProducts = async () => {
+  const getAllProducts = async (page) => {
     try {
-      const result = await axios.get("http://localhost:5000/products");
+      const result = await axios.get(
+        `http://localhost:5000/products?page=${page}`
+      );
       if (result.data.success) {
+        console.log(result);
         dispatch(setProducts(result.data.result));
+        setTotalProducts(result.data.totalItems)
+        setTotalPages(result.data.totalPages);
       }
     } catch (error) {
       console.log(error);
@@ -50,7 +57,6 @@ const ProductsPage = () => {
     }
   };
   const addNewProduct = async (e) => {
-
     if (!selectedCategory) {
       return;
     }
@@ -106,13 +112,6 @@ const ProductsPage = () => {
       }
     }
   };
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-  const paginate = (pageNumber) => setCurrentPage(currentProducts);
 
   const toggleAddProductsMenu = () => {
     setOpenAddProduct((pre) => !pre);
@@ -123,6 +122,17 @@ const ProductsPage = () => {
     setOpenUpdateProduct((pre) => !pre);
   };
 
+  const handlePreviousClick = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   return (
     <div className="container px-4 mx-auto">
       <div className="sm:flex sm:items-center sm:justify-between">
@@ -131,7 +141,7 @@ const ProductsPage = () => {
             All Products
           </h2>
           <span className="px-3 py-1 text-ms text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
-            {products.length}
+            {totalProducts}
           </span>
         </div>
         <div className="flex items-center mt-4 gap-x-3">
@@ -172,19 +182,19 @@ const ProductsPage = () => {
                       scope="col"
                       className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
-                      <span>price</span>
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                    >
                       <span>Category</span>
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
-                      <span>Status</span>
+                      <span>Quantity</span>
+                    </th>
+                    <th
+                      scope="col"
+                      className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                    >
+                      <span>price</span>
                     </th>
                     <th
                       scope="col"
@@ -225,7 +235,7 @@ const ProductsPage = () => {
                           {product?.category_name}
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          {product?.name}
+                          {product?.inventory_id}
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-green-600 whitespace-nowrap">
                           {product?.price}$
@@ -265,7 +275,7 @@ const ProductsPage = () => {
                               className="w-5 h-5"
                             >
                               <path
-                               strokeLinecap="round"
+                                strokeLinecap="round"
                                 strokeLinejoin="round"
                                 d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                               />
@@ -280,86 +290,54 @@ const ProductsPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between mt-6">
-        <a
-          href="#"
-          className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-5 h-5 rtl:-scale-x-100"
-          >
-            <path
-             strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-            />
-          </svg>
+      <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
+        <div class="text-sm text-gray-500 dark:text-gray-400">
+          Page
+          <span class="font-medium text-gray-700 dark:text-gray-100">
+            {currentPage} of {totalPages}
+          </span>
+        </div>
 
-          <span>previous</span>
-        </a>
-        {/* {Page Number } */}
-        <div className="flex items-center justify-between mt-6">
+        <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
           <a
-            href="#"
-            className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
+            onClick={handlePreviousClick}
+            class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth="1.5"
+              stroke-width="1.5"
               stroke="currentColor"
-              className="w-5 h-5 rtl:-scale-x-100"
+              class="w-5 h-5 rtl:-scale-x-100"
             >
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
               />
             </svg>
+
+            <span>previous</span>
           </a>
-          <div className="items-center hidden lg:flex gap-x-3">
-            {Array.from({
-              length: Math.ceil(products.length / productsPerPage),
-            }).map((_, index) => (
-              <a
-                key={index}
-                href="#"
-                className={`px-2 py-1 text-sm ${
-                  currentPage === index + 1 ? "text-blue-500" : "text-gray-500"
-                } rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100`}
-                onClick={() => paginate(index + 1)}
-              >
-                {index + 1}
-              </a>
-            ))}
-          </div>
+
           <a
-            href="#"
-            className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-            onClick={() => paginate(currentPage + 1)}
-            disabled={
-              currentPage === Math.ceil(products.length / productsPerPage)
-            }
+            onClick={handleNextClick}
+            class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
           >
+            <span>Next</span>
+
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth="1.5"
+              stroke-width="1.5"
               stroke="currentColor"
-              className="w-5 h-5 rtl:-scale-x-100"
+              class="w-5 h-5 rtl:-scale-x-100"
             >
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
               />
             </svg>
@@ -451,9 +429,7 @@ const ProductsPage = () => {
                 <select
                   id="category"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
-                  onChange={(e) => 
-                    setSelectedCategory(e.target.value)
-                  }
+                  onChange={(e) => setSelectedCategory(e.target.value)}
                   value={selectedCategory}
                 >
                   <option value="">Select a category</option>
@@ -467,13 +443,13 @@ const ProductsPage = () => {
                   htmlFor="productName"
                   className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
                 >
-                  Product inventory_ID
+                  Product Quantity
                 </label>
                 <input
                   type="text"
                   id="productName"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Enter product inventory_ID"
+                  placeholder="Enter product Quantity"
                   onChange={(e) =>
                     setAddProducts({
                       ...addProducts,
@@ -612,36 +588,43 @@ const ProductsPage = () => {
                   </div>
                   <div className="mb-4">
                     <label
-                      htmlFor="productName"
+                      htmlFor="category"
                       className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
                     >
-                      Product category_id
+                      Product Category
                     </label>
-                    <input
-                      type="text"
-                      id="productName"
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Enter product category_id"
-                      onChange={(e) =>
+                    <select
+                      id="category"
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => {
+                        console.log(e.target.value);
                         setUpdatedProduct({
                           ...updatedProduct,
                           category_id: e.target.value,
-                        })
-                      }
-                    />
+                        });
+                      }}
+                      value={selectedCategory}
+                    >
+                      <option value="">Select a category</option>
+                      {categoryNames.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="mb-4">
                     <label
                       htmlFor="productName"
                       className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
                     >
-                      Product inventory_ID
+                      Product Quantity
                     </label>
                     <input
                       type="text"
                       id="productName"
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Enter product inventory_ID"
+                      placeholder="Enter product Quantity"
                       onChange={(e) =>
                         setUpdatedProduct({
                           ...updatedProduct,

@@ -7,7 +7,7 @@ const messageHandler = (socket, io,clients,) => {
 const receiver = clients[data.to]?.socket_id
     data.success = true;
     socket.to(`room-`+data.to).emit("message", data);
-    socket.emit("message", data);
+    // socket.emit("message", data);
   });
 };
 
