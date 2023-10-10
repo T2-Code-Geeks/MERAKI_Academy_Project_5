@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import "./EmployeesCategory";
 import { setcategory } from "../../../service/redux/reducers/employeeSlice";
 import { useNavigate } from "react-router-dom";
+
+//!======================================= Category Employees ... ===============================================
 const CategoryEmployees = () => {
+
+    //!==============================================   
     useEffect(() => {
         Category();
     }, []);
@@ -16,6 +20,9 @@ const CategoryEmployees = () => {
             category: state.employee.category,
         };
     });
+
+    //!==============================================   
+
 
     const Category = async () => {
         try {
@@ -34,6 +41,8 @@ const CategoryEmployees = () => {
         }
     };
 
+    //!==============================================  
+
     return (
         <>
             {category &&
@@ -44,17 +53,19 @@ const CategoryEmployees = () => {
                                 key={category.id}
                                 onClick={() => {
                                     navigate(
-                                        `/employeeSByCategory/${category.id}`
-                                    );
+                                        `/employeeSByCategory/${category.id}`)
+
                                 }}
                             >
                                 {category.category}
                             </button>
                         </div>
-                    );
+                    )
                 })}
         </>
     );
 };
+
+//!============================================= export function ===================================================
 
 export default CategoryEmployees;

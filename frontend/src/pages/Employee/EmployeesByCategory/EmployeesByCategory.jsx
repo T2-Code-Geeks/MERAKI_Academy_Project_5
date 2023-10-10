@@ -4,26 +4,26 @@ import "./EmployeesByCategory.css";
 import { setEmployeeByCategory } from "../../../service/redux/reducers/employeeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-//!============================================================================================
+//!==================================== Employees By Category... ========================================================
 
 export const EmployeesByCategory = () => {
 
-  const [massege, setMassege] = useState("");
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const { employeeByCate } = useSelector((state) => {
-    return {
-      employeeByCate: state.employee.employeeByCate,
-    };
-  });
-  //!============================================================================================
+    const [massege, setMassege] = useState("");
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const { employeeByCate } = useSelector((state) => {
+        return {
+            employeeByCate: state.employee.employeeByCate,
+        };
+    });
 
+    //!=======================================================
 
     useEffect(() => {
         getEmployeeByCategory();
     }, []);
 
-    //!============================================================================================
+    //!=====================================================
 
     const getEmployeeByCategory = async () => {
         try {
@@ -43,8 +43,7 @@ export const EmployeesByCategory = () => {
         }
     };
 
-    //!============================================================================================
-
+    //!=====================================================
     return (
         <>
             {employeeByCate &&
@@ -60,5 +59,7 @@ export const EmployeesByCategory = () => {
         </>
     );
 };
+
+//!=========================================== export function ... =================================================
 
 export default EmployeesByCategory;
