@@ -145,7 +145,7 @@ const loginEmployee = (req, res) => {
           user_id: results.rows[0].user_id,
         };
         const options = {
-          expiresIn: "60m",
+          expiresIn: "600m",
         };
         const token = jwt.sign(payload, process.env.SECRET, options);
         res.status(200).json({
