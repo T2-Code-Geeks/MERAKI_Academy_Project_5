@@ -16,6 +16,7 @@ const NavBar = () => {
   const { tokenUser, userId } = useSelector((state) => state.auth);
   const { token } = useSelector((state) => state.employee);
 
+
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isDoubleDropdownOpen, setDoubleDropdownOpen] = useState(false);
 
@@ -234,6 +235,9 @@ const NavBar = () => {
     </div>
   </nav>
   );
+
+
+
 };
 
 export default NavBar;
