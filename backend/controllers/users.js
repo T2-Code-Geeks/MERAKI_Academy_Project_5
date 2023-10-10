@@ -322,7 +322,7 @@ const addToBasket = async (req, res) => {
         });
 
     }
-}
+
 
 const getUserBasket = async (req, res) => {
     try {
