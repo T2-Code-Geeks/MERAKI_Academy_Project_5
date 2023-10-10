@@ -24,6 +24,8 @@ import UserProfile from "../pages/User/UserProfile";
 import CategoryEmployees from "../pages/Employee/EmployeesCategory/EmployeesCategory";
 import EmployeesByCategory from "../pages/Employee/EmployeesByCategory/EmployeesByCategory";
 import Cart from "../pages/Products/cart/Cart";
+import Messages from "../components/Messages/Messages";
+
 
 
 export const router = createBrowserRouter([
@@ -112,6 +114,14 @@ export const router = createBrowserRouter([
                 element: <ProductsPage />,
                 
             },
+        
         ],
     },
+    
+        {
+            path: "chat",
+            element: <Messages />,
+            
+        },
+    
 ]);
