@@ -10,7 +10,7 @@ const Main = () => {
         <NavBar />
       </header>
       <main>
-        <section class="bg-white dark:bg-gray-900">
+        <section class="bg-white dark:bg-gray-700">
           <Outlet />
         </section>
       </main>

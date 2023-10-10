@@ -31,6 +31,7 @@ import Checkout from "../pages/Products/Checkout/Checkout";
 
 import Messages from "../components/Messages/Messages";
 import Home from "../pages/Home/Home";
+import Faq from "../components/FAQ/Faq";
 
 
 
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: "",
                 element: <Home />,
+            },
+            {
+                path: "faq",
+                element: <Faq />,
             },
             {
                 path: "login",
