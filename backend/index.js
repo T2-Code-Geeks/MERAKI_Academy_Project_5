@@ -33,26 +33,23 @@ app.use("*", (req, res) => res.status(404).json("NO content at this path"));
 
 
 // ! Socket.io
-const clients={}
 const server = http.createServer(app);
 const io = socket(server, { cors: { origin: "*" } });
+
+let clients={};
+
 
 io.use(socketAuth)
 
 io.on("connection", (socket) => {
-
-// socket.use((socket,next)=>{
-//   next();
-//   })
-
-console.log(socket.user);
-  const userID=socket.handshake.headers.user_id;
-  clients[userID]={socket_id:socket.id,userID};
-console.log(clients);
+console.log("a  connection");
+  const id=socket.handshake.headers.id;
+  clients[id]={socket_id:socket.id,id};
 
 
+// console.log("clients",clients);
 
-messageHandler(socket,io)
+messageHandler(socket,io,clients)
 
 
 socket.on("disconnect",()=>{
@@ -63,7 +60,7 @@ socket.on("disconnect",()=>{
       delete clients[key]
     }
   }
-  console.log(clients);
+  // console.log(clients);
 })
 
 
