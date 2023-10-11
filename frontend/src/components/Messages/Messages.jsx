@@ -31,12 +31,8 @@ const Messages = () => {
     });
   }, []);
   const sendMessage = (message) => {
-    // emit a `message` event with the value of the message
-    console.log(message);
     let user = employeeId || userId;
-    console.log(employeeId|| userId);
     let receiver = to[0] != user ? to[0] : to[1];
-    console.log(receiver);
     socket.current?.emit("message", {
       to: receiver,
       from: user,
@@ -45,31 +41,12 @@ const Messages = () => {
   };
   useEffect(() => {
     socket.current.on("message", (data) => {
-      console.log(data);
-      // alert(data)
       setMessages( [...messages,data.message]);
     });
     return () => socket.current.off("message");
   }, [messages,socket.current]);
 
 
-  // useEffect(() => {
-  //   socket.current.on("connection",()=>{
-  //     console.log(true);
-  //   })
-
-  //   socket.current.on("disconnect",()=>{
-  //     console.log(false);
-  //   })
-  // }, [])
-
-  // useEffect(() => {
-  //  socket.current.emit("addUser",userId)
-  // socket.current.on("getClients",clients=>{
-  //   console.log(clients);
-  // })
-
-  // }, [userId||employeeId])
 
   useEffect(() => {
     getConversationById();
@@ -147,7 +124,6 @@ const Messages = () => {
             headers: { Authorization: `Bearer ${tokenUser}` },
           }
         );
-        console.log(res.data);
         setMessages([...messages, res.data.result]);
         setNewMessage("");
         sendMessage(res.data.result);
@@ -175,7 +151,6 @@ const Messages = () => {
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-  console.log(messages);
 
   return (
     <div className="flex h-screen antialiased text-gray-800">

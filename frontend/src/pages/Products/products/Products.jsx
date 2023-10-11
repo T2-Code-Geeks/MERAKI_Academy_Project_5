@@ -10,9 +10,6 @@ const Products = () => {
   const { tokenUser } = useSelector((state) => state.auth);
   const [message, setMessage] = useState("");
   const [productId, setProductId] = useState("");
-  // const filteredProducts=(cat)=>{
-  // const updated=result.category.filter((x)=>x.category===cat)
-  // }
   const [isDarkMode, setIsDarkMode] = useState(true);
   const addToCart = async (product_id) => {
     try {
@@ -84,7 +81,7 @@ const Products = () => {
                       className={`mt-4 bg-blue-500 text-white font-medium rounded-md px-4 py-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300`}
                     >
                       Add to Cart
-                    </button>
+                    </button>   {product.id&&message}
                   </div>
                 ))}
               </div>

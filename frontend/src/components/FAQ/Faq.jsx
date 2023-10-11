@@ -43,9 +43,9 @@ const Faq = () => {
                       stroke="currentColor"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d={faq.isOpen ? 'M6 18L18 6' : 'M18 12H6'}
                       />
                     </svg>
