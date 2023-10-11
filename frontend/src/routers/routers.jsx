@@ -34,7 +34,6 @@ import Home from "../pages/Home/Home";
 import Faq from "../components/FAQ/Faq";
 import Contact from "../components/Contact/Contact";
 import EmployeeLayout from "../layouts/Employee/EmployeeLayout";
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -147,7 +146,7 @@ export const router = createBrowserRouter([
         element: <ProfileEmployee />,
       },
       {
-        path: "chat",
+        path: "dashboard/chat",
         element: <Messages />,
       },
     ],

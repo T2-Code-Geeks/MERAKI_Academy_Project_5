@@ -29,6 +29,7 @@ const EmployeeLogin = () => {
         setMessage("");
         dispatch(setLogin(result.data.token));
         dispatch(setEmployeeId(result.data.employee_id));
+      
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -43,7 +44,7 @@ const EmployeeLogin = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      navigate("/dashboard");
     }
   }, [token]);
 

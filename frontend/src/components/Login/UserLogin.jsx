@@ -107,8 +107,8 @@ const UserLogin = () => {
             />
           </svg>
         </button>
-      
-      <GoogleOAuthProvider clientId="641945516994-pkvagvgme5fuv6usoigotsh4dki5a9fs.apps.googleusercontent.com">
+      <br/>
+      <GoogleOAuthProvider  clientId="641945516994-pkvagvgme5fuv6usoigotsh4dki5a9fs.apps.googleusercontent.com">
         <GoogleLogin
           onSuccess={(credentialResponse) => {
             const user = decodeToken(credentialResponse.credential);
