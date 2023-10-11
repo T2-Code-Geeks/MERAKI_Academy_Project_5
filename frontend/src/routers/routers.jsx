@@ -32,6 +32,7 @@ import Checkout from "../pages/Products/Checkout/Checkout";
 import Messages from "../components/Messages/Messages";
 import Home from "../pages/Home/Home";
 import Faq from "../components/FAQ/Faq";
+import Contact from "../components/Contact/Contact";
 
 
 
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path: "faq",
                 element: <Faq />,
+            },
+            {
+                path: "contact",
+                element: <Contact />,
             },
             {
                 path: "login",
