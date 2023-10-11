@@ -72,12 +72,12 @@ const ProfileEmployee = () => {
             id: employee.id,
             firstname: firstname || employee.firstname,
             lastname: lastname || employee.lastname,
-            // description,
-            // work_hours,
+            description:description || employee.description,
+            work_hours:work_hours || employee.work_hours,
             country: country || employee.country,
-            // category_id,
-            // img,
-            // age,
+            category_id: category_id|| employee.category_id,
+            img: img ||employee.img,
+            age:age||employee.age,
           })
         );
       }
