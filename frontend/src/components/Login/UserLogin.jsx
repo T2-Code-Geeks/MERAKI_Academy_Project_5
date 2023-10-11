@@ -5,7 +5,6 @@ import axios from "axios";
 import { setLogin, setUserId } from "../../service/redux/reducers/authSlice";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
-import LoginPage from "../../pages/LoginPage/LoginPage";
 import { decodeToken } from "react-jwt";
 
 const UserLogin = () => {
@@ -92,7 +91,7 @@ const UserLogin = () => {
           className="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
           onClick={loginHandle}
         >
-          <span>Sign Up </span>
+          <span>Sign In </span>
           <p>{message}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
