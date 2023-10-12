@@ -171,7 +171,7 @@ INSERT INTO product_inventory (quantity) VALUES (10),
     (15),
     (8);
 INSERT INTO product_category (name, description) VALUES
-    ('‘عدة نجارة', 'Category 1 Description'),
+    (' نجارة', 'Category 1 Description'),
     ('عدة حدادة', 'Category 2 Description'),
     ('عدة كهربائي', 'Category 3 Description');
 
