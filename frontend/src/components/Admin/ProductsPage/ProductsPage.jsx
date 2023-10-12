@@ -290,18 +290,18 @@ const ProductsPage = () => {
           </div>
         </div>
       </div>
-      <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
-        <div class="text-sm text-gray-500 dark:text-gray-400">
+      <div className="mt-6 sm:flex sm:items-center sm:justify-between ">
+        <div className="text-sm text-gray-500 dark:text-gray-400">
           Page
-          <span class="font-medium text-gray-700 dark:text-gray-100">
+          <span className="font-medium text-gray-700 dark:text-gray-100">
             {currentPage} of {totalPages}
           </span>
         </div>
 
-        <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
+        <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
           <a
             onClick={handlePreviousClick}
-            class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+            className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -309,7 +309,7 @@ const ProductsPage = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              class="w-5 h-5 rtl:-scale-x-100"
+              className="w-5 h-5 rtl:-scale-x-100"
             >
               <path
                 strokeLinecap="round"
@@ -323,7 +323,7 @@ const ProductsPage = () => {
 
           <a
             onClick={handleNextClick}
-            class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+            className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
           >
             <span>Next</span>
 
@@ -333,7 +333,7 @@ const ProductsPage = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              class="w-5 h-5 rtl:-scale-x-100"
+              className="w-5 h-5 rtl:-scale-x-100"
             >
               <path
                 strokeLinecap="round"
