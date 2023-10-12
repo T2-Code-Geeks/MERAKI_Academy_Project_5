@@ -3,38 +3,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { setCart, updateItemById } from "../../../service/redux/reducers/cart";
 import { useDispatch } from "react-redux";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { deleteItemById } from "../../../service/redux/reducers/cart";
 import { NavLink } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-const products = [
-    {
-        id: 1,
-        name: "Throwback Hip Bag",
-        href: "#",
-        color: "Salmon",
-        price: "$90.00",
-        quantity: 1,
-        imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-        imageAlt:
-            "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-    },
-    {
-        id: 2,
-        name: "Medium Stuff Satchel",
-        href: "#",
-        color: "Blue",
-        price: "$32.00",
-        quantity: 1,
-        imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-        imageAlt:
-            "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-    },
-    // More products...
-];
 const Cart = ({ open, setOpen }) => {
     const dispatch = useDispatch();
     const { tokenUser } = useSelector((state) => state.auth);
@@ -42,7 +14,6 @@ const Cart = ({ open, setOpen }) => {
 
     const [buttonBoolean, setButtonBoolean] = useState(true);
     const [sum, setSum] = useState(0);
-
     useEffect(() => {
         if (tokenUser) {
             getBasket();
