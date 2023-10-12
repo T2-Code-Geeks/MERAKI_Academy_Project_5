@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { setCart, updateItemById } from "../../../service/redux/reducers/cart";
 import { useDispatch } from "react-redux";
 import { deleteItemById } from "../../../service/redux/reducers/cart";
-import { NavLink } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 const Cart = ({ open, setOpen }) => {
@@ -147,7 +146,7 @@ const Cart = ({ open, setOpen }) => {
                                                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                                     <img
                                                                         src={
-                                                                            product.imageSrc
+                                                                            product.img
                                                                         }
                                                                         alt={
                                                                             product.imageAlt
