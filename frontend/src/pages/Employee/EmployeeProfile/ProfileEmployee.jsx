@@ -30,13 +30,13 @@ const ProfileEmployee = () => {
   const navigate = useNavigate();
 
 
-    //!========================================================
+  //!========================================================
 
-    useEffect(() => {
-        profile();
-    }, []);
+  useEffect(() => {
+    profile();
+  }, []);
 
-    //!========================================================
+  //!========================================================
 
   const profile = async () => {
     try {
@@ -72,12 +72,12 @@ const ProfileEmployee = () => {
             id: employee.id,
             firstname: firstname || employee.firstname,
             lastname: lastname || employee.lastname,
-            description:description || employee.description,
-            work_hours:work_hours || employee.work_hours,
+            description: description || employee.description,
+            work_hours: work_hours || employee.work_hours,
             country: country || employee.country,
-            category_id: category_id|| employee.category_id,
-            img: img ||employee.img,
-            age:age||employee.age,
+            category_id: category_id || employee.category_id,
+            img: img || employee.img,
+            age: age || employee.age,
           })
         );
       }
@@ -89,8 +89,99 @@ const ProfileEmployee = () => {
   //!========================================================
 
   return (
-    
-  <main className="profile-page">
+    <>
+      {employee && (
+        <div>
+          <p>Employee Profile</p>
+          <img src={`${img}`}></img>
+          <p>Employee Name : {employee.firstname}</p>
+          <p>Last Name : {employee.lastname}</p>
+          <p> Discription :{employee.description}</p>
+          <p> Works Hours :{employee.work_hours}</p>
+          <p>country: {employee.country}</p>
+          <p>Age : {employee.age}</p>
+
+          First Name:
+          <input
+            type="text"
+            placeholder={employee.firstname}
+            onChange={(e) => {
+              setFirstName(e.target.value);
+            }}
+          />
+          Last Name :
+          <input
+            type="text"
+            placeholder={employee.lastname}
+            onChange={(e) => {
+              setLastName(e.target.value);
+            }}
+          />
+          Discription :
+          <input
+            type="text"
+            placeholder={employee.description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+          />
+          Works Hours:
+          <input
+            type="text"
+            placeholder={employee.work_hours}
+            onChange={(e) => {
+              setWork_hours(e.target.value);
+            }}
+          />
+
+          Country :
+          <input
+            type="text"
+            placeholder={employee.country}
+            onChange={(e) => {
+              setCountry(e.target.value);
+            }}
+          />
+          Age :
+          <input
+            type="text"
+            placeholder={employee.age}
+            onChange={(e) => {
+              setAge(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              updateProfile()
+            }}
+          >
+            {" "}
+            Update Profile
+          </button>
+          <button
+            onClick={(e) => {
+              navigate("/");
+            }}
+          >
+            {" "}
+            Back to main{" "}
+          </button>
+        </div>
+      )}
+    </>
+
+  );
+};
+
+//!============================================= Export function ... ===================================================
+
+export default ProfileEmployee;
+
+
+
+
+
+{/* <main className="profile-page">
   <section className="relative block h-500-px">
     <div className="absolute top-0 w-full h-full bg-center bg-cover" style={{
       backgroundImage: "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')"
@@ -178,63 +269,4 @@ const ProfileEmployee = () => {
       </div>
     </footer>
   </section>
-</main>   
-  );
-};
-
-//!============================================= Export function ... ===================================================
-
-export default ProfileEmployee;
-
-
-
-{/* <>
-{employee && (
-  <div>
-    <p>Employee Profile</p>
-    <p>Employee Name : {employee.firstname}</p>
-    <p>Last Name : {employee.lastname}</p>
-    <p>country: {employee.country}</p>
-    First Name:
-    <input
-      type="text"
-      placeholder={employee.firstname}
-      onChange={(e) => {
-        setFirstName(e.target.value);
-      }}
-    />
-    Last Name :
-    <input
-      type="text"
-      placeholder={employee.lastname}
-      onChange={(e) => {
-        setLastName(e.target.value);
-      }}
-    />
-    Country :
-    <input
-      type="text"
-      placeholder={employee.country}
-      onChange={(e) => {
-        setCountry(e.target.value);
-      }}
-    />
-    <button
-      onClick={() => {
-        updateProfile()
-      }}
-    >
-      {" "}
-      Update Profile
-    </button>
-    <button
-      onClick={(e) => {
-        navigate("/");
-      }}
-    >
-      {" "}
-      Back to main{" "}
-    </button>
-  </div>
-)}
-</> */}
+</main>    */}

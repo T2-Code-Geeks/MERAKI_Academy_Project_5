@@ -38,6 +38,9 @@ export const employeeSlice = createSlice({
         firstname: action.payload.firstname,
         lastname: action.payload.lastname,
         country: action.payload.country,
+        description:action.payload.description,
+        work_hours:action.payload.work_hours,
+        age:action.payload.age
       };
       state.employee = updatedUser;
       return state;
