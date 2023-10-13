@@ -50,6 +50,19 @@ const Products = () => {
         }
     };
 
+    const getProductByCatgegory = async (categoryId) => {
+        try {
+            const result = await axios.get(
+                `http://localhost:5000/products/category/products/${categoryId}`
+            );
+            if (result.data.success) {
+                setResult(result.data.result);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     const addToCart = async (product_id) => {
         try {
             if (!tokenUser) {
@@ -124,18 +137,21 @@ const Products = () => {
                                 All Categories
                             </button>
                         </li>
-                        { categories && categories.map((cats) => {
-                            return (
-                                <li key={cats.id}>
-                                    <button
-                                        onClick={getAllProducts}
-                                        className="block px-14 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    >
-                                        {cats.name}
-                                    </button>
-                                </li>
-                            );
-                        })}
+                        {categories &&
+                            categories.map((cats) => {
+                                return (
+                                    <li key={cats.id}>
+                                        <button
+                                            onClick={() => {
+                                                getProductByCatgegory(cats.id);
+                                            }}
+                                            className="block px-14 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        >
+                                            {cats.name}
+                                        </button>
+                                    </li>
+                                );
+                            })}
                     </ul>
                 </div>
             </div>
