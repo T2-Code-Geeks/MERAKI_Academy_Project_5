@@ -19,8 +19,8 @@ const {
 userRouter.post("/", userRegister);
 userRouter.post("/login", userLogin);
 userRouter.put("/:id", UpdateUserById);
-userRouter.delete("/:id", authentication, deleteUserById);
-userRouter.get("/", authentication, getAllUsers);
+userRouter.delete("/:id",  deleteUserById);
+userRouter.get("/", getAllUsers);
 userRouter.get("/:id", getUserById);
 userRouter.post("/basket", authentication, addToBasket);
 userRouter.get("/basket/get", authentication, getUserBasket);

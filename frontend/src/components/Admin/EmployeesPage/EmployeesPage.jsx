@@ -1,32 +1,15 @@
 import axios from "axios";
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import {
-  addProduct,
-  deleteProductById,
-  setProducts,
-  updateProductById,
-} from "../../../service/redux/reducers/productSlice";
 import { setEmployee ,deleteEmployee} from "../../../service/redux/reducers/employeeSlice";
 
 const EmployeesPage = () => {
 
     const { employee } = useSelector((state) => state.employee);
-    const [addProducts, setAddProducts] = useState({});
-    const [updatedProduct, setUpdatedProduct] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalProducts, setTotalProducts] = useState(1);
-  
-    const [openAddProduct, setOpenAddProduct] = useState(false);
-    const [openUpdateProduct, setOpenUpdateProduct] = useState(false);
-    const [updateProductId, setUpdateProductId] = useState(null);
-    const [showConfirmation, setShowConfirmation] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [productToDeleteId, setProductToDeleteId] = useState(null);
-    const [categoryNames, setCategoryNames] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState("");
     useEffect(() => {
         getAllEmployee(currentPage);
   
@@ -38,10 +21,7 @@ const EmployeesPage = () => {
           `http://localhost:5000/employees`
         );
         if (result.data.success) {
-          console.log(result);
           dispatch(setEmployee(result.data.result));
-          setTotalProducts(result.data.totalItems)
-          setTotalPages(result.data.totalPages);
         }
       } catch (error) {
         console.log(error);
@@ -93,7 +73,7 @@ const EmployeesPage = () => {
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex">
             <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-              All Products
+              All Employees
             </h2>
             <span className="px-3 py-1 text-ms text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
               {employee.length}
@@ -130,7 +110,7 @@ const EmployeesPage = () => {
                         scope="col"
                         className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
-                        <span>Category</span>
+                        <span>Country</span>
                       </th>
                       <th
                         scope="col"
@@ -163,11 +143,12 @@ const EmployeesPage = () => {
                                 className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
                               />
                               <div className="flex items-center gap-x-2">
-                                <img
+                            { emp.img?   <img
                                   className="object-cover w-10 h-10 rounded-full"
                                   src={emp.img}
                                   alt=""
-                                />
+                                />:<img  className="object-cover w-10 h-10 rounded-full"
+                                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"/>}
                                 <div>
                                   <h2 className="font-medium text-gray-800 dark:text-white">
                                     {emp?.firstname} {emp?.lastname}
@@ -177,7 +158,7 @@ const EmployeesPage = () => {
                             </div>
                           </td>
                           <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                            {emp?.description}
+                            {emp.description?emp.description:"No Description Yet"}
                           </td>
                           <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             {emp?.country}
@@ -220,18 +201,18 @@ const EmployeesPage = () => {
             </div>
           </div>
         </div>
-        <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
-          <div class="text-sm text-gray-500 dark:text-gray-400">
+        <div className="mt-6 sm:flex sm:items-center sm:justify-between ">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
             Page
-            <span class="font-medium text-gray-700 dark:text-gray-100">
+            <span className="font-medium text-gray-700 dark:text-gray-100">
               {currentPage} of {totalPages}
             </span>
           </div>
   
-          <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
+          <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
             <a
               onClick={handlePreviousClick}
-              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+              className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -239,7 +220,7 @@ const EmployeesPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-5 h-5 rtl:-scale-x-100"
+                className="w-5 h-5 rtl:-scale-x-100"
               >
                 <path
                   strokeLinecap="round"
@@ -253,7 +234,7 @@ const EmployeesPage = () => {
   
             <a
               onClick={handleNextClick}
-              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+              className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
             >
               <span>Next</span>
   
@@ -263,7 +244,7 @@ const EmployeesPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-5 h-5 rtl:-scale-x-100"
+                className="w-5 h-5 rtl:-scale-x-100"
               >
                 <path
                   strokeLinecap="round"

@@ -5,6 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import "./NavBar.css"
 const navigation = [
   { name: 'Dashboard', to: '/admin', current: true },
+  { name: 'Users', to: '/admin/users', current: false },
   { name: 'Employee Categories', to: '/admin/employeeCategories', current: false },
   { name: 'Employee', to: '/admin/employees', current: false },
   { name: 'Products Categories', to: '/admin/productsCategories', current: false },
