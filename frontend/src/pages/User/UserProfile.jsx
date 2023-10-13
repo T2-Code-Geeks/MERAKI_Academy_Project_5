@@ -15,8 +15,14 @@ const UserProfile = () => {
     const [userInfo, setUserInfo] = useState("");
 
     const profileInfo = async () => {
-        const result = await axios.get(`http://localhost:5000/users/${id}`);
-        setUserInfo(result.data.result);
+        try {
+            const result = await axios.get(`http://localhost:5000/users/${id}`);
+            if (result.data.success) {
+                setUserInfo(result.data.result);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     useEffect(() => {
@@ -25,12 +31,14 @@ const UserProfile = () => {
         } else {
             navigate("/login");
         }
-    },[tokenUser]);
-
+    }, [tokenUser]);
 
     const handleUpdate = async () => {
         try {
-            const updatedInfo = await axios.put(`http://localhost:5000/users/${userId}`, userInfo);
+            const updatedInfo = await axios.put(
+                `http://localhost:5000/users/${userId}`,
+                userInfo
+            );
             setUserInfo(updatedInfo.data.result);
             setUpdating(false);
         } catch (error) {

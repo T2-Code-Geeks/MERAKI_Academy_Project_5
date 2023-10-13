@@ -10,8 +10,6 @@ export const productsLoader = async () => {
 }
 
 export const categoriesLoader = async () => {
-
-
     const result = axios.get("http://localhost:5000/products/category")
         .then(res => {
 

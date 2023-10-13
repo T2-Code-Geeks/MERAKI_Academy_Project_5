@@ -332,7 +332,7 @@ const getProductsByCategory = (req, res) => {
             res.status(500).json({
                 success: false,
                 message: "Server error",
-                err: err,
+                err: err.message,
             });
         });
 };
