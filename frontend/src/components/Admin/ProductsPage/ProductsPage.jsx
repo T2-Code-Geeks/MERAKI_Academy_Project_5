@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Await, useLoaderData } from "react-router";
-import { Link } from "react-router-dom";
+
 import {
   addProduct,
   deleteProductById,

@@ -4,11 +4,11 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import "./NavBar.css"
 const navigation = [
-  { name: 'Dashboard', href: '/admin', current: true },
-  { name: 'Employee Categories', href: '/admin/employeeCategories', current: false },
-  { name: 'Employee', href: '/admin/employees', current: false },
-  { name: 'Products Categories', href: '/admin/productsCategories', current: false },
-  { name: 'Products ', href: '/admin/products', current: false },
+  { name: 'Dashboard', to: '/admin', current: true },
+  { name: 'Employee Categories', to: '/admin/employeeCategories', current: false },
+  { name: 'Employee', to: '/admin/employees', current: false },
+  { name: 'Products Categories', to: '/admin/productsCategories', current: false },
+  { name: 'Products ', to: '/admin/products', current: false },
 ]
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -16,10 +16,10 @@ function classNames(...classes) {
 const NavBar = () => {
   return (
     <nav>
-<Disclosure as="nav" className="bg-gray-800">
+<Disclosure as="nav" className="bg-gray-800 ">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -33,7 +33,7 @@ const NavBar = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start ">
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
@@ -44,9 +44,9 @@ const NavBar = () => {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <NavLink
                         key={item.name}
-                        href={item.href}
+                        to={item.to}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -54,7 +54,7 @@ const NavBar = () => {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </NavLink>
                     ))}
                   </div>
                 </div>
@@ -135,7 +135,7 @@ const NavBar = () => {
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  href={item.href}
+                  to={item.to}
                   className={classNames(
                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block rounded-md px-3 py-2 text-base font-medium'
