@@ -16,6 +16,8 @@ const NavBar = () => {
     const { tokenUser, userId } = useSelector((state) => state.auth);
     const [open, setOpen] = useState(false);
 
+    
+
     return (
         <>
             <nav className="bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-600">
