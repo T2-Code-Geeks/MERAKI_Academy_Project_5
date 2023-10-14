@@ -13,6 +13,7 @@ const Messages = () => {
   const [to, setTo] = useState([]);
   const scroll = useRef();
   const socket = useRef();
+  const [info, setInfo] = useState({})
 
   const { token, userId, employeeId, tokenUser } = useSelector((state) => {
     return {
@@ -50,6 +51,7 @@ const Messages = () => {
 
   useEffect(() => {
     getConversationById();
+    handelUserInfo()
   }, [token]);
 
   const getConversationById = async () => {
@@ -152,6 +154,41 @@ const Messages = () => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+const handelUserInfo=async()=>{
+  if (userId) {
+    try {
+      const result = await axios.get(
+        `http://localhost:5000/users/${userId}`
+      );
+      if (result.data) {
+        console.log(result.data);
+        setInfo(result.data.result)
+      } else throw Error;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        console.log(error);
+      }
+      
+  }
+  }
+  if (employeeId) {
+    try {
+      const result = await axios.get(
+        `http://localhost:5000/employees/${employeeId}`
+      );
+      if (result.data) {
+        console.log(result.data);
+
+        setInfo(result.data.result)
+      } else throw Error;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        console.log(error);
+      }
+      
+  }
+}
+}
   return (
     <div className="flex h-screen antialiased text-gray-800">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
@@ -178,13 +215,13 @@ const Messages = () => {
           <div className="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
             <div className="h-20 w-20 rounded-full border overflow-hidden">
               <img
-                src="https://avatars3.githubusercontent.com/u/2763884?s=128"
+                src={info?.img?info.img:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
                 alt="Avatar"
                 className="h-full w-full"
               />
             </div>
-            <div className="text-sm font-semibold mt-2">Aminos Co.</div>
-            <div className="text-xs text-gray-500">Lead UI/UX Designer</div>
+            <div className="text-sm font-semibold mt-2">{info?.firstname}</div>
+            <div className="text-xs text-gray-500">{info?.lastname}</div>
             <div className="flex flex-row items-center mt-3">
               <div className="flex flex-col justify-center h-4 w-8 bg-indigo-500 rounded-full">
                 <div className="h-3 w-3 bg-white rounded-full self-end mr-1"></div>
@@ -328,4 +365,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default Messages
