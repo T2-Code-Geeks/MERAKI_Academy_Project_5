@@ -36,7 +36,6 @@ const ProductsPage = () => {
         `http://localhost:5000/products?page=${page}`
       );
       if (result.data.success) {
-        console.log(result);
         dispatch(setProducts(result.data.result));
         setTotalProducts(result.data.totalItems)
         setTotalPages(result.data.totalPages);

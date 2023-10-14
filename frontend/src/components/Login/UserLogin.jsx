@@ -25,7 +25,6 @@ const UserLogin = () => {
                 "http://localhost:5000/users/login/Google",
                 userInfo
             );
-            console.log(result.data);
             if (result.data.success) {
                 setMessage("Account Created");
                 setTimeout(() => {
