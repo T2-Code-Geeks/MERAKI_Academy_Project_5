@@ -218,35 +218,32 @@ const Messages = () => {
         <div className="flex flex-col flex-auto h-full p-6">
           {currentChat ? (
         <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
-        <div className="flex flex-col h-full overflow-x-auto mb-4 ">
-          {messages.map((message, index) => (
-            <div
-              ref={scroll}
-              key={index}
-              className={`${
-                message?.sender === userId || message?.sender === employeeId
-                  ? "col-start-1 col-end-8 p-3 rounded-lg"
-                  : "col-start-6 col-end-13 p-3 rounded-lg"
-              }`}
-            >
-              <div className="flex flex-row items-center ">
-                <div className={`flex items-center justify-center h-10 w-10 rounded-full ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500" : "bg-indigo-100"} flex-shrink-0`}>
-                  {message?.sender === userId || message?.sender === employeeId
-                    ? "You"
-                    : "Other"}
-                </div>
-                <div
-                  className={`relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl ${
-                    message?.sender === userId || message?.sender === employeeId
-                      ? "bg-indigo-500 text-gray-800"
-                      : "bg-indigo-100 text-gray-800"
-                  }`}
-                >
-                  <div>{message.text}</div>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="flex flex-col h-full overflow-x-auto mb-4 max-h-[calc(100%-4rem)] overflow-y-auto min-h-[4rem]">
+        {messages.map((message, index) => (
+  <div
+    ref={scroll}
+    key={index}
+    className={`${
+      message?.sender === userId || message?.sender === employeeId
+        ? "col-start-1 col-end-8 p-3 rounded-lg ml-auto"
+        : "col-start-6 col-end-13 p-3 rounded-lg"
+    }`}
+  >
+    <div className="flex flex-row items-center">
+      <div className={`flex items-center justify-center h-10 w-10 rounded-full ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500" : "bg-indigo-100"} flex-shrink-0`}>
+        {message?.sender === userId || message?.sender === employeeId
+          ? "You"
+          : "Other"}
+      </div>
+      <div
+        className={`relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500 text-gray-800" : "bg-indigo-100 text-gray-800"}`}
+      >
+        <div>{message.text}</div>
+      </div>
+    </div>
+  </div>
+))}
+
           <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4  ">
             <div >
               <button className="flex items-center justify-center text-gray-400 hover:text-gray-600">
