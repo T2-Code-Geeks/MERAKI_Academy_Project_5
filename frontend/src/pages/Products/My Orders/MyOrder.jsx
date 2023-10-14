@@ -42,7 +42,7 @@ const MyOrder = () => {
                             <th className="p-3">Items</th>
                             <th className="p-3">Shipping Date</th>
                             <th className="p-3 text-right">Total Amount</th>
-                            <th className="p-3">Status</th>
+                            <th className="p-3 text-right">Status</th>
                         </tr>
                     </thead>
                     
@@ -52,22 +52,16 @@ const MyOrder = () => {
                                     <tbody key={order.id}>
                                         <tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900">
                                             <td className="p-3">
-                                                <p>97412378923</p>
+                                                <p>{ order.id }</p>
                                             </td>
                                             <td className="p-3">
-                                                <p>14 Jan 2022</p>
-                                                <p className="dark:text-gray-400">
-                                                    Friday
-                                                </p>
+                                                <p>Order Items</p>
                                             </td>
                                             <td className="p-3">
-                                                <p>01 Feb 2022</p>
-                                                <p className="dark:text-gray-400">
-                                                    Tuesday
-                                                </p>
+                                                <p>{ order.shipping_date.split("T")[0] }</p>
                                             </td>
                                             <td className="p-3 text-right">
-                                                <p>$15,792</p>
+                                                <p>${order.total }</p>
                                             </td>
                                             <td className="p-3 text-right">
                                                 <span className="px-3 py-1 font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900">
