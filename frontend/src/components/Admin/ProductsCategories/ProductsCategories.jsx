@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addCategory,
-  deleteCategoryById,
-  setCategory,
-  updateCategoryById,
+    addCategory,
+    deleteCategoryById,
+    setCategory,
+    updateCategoryById,
 } from "../../../service/redux/reducers/productSlice";
 
 const ProductsCategories = () => {
+
   const { category } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const [addCategoryState, setAddCategoryState] = useState({});
@@ -30,16 +31,20 @@ useEffect(()=>{
   getAllCategory()
 },[])
 
-  const getAllCategory = async () => {
-    try {
-      const result = await axios.get("http://localhost:5000/products/category");
-      if (result.data.success) {
-        dispatch(setCategory(result.data.result));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+    const getAllCategory = async () => {
+        try {
+            const result = await axios.get(
+                "http://localhost:5000/products/category"
+            );
+            if (result.data.success) {
+                dispatch(setCategory(result.data.result));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
   const addNewCategory = async (e) => {
     e.preventDefault();

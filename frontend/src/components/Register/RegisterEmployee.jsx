@@ -36,6 +36,7 @@ const RegisterEmployee = () => {
 
       if (result.data) {
         setMessage(result.data.message);
+        navigate("/login");
       } else {
         throw Error;
       }
