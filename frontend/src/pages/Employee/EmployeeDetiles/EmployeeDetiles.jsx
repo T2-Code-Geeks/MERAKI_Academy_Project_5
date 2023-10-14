@@ -21,11 +21,11 @@ const EmployeeDetails = () => {
   const [show, setShow] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { userId, comments, token } = useSelector((state) => {
+  const { userId, comments, tokenUser } = useSelector((state) => {
     return {
       userId: state.auth.userId,
       comments: state.employee.comments,
-      token: state.employee.token,
+      tokenUser: state.auth.tokenUser,
     };
   });
 
@@ -67,7 +67,7 @@ const EmployeeDetails = () => {
         commentss,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenUser}`,
           },
         }
       );

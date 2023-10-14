@@ -167,22 +167,42 @@ INSERT INTO role_permission (role_id, permission_id) VALUES
     (3, 4),
     (3, 5);
     
-INSERT INTO product_inventory (quantity) VALUES (10),
+INSERT INTO product_inventory (quantity) VALUES 
+    (10),
     (15),
     (8);
 INSERT INTO product_category (name, description) VALUES
-    ('Electrical', 'Category 1 Electrical'),
-    ('Carpentry', 'Category 2 Carpentry'),
-    ('Metal Works', 'Category 3 Metal Works');
+    ('Electrical Equipment', 'Equipments related to workshops, such as extending electricity and installing lighting'),
+    ('Construction Equipment', 'Equipment that assists in construction and restoration operations'),
+    ('Water expansion equipment', 'Tools used to extend water lines to all parts of the building');
+    ('Public safety equipment', 'Equipment that protects the craftsman from work hazards'),
+  
 
 
 INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES
-    ('Product 1', 'Description for Product 1', 'img1.jpg', 20, 1, 1),
-    ('Product 2', 'Description for Product 2', 'img2.jpg', 25, 3, 2),
-    ('Product 3', 'Description for Product 3', 'img3.jpg', 30, 2, 3);
-
+    ('Pliers', 'Most frequently referred to as cutting pliers or lineman’s pliers are a staple on any electrical technician’s tool kit. They are primarily utilized for cutting wire', 'https://tse2.mm.bing.net/th?id=OIP.12Sdg6v34pSEqne_XovimwHaHa&pid=Api&P=0&h=220', 12, 1, 1),
+    ('Screwdrivers', 'Electrical experts utilize different top-notch insulated screwdrivers, or a screwdriver set', 'https://tse4.mm.bing.net/th?id=OIP.hjJwPQbZ5X-0ZO_nBHKOjgHaHa&pid=Api&P=0&h=220', 24, 1, 2),
+    ('Tape Measure', 'While working with wiring, it’s crucial to know definite measurements while cutting and stripping. A simple retractable measuring tape gets the job done', 'https://tse3.mm.bing.net/th?id=OIP.hbOz5atgfMRaBeFnmBleDAHaGX&pid=Api&P=0&h=220', 30, 1, 3);
+    ('Electrical Tape', 'It is made from plastic, vinyl, or fiberglass fabric, this sticky material is pressure-sensitive and essential for insulating wires or different materials that conduct electricity.', 'https://tse1.mm.bing.net/th?id=OIP.pLsdLZfpQJZ2N8IF9I7hcQAAAA&pid=Api&P=0&h=220', 22, 1, 1),
+    ('Cable Ties', 'They are also known as zip ties; these inexpensive fasteners are fundamental tools for binding electrical cables or wires together.', 'https://tse1.mm.bing.net/th?id=OIP.9fR45AVPlA5ecyuj2lWg6gHaHa&pid=Api&P=0&h=220', 24, 1, 2),
+    ('Electric Drills', 'Electrical technicians consistently put in new lighting fixtures or need to dismantle installed hardware to access wiring and other electrical parts.', 'https://tse1.mm.bing.net/th?id=OIP.LAM0x4cDR7niTlm4mynRWQHaHa&pid=Api&P=0&h=220', 40, 1, 3);
+     ('Wire/Cable Lugs', 'This electrical tool is similar to features utilized on jumper cables and vehicle batteries, wire, and cable lugs connect wires to appliances, cables, and different gadgets needing power.', 'https://tse4.mm.bing.net/th?id=OIP.a1IHvAUZLJ78Vfs05Zq2_QHaE8&pid=Api&P=0&h=220', 30, 1, 1),
+    ('Coax Connector', 'Coax connectors interface cables to devices, while at the same time safeguarding the cable from shredding.', 'https://tse4.mm.bing.net/th?id=OIP.AKTXzjoaFStwXyGSdE0FRQHaHa&pid=Api&P=0&h=220', 55, 1, 2),
+    ('Level', 'While installing light fixtures, it is critical to track down precise points for placement. An electrical tools list is incomplete without a standard level', 'https://tse1.mm.bing.net/th?id=OIP.AyoTIYIR1qQ29tgvOm2V8wHaF3&pid=Api&P=0&h=220', 3, 1, 3);
+    ('Wire Strippers', 'Wire Stripper – Proficient electrical experts consistently take the plastic sheathing from wires to expose the copper and make altered associations with other wiring or parts.', 'https://tse3.mm.bing.net/th?id=OIP.sIJsUTX_mp5mocWn_tVt7QHaHa&pid=Api&P=0&h=220', 23, 1, 1),
+    ===============================================================================================================================================================================
+    
+    ('Trowel', 'A trowel is a small hand tool used for digging, applying, smoothing, or moving small amounts of viscous or particulate material.', 'https://tse2.mm.bing.net/th?id=OIP.12Sdg6v34pSEqne_XovimwHaHa&pid=Api&P=0&h=220', 12, 1, 1),
+    ('Concrete Mixer', 'Great prices on a comprehensive selection mixers from a variety of manufacturers. Discount Equipment - New and Used Construction Equipment', 'https://tse4.mm.bing.net/th?id=OIP.hjJwPQbZ5X-0ZO_nBHKOjgHaHa&pid=Api&P=0&h=220', 24, 1, 2),
+    ('Gloves', 'A glove is a garment covering the hand, with separate sheaths or openings for each finger including the thumb.', 'https://tse3.mm.bing.net/th?id=OIP.hbOz5atgfMRaBeFnmBleDAHaGX&pid=Api&P=0&h=220', 30, 1, 3);
+    ('Plumb Bob', 'A plumb bob, plumb bob level, or plummet, is a weight, usually with a pointed tip on the bottom, suspended from a string and used as a vertical direction as a reference line', 'https://tse1.mm.bing.net/th?id=OIP.pLsdLZfpQJZ2N8IF9I7hcQAAAA&pid=Api&P=0&h=220', 22, 1, 1),
+    ('Head Pan', 'A head pan, just as its name implies, is a pan that can be placed on your head. However, the head pan is not used for cooking food as other pans do.', 'https://tse1.mm.bing.net/th?id=OIP.9fR45AVPlA5ecyuj2lWg6gHaHa&pid=Api&P=0&h=220', 24, 1, 2),
+    ('Vibrator', 'Vibrators are sex toys that are used on the body to create sexual stimulation. Modern vibrators, also known as massagers, use electronic power to create vibrations or pulses', 'https://tse1.mm.bing.net/th?id=OIP.LAM0x4cDR7niTlm4mynRWQHaHa&pid=Api&P=0&h=220', 40, 1, 3);
+     ('Line Level', 'This electrical tool is similar to features utilized on jumper cables and vehicle batteries, wire, and cable lugs connect wires to appliances, cables, and different gadgets needing power.', 'https://tse4.mm.bing.net/th?id=OIP.a1IHvAUZLJ78Vfs05Zq2_QHaE8&pid=Api&P=0&h=220', 30, 1, 1),
+    ('Framing Square', 'Coax connectors interface cables to devices, while at the same time safeguarding the cable from shredding.', 'https://tse4.mm.bing.net/th?id=OIP.AKTXzjoaFStwXyGSdE0FRQHaHa&pid=Api&P=0&h=220', 55, 1, 2),
+    ('Framing Hammer', 'While installing light fixtures, it is critical to track down precise points for placement. An electrical tools list is incomplete without a standard level', 'https://tse1.mm.bing.net/th?id=OIP.AyoTIYIR1qQ29tgvOm2V8wHaF3&pid=Api&P=0&h=220', 3, 1, 3);
+    ('Cordless Drill', 'Wire Stripper – Proficient electrical experts consistently take the plastic sheathing from wires to expose the copper and make altered associations with other wiring or parts.', 'https://tse3.mm.bing.net/th?id=OIP.sIJsUTX_mp5mocWn_tVt7QHaHa&pid=Api&P=0&h=220', 23, 1, 1),
 INSERT INTO employees (firstName, lastName, description, country) VALUES
-
     ('Qtada', 'Ahmad', 'work in electrical','Jordan'),
     ('same', 'rame', 'work in machincal','Ksa'),
     ('ramez', 'salem', 'work in wood','Jordan');
