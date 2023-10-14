@@ -129,7 +129,6 @@ const loginGoogle = async (req, res) => {
                             `INSERT INTO users (firstName, lastName, email, password,,img, role_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
                             [firstName, lastName, email.toLowerCase(), hashedPassword, 3]
                         );
-                        console.log(result);
                         return res.json({
                             success: true,
                             message: "Account Created",
@@ -323,7 +322,7 @@ const addToBasket = async (req, res) => {
 
     }
 
-  }
+}
 
 const getUserBasket = async (req, res) => {
     try {

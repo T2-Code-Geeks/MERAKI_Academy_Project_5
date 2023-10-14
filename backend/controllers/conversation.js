@@ -9,7 +9,7 @@ const CreateNewConversation = async(req, res) => {
         req.body.receiverId
     ],
   });
-
+    
   try {
     const savedConversation= await newConversation.save();
     res.status(200).json({
