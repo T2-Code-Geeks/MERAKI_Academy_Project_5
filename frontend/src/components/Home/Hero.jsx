@@ -26,7 +26,7 @@ const Hero = () => {
       </div>
 
       <div className="w-full h-64 lg:w-1/2 lg:h-auto">
-        <div className="w-full h-full bg-cover" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1508394522741-82ac9c15ba69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=748&q=80)' }}>
+        <div className="w-full h-full bg-cover" style={{ backgroundImage: 'url(http://www.gannett-cdn.com/-mm-/5f7868aef0651d654c496e35955ff3e67f331d51/c=144-0-2448-1728&r=x404&c=534x401/local/-/media/DetroitNews/2014/10/02/ericshop.jpg)' }}>
           <div className="w-full h-full bg-black opacity-25"></div>
         </div>
       </div>
