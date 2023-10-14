@@ -125,6 +125,7 @@ const EmployeeDetails = () => {
 
     //!========================================================================
 
+
     return (
         <>
             <section className="relative block h-[50vh]">

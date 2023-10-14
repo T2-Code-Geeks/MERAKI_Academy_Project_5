@@ -16,10 +16,11 @@ import {
 //!===================================== Profile Employee ... =======================================================
 
 const ProfileEmployee = () => {
-  const { employee, employeeId } = useSelector((state) => {
+  const { employee, employeeId,category } = useSelector((state) => {
     return {
       employee: state.employee.employee,
       employeeId: state.employee.employeeId,
+      category: state.employee.category,
     };
   });
   const [firstname, setFirstName] = useState("");
@@ -43,12 +44,6 @@ const ProfileEmployee = () => {
     Category();
   }, []);
   //!=========================================================
-  const { category } = useSelector((state) => {
-    return {
-      category: state.employee.category,
-    };
-  });
-  //!========================================================
 
   const Category = async () => {
     try {
