@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 
 const Main = () => {
-    const [isDarkMode, setIsDarkMode] = useState(true)
+    const [isDarkMode, setIsDarkMode] = useState(false);
   return (
     <div>
       <header>
