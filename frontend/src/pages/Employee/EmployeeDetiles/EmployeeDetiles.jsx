@@ -154,7 +154,7 @@ const EmployeeDetails = () => {
                         setShow(true);
                       }}
                     >
-                      Show All comments
+                      Show & Add comments
                     </Button>
                     <div className="mx-10">
                       {" "}
@@ -168,7 +168,7 @@ const EmployeeDetails = () => {
                         navigate("/employees");
                       }}
                     >
-                      Back to All Employee
+                    BACK TO ALL EMPLOYEES
                     </button>
                   </a>
                 </div>
@@ -188,12 +188,12 @@ const EmployeeDetails = () => {
                 </div>
                 <div className="mb-5 flex items-center justify-center gap-2">
                   <Typography className="font-medium text-blue-gray-700">
-                    open to work in : {employee.work_hours}
+                    Open to work in : {employee.work_hours}
                   </Typography>
                 </div>
                 <div className="mb-2 flex items-center justify-center gap-2">
                   <Typography className="font-medium text-blue-gray-700">
-                    age : {employee.age} years
+                    Age : {employee.age} years
                   </Typography>
                 </div>
                 <div className="mb-2 flex items-center justify-center gap-2">
@@ -204,7 +204,7 @@ const EmployeeDetails = () => {
                 </div>
                 <div className="mb-2 flex items-center justify-center gap-2">
                   <Typography className="font-medium text-blue-gray-700">
-                    Work Description : <br /> {employee.description}
+                    Work Description :  {employee.description}
                   </Typography>
                 </div>
               </div>
@@ -215,8 +215,16 @@ const EmployeeDetails = () => {
                     <Typography className="mb-8 font-normal text-blue-gray-500">
                       {employee.description}
                     </Typography>
-                  </div>
+                    <Button
+                      className="bg-blue-600 -mx-10"
+                      onClick={() => {
+                      }}
+                    >
+                      Chat Now
+                    </Button>
                 </div>
+                  </div>
+                
               </div>
             </div>
           </div>
