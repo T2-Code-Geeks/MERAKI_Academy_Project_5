@@ -35,9 +35,14 @@ export const employeeSlice = createSlice({
     updateProfileById: (state, action) => {
       const updatedUser = {
         ...state.employee,
+        img:action.payload.img,
         firstname: action.payload.firstname,
         lastname: action.payload.lastname,
         country: action.payload.country,
+        description:action.payload.description,
+        work_hours:action.payload.work_hours,
+        age:action.payload.age,
+        category_id:action.payload.category_id
       };
       state.employee = updatedUser;
       return state;

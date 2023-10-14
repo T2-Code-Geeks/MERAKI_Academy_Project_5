@@ -171,9 +171,10 @@ INSERT INTO product_inventory (quantity) VALUES (10),
     (15),
     (8);
 INSERT INTO product_category (name, description) VALUES
-    ('Electrical', 'Category 1 Description'),
-    ('Carpentry', 'Category 2 Description'),
-    ('Metal Works', 'Category 3 Description');
+    ('Electrical', 'Category 1 Electrical'),
+    ('Carpentry', 'Category 2 Carpentry'),
+    ('Metal Works', 'Category 3 Metal Works');
+
 
 INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES
     ('Product 1', 'Description for Product 1', 'img1.jpg', 20, 1, 1),
