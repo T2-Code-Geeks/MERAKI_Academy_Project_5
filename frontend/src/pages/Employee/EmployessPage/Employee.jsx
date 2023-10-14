@@ -72,10 +72,4 @@ const Employees = () => {
 //!====================================== export function ==========================================
 export default Employees;
 
-{
-  /* <div className="productContainer" key={Employee.id}>
-                  <h2></h2>
-                  <p></p>
-                  <Link to={`/employees/${Employee.id}`}>View Details</Link>
-                </div> */
-}
+
