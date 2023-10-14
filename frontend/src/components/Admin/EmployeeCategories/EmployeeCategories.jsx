@@ -28,7 +28,6 @@ const EmployeeCategories = () => {
       try {
         const result = await axios.get("http://localhost:5000/employees/categoryes/all");
         if (result.data.success) {
-            console.log(result.data.result);
           dispatch(setcategory(result.data.result));
         }
       } catch (error) {
@@ -478,7 +477,6 @@ const EmployeeCategories = () => {
                         id="category"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                         onChange={(e) => {
-                          console.log(e.target.value);
                           setUpdatedProduct({
                             ...updatedProduct,
                             category_id: e.target.value,

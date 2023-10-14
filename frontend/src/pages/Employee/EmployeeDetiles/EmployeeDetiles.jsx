@@ -22,13 +22,12 @@ const EmployeeDetails = () => {
   const [show, setShow] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { userId, comments, tokenUser } = useSelector((state) => {
-    return {
-      userId: state.auth.userId,
-      comments: state.employee.comments,
-      tokenUser: state.auth.tokenUser,
-    };
-  });
+    
+    const { userId } = useSelector((state) => state.auth);
+    const { comments } = useSelector((state) => state.employee);
+    const { tokenUser } = useSelector((state) => state.auth);
+
+
 
 
     //!======================================================================
@@ -73,7 +72,6 @@ const EmployeeDetails = () => {
                     },
                 }
             );
-            console.log(results);
             if (results.data.success) {
                 dispatch(addNewComment(results.data.result[0]));
             }
@@ -193,6 +191,7 @@ const EmployeeDetails = () => {
                                     variant="h2"
                                     color="blue-gray"
                                     className="mb-2"
+                                    children={1}
                                 >
                                     {employee.firstname} {employee.lastname}
                                 </Typography>
@@ -222,6 +221,23 @@ const EmployeeDetails = () => {
                                     <Typography className="font-medium text-blue-gray-700">
                                         Work Description : {employee.description}
                                     </Typography>
+                                </div>
+                            </div>
+
+                            <div className="mb-10 border-t border-blue-gray-50 py-6 text-center">
+                                <div className="mt-2 flex flex-wrap justify-center">
+                                    <div className="flex w-full flex-col items-center px-4 lg:w-9/12">
+                                        <Typography className="mb-8 font-normal text-blue-gray-500">
+                                            <Button
+                                                className="bg-red-500 mt-5 mx-1"
+                                                onClick={ () => {
+                                                    
+                                                }}
+                                            >
+                                                Hire Craftman
+                                            </Button>
+                                        </Typography>
+                                    </div>
                                 </div>
                             </div>
                         </div>

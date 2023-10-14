@@ -173,7 +173,7 @@ const Products = () => {
                                         } xl:aspect-h-8 xl:aspect-w-7`}
                                     >
                                         <img
-                                            src="https://ar.workprotool.com/uploads/202236532/screwdriver-6-in-153525993729.jpg"
+                                            src={product.img}
                                             alt=""
                                             className="h-full w-full object-cover object-center group-hover:opacity-75"
                                         />

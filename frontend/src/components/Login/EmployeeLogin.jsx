@@ -25,7 +25,6 @@ const EmployeeLogin = () => {
       userInfo
       );
       if (result.data) {
-        console.log(result.data);
         setMessage("");
         dispatch(setLogin(result.data.token));
         dispatch(setEmployeeId(result.data.employee_id));
