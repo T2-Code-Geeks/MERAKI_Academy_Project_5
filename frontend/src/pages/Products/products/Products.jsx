@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Products.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 const Products = () => {
     const [result, setResult] = useState([]);
@@ -184,7 +185,7 @@ const Products = () => {
                                                 : "text-black-700"
                                         }`}
                                     >
-                                        {product.name}
+                                        <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
                                     </h3>
                                     <p
                                         className={`mt-1 text-lg font-medium ${
