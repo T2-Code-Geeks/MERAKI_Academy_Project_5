@@ -5,7 +5,6 @@ const socketAuth=(socket,next)=>{
     }else{
         socket.join(`room-${headers.id}`)
       socket.user={token:headers.token,id:headers.id};
-      // console.log("socket.user",socket.user);
       next()
     }
   }
