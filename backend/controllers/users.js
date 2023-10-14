@@ -360,6 +360,24 @@ const deleteCartItem = async (req, res) => {
     }
 }
 
+const getUserOrders = async (req, res) => {
+    const { user_id } = req.token;
+    try {
+        const result = await client.query(`SELECT * FROM order_details WHERE user_id=$1 AND is_deleted=0`, [user_id]);
+        res.json({
+            success: true,
+            result: result.rows
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.json({
+            success: false,
+            message: "Server Error",
+            err: error.message
+        })
+    }
+}
+
 module.exports = {
     userRegister,
     userLogin,
@@ -371,4 +389,5 @@ module.exports = {
     getUserBasket,
     deleteCartItem,
     loginGoogle,
+    getUserOrders
 };
