@@ -218,7 +218,7 @@ const Messages = () => {
         <div className="flex flex-col flex-auto h-full p-6">
           {currentChat ? (
         <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
-        <div className="flex flex-col h-full overflow-x-auto mb-4">
+        <div className="flex flex-col h-full overflow-x-auto mb-4 ">
           {messages.map((message, index) => (
             <div
               ref={scroll}
@@ -229,7 +229,7 @@ const Messages = () => {
                   : "col-start-6 col-end-13 p-3 rounded-lg"
               }`}
             >
-              <div className="flex flex-row items-center">
+              <div className="flex flex-row items-center ">
                 <div className={`flex items-center justify-center h-10 w-10 rounded-full ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500" : "bg-indigo-100"} flex-shrink-0`}>
                   {message?.sender === userId || message?.sender === employeeId
                     ? "You"
@@ -247,8 +247,8 @@ const Messages = () => {
               </div>
             </div>
           ))}
-          <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
-            <div>
+          <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4  ">
+            <div >
               <button className="flex items-center justify-center text-gray-400 hover:text-gray-600">
                 <svg
                   className="w-5 h-5"
@@ -267,7 +267,7 @@ const Messages = () => {
               </button>
             </div>
             <div className="flex-grow ml-4">
-              <div className="relative w-full">
+              <div className="relative w-full bottom-0">
                 <input
                   type="text"
                   className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
