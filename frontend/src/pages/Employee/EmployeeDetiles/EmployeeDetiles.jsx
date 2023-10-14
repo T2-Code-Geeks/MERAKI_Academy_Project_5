@@ -44,7 +44,7 @@ const EmployeeDetails = () => {
             const results = await axios.get(
                 `http://localhost:5000/employees/allcomment/${id}`
             );
-            console.log(results);
+            console.log("comment",results);
             if (results) {
                 dispatch(setComment(results.data.result));
             }
@@ -255,17 +255,18 @@ const EmployeeDetails = () => {
                         </div>
                         {comments &&
                             comments.map((comment, id) => {
+                              console.log(comment)
                                 return (
                                     <>
                                         <div id="comments">
-                                           <div className="flex justify-start"><span><img src="https://tse3.mm.bing.net/th?id=OIP.AkKR5-4AJhHTNNDMp0NxvQAAAA&pid=Api&P=0&h=220" width={20} height={30} /></span> <span className="text-gray-300 w-20  mx-10">User {comments[id].user_id} </span></div>
+                                           <div className="flex justify-start"><span><img src="https://tse3.mm.bing.net/th?id=OIP.AkKR5-4AJhHTNNDMp0NxvQAAAA&pid=Api&P=0&h=220" width={20} height={30} /></span> <span className="text-gray-300 w-20  mx-10">User {comment.user_id} </span></div>
                                             <div id="feadback">
                                                 <span>
-                                                    {comments[id].comment}
+                                                    {comment.comment}
                                                 </span>
                                             </div>
                                             <span>
-                                              {comments[id].user_id === userId && <button
+                                              {comment.user_id == userId && <button
                                                   key={comments[id].id}
                                                   onClick={() => {
                                                       DeleteCommentUser(
