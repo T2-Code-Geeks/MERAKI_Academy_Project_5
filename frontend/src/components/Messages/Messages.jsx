@@ -13,6 +13,7 @@ const Messages = () => {
   const [to, setTo] = useState([]);
   const scroll = useRef();
   const socket = useRef();
+  const [info, setInfo] = useState({})
 
   const { token, userId, employeeId, tokenUser } = useSelector((state) => {
     return {
@@ -50,6 +51,7 @@ const Messages = () => {
 
   useEffect(() => {
     getConversationById();
+    handelUserInfo()
   }, [token]);
 
   const getConversationById = async () => {
@@ -152,6 +154,41 @@ const Messages = () => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+const handelUserInfo=async()=>{
+  if (userId) {
+    try {
+      const result = await axios.get(
+        `http://localhost:5000/users/${userId}`
+      );
+      if (result.data) {
+        console.log(result.data);
+        setInfo(result.data.result)
+      } else throw Error;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        console.log(error);
+      }
+      
+  }
+  }
+  if (employeeId) {
+    try {
+      const result = await axios.get(
+        `http://localhost:5000/employees/${employeeId}`
+      );
+      if (result.data) {
+        console.log(result.data);
+
+        setInfo(result.data.result)
+      } else throw Error;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        console.log(error);
+      }
+      
+  }
+}
+}
   return (
     <div className="flex h-screen antialiased text-gray-800">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
@@ -178,13 +215,13 @@ const Messages = () => {
           <div className="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
             <div className="h-20 w-20 rounded-full border overflow-hidden">
               <img
-                src="https://avatars3.githubusercontent.com/u/2763884?s=128"
+                src={info?.img?info.img:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
                 alt="Avatar"
                 className="h-full w-full"
               />
             </div>
-            <div className="text-sm font-semibold mt-2">Aminos Co.</div>
-            <div className="text-xs text-gray-500">Lead UI/UX Designer</div>
+            <div className="text-sm font-semibold mt-2">{info?.firstname}</div>
+            <div className="text-xs text-gray-500">{info?.lastname}</div>
             <div className="flex flex-row items-center mt-3">
               <div className="flex flex-col justify-center h-4 w-8 bg-indigo-500 rounded-full">
                 <div className="h-3 w-3 bg-white rounded-full self-end mr-1"></div>
@@ -218,37 +255,34 @@ const Messages = () => {
         <div className="flex flex-col flex-auto h-full p-6">
           {currentChat ? (
         <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
-        <div className="flex flex-col h-full overflow-x-auto mb-4">
-          {messages.map((message, index) => (
-            <div
-              ref={scroll}
-              key={index}
-              className={`${
-                message?.sender === userId || message?.sender === employeeId
-                  ? "col-start-1 col-end-8 p-3 rounded-lg"
-                  : "col-start-6 col-end-13 p-3 rounded-lg"
-              }`}
-            >
-              <div className="flex flex-row items-center">
-                <div className={`flex items-center justify-center h-10 w-10 rounded-full ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500" : "bg-indigo-100"} flex-shrink-0`}>
-                  {message?.sender === userId || message?.sender === employeeId
-                    ? "You"
-                    : "Other"}
-                </div>
-                <div
-                  className={`relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl ${
-                    message?.sender === userId || message?.sender === employeeId
-                      ? "bg-indigo-500 text-gray-800"
-                      : "bg-indigo-100 text-gray-800"
-                  }`}
-                >
-                  <div>{message.text}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-          <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
-            <div>
+        <div className="flex flex-col h-full overflow-x-auto mb-4 max-h-[calc(100%-4rem)] overflow-y-auto min-h-[4rem]">
+        {messages.map((message, index) => (
+  <div
+    ref={scroll}
+    key={index}
+    className={`${
+      message?.sender === userId || message?.sender === employeeId
+        ? "col-start-1 col-end-8 p-3 rounded-lg ml-auto"
+        : "col-start-6 col-end-13 p-3 rounded-lg"
+    }`}
+  >
+    <div className="flex flex-row items-center">
+      <div className={`flex items-center justify-center h-10 w-10 rounded-full ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500" : "bg-indigo-100"} flex-shrink-0`}>
+        {message?.sender === userId || message?.sender === employeeId
+          ? "You"
+          : "Other"}
+      </div>
+      <div
+        className={`relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500 text-gray-800" : "bg-indigo-100 text-gray-800"}`}
+      >
+        <div>{message.text}</div>
+      </div>
+    </div>
+  </div>
+))}
+
+          <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4  ">
+            <div >
               <button className="flex items-center justify-center text-gray-400 hover:text-gray-600">
                 <svg
                   className="w-5 h-5"
@@ -267,7 +301,7 @@ const Messages = () => {
               </button>
             </div>
             <div className="flex-grow ml-4">
-              <div className="relative w-full">
+              <div className="relative w-full bottom-0">
                 <input
                   type="text"
                   className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
@@ -331,4 +365,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default Messages

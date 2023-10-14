@@ -6,11 +6,12 @@ import { useDispatch } from "react-redux";
 import { deleteItemById } from "../../../service/redux/reducers/cart";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { Navigate, useNavigate } from "react-router";
 const Cart = ({ open, setOpen }) => {
     const dispatch = useDispatch();
     const { tokenUser } = useSelector((state) => state.auth);
     const { cart } = useSelector((state) => state.cart);
-
+const navigate=useNavigate()
     const [buttonBoolean, setButtonBoolean] = useState(true);
     const [sum, setSum] = useState(0);
     useEffect(() => {
@@ -243,6 +244,9 @@ const Cart = ({ open, setOpen }) => {
                                             <div className="mt-6">
                                                 <button
                                                     disabled={buttonBoolean}
+                                                    onClick={()=>{
+                                                        navigate("/checkout")
+                                                    }}
                                                     className=" cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                 >
                                                     Checkout

@@ -77,6 +77,7 @@ const Products = () => {
                     { product_id, quantity: 1 },
                     { headers: { Authorization: `Bearer ${tokenUser}` } }
                 );
+                console.log(result);
                 if (result.data.success) {
                     setMessage("Added To cart");
                     setTimeout(() => {
