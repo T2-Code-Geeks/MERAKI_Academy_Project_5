@@ -12,7 +12,7 @@ import { useParams, Link } from "react-router-dom";
 import { Avatar, Typography, Button } from "@material-tailwind/react";
 import { MapPinIcon, BuildingLibraryIcon } from "@heroicons/react/24/solid";
 
-//!=================================== show detailes employee ... ====================================================
+//!=================================== show details employee ... ====================================================
 const EmployeeDetails = () => {
 
   const navigate = useNavigate();
@@ -128,6 +128,27 @@ const EmployeeDetails = () => {
     //!========================================================================
 
 
+
+    const newConversation=async()=>{
+      try {
+        const result = await axios.post(
+            `http://localhost:5000/conversation`,{receiverId:parseInt(id)}, {
+              headers: {
+                  Authorization: `Bearer ${tokenUser}`,
+              },
+          })
+            console.log(result.data);
+        if (result.data) {
+          navigate("/chat")
+        } else {
+            setMassege("NOt found details");
+        }
+    } catch (error) {
+        if (error.response.data.success) {
+        }
+    }
+    }
+
     return (
         <>
             <section className="relative block h-[50vh]">
@@ -221,7 +242,17 @@ const EmployeeDetails = () => {
                                     <Typography className="font-medium text-blue-gray-700">
                                         Work Description : {employee.description}
                                     </Typography>
+                                    
                                 </div>
+                                <Button
+                                            className="bg-blue-600 mt-5 mx-1"
+                                            onClick={() => {
+                                              console.log(id);
+                                              newConversation()
+                                            }}
+                                        >
+                                           Chat Now
+                                        </Button>
                             </div>
 
 
