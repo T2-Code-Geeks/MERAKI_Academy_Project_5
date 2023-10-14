@@ -14,20 +14,22 @@ import { MapPinIcon, BuildingLibraryIcon } from "@heroicons/react/24/solid";
 
 //!=================================== show detailes employee ... ====================================================
 const EmployeeDetails = () => {
-    const navigate = useNavigate();
-    const [comment, setcomment] = useState("");
-    const [massege, setMassege] = useState("");
-    const [employee, setEmployee] = useState({});
-    const [show, setShow] = useState(false);
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const { userId, comments, token } = useSelector((state) => {
-        return {
-            userId: state.auth.userId,
-            comments: state.employee.comments,
-            token: state.employee.token,
-        };
-    });
+
+  const navigate = useNavigate();
+  const [comment, setcomment] = useState("");
+  const [massege, setMassege] = useState("");
+  const [employee, setEmployee] = useState({});
+  const [show, setShow] = useState(false);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { userId, comments, tokenUser } = useSelector((state) => {
+    return {
+      userId: state.auth.userId,
+      comments: state.employee.comments,
+      tokenUser: state.auth.tokenUser,
+    };
+  });
+
 
     //!======================================================================
 
@@ -67,7 +69,7 @@ const EmployeeDetails = () => {
                 commentss,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${tokenUser}`,
                     },
                 }
             );
@@ -83,6 +85,7 @@ const EmployeeDetails = () => {
         }
     };
 
+
     //! ======================================== delete comment ====================================================
 
     const DeleteCommentUser = async (id) => {
@@ -95,6 +98,7 @@ const EmployeeDetails = () => {
             if (error.response.data.success) {
                 setMassege(error.response.data.massege);
             }
+
         }
     };
 
