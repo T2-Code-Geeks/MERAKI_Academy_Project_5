@@ -43,6 +43,7 @@ const EmployeeDetails = () => {
             const results = await axios.get(
                 `http://localhost:5000/employees/allcomment/${id}`
             );
+
             if (results) {
                 dispatch(setComment(results.data.result));
             }
@@ -158,7 +159,7 @@ const EmployeeDetails = () => {
                                                 setShow(true);
                                             }}
                                         >
-                                            Show All comments
+                                            Show & Add comments
                                         </Button>
                                         <div className="mx-10">
                                             {" "}
@@ -218,11 +219,11 @@ const EmployeeDetails = () => {
                                 </div>
                                 <div className="mb-2 flex items-center justify-center gap-2">
                                     <Typography className="font-medium text-blue-gray-700">
-                                        Work Description : <br />{" "}
-                                        {employee.description}
+                                        Work Description : {employee.description}
                                     </Typography>
                                 </div>
                             </div>
+
 
                             <div className="mb-10 border-t border-blue-gray-50 py-6 text-center">
                                 <div className="mt-2 flex flex-wrap justify-center">
@@ -240,6 +241,7 @@ const EmployeeDetails = () => {
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -261,36 +263,38 @@ const EmployeeDetails = () => {
                                     setcomment(e.target.value);
                                 }}
                             />
-                            <button
+                            {tokenUser && <button
                                 on
                                 onClick={(e) => addFeadBackFromUser()}
                                 className="block w-200 px-4 py-2 -mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-blue-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 -mx-12"
                             >
                                 Addcomment
-                            </button>
+                            </button>}
                         </div>
                         {comments &&
                             comments.map((comment, id) => {
+                              console.log(comment)
                                 return (
                                     <>
                                         <div id="comments">
+                                           <div className="flex justify-start"><span><img src="https://tse3.mm.bing.net/th?id=OIP.AkKR5-4AJhHTNNDMp0NxvQAAAA&pid=Api&P=0&h=220" width={20} height={30} /></span> <span className="text-gray-300 w-20  mx-10">User {comment.user_id} </span></div>
                                             <div id="feadback">
                                                 <span>
-                                                    {comments[id].comment}
+                                                    {comment.comment}
                                                 </span>
                                             </div>
                                             <span>
-                                                <button
-                                                    key={comments[id].id}
-                                                    onClick={() => {
-                                                        DeleteCommentUser(
-                                                            comments[id].id
-                                                        );
-                                                    }}
-                                                    className="block w-200 px-4 py-2 -mt-10 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-red-600 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-60"
-                                                >
-                                                    Delete Comment
-                                                </button>
+                                              {comment.user_id == userId && <button
+                                                  key={comments[id].id}
+                                                  onClick={() => {
+                                                      DeleteCommentUser(
+                                                          comments[id].id
+                                                      );
+                                                  }}
+                                                  className="block w-200 px-4 py-2 -mt-10 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-red-600 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-60"
+                                              >
+                                                  Delete Comment
+                                              </button>}
                                             </span>
                                         </div>
                                     </>
