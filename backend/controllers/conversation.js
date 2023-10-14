@@ -3,7 +3,6 @@ const conversationModal = require("../models/Conversation");
 // ! new conversation
 
 const CreateNewConversation = async(req, res) => {
-    console.log(req.token);
   const newConversation = new conversationModal({
     members: [
         req.token.user_id||req.token.employee_id, 
