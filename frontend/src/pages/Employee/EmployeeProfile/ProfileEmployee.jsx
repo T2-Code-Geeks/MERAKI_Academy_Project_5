@@ -235,15 +235,15 @@ const ProfileEmployee = () => {
         <div id="update"></div>
         {updateBox && (
           <form>
-            <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <div>
-                <label class="text-gray-700 dark:text-gray-500" for="username">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="username">
                   Username
                 </label>
                 <input
                   id="username"
                   type="text"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   onChange={(e) => {
                     setFirstName(e.target.value);
                   }}
@@ -251,13 +251,13 @@ const ProfileEmployee = () => {
               </div>
 
               <div>
-                <label class="text-gray-700 dark:text-gray-500" for="LastName">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="LastName">
                   Last Name
                 </label>
                 <input
                   id="LastName"
                   type="email"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   onChange={(e) => {
                     setLastName(e.target.value);
                   }}
@@ -265,41 +265,41 @@ const ProfileEmployee = () => {
               </div>
               <div>
                 <label
-                  class="text-gray-700 dark:text-gray-500"
-                  for="Discription"
+                  className="text-gray-700 dark:text-gray-500"
+                  htmlFor="Discription"
                 >
                   Discription
                 </label>
                 <input
                   id="Discription"
                   type="email"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
                 />
               </div>
               <div>
-                <label class="text-gray-700 dark:text-gray-500" for="Age">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="Age">
                   Age
                 </label>
                 <input
                   id="Age"
                   type="number"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   onChange={(e) => {
                     setAge(e.target.value);
                   }}
                 />
               </div>
               <div>
-                <label class="text-gray-700 dark:text-gray-500" for="Country">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="Country">
                   Country
                 </label>
                 <input
                   id="Country"
                   type="text"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   onChange={(e) => {
                     setCountry(e.target.value);
                   }}
@@ -308,15 +308,15 @@ const ProfileEmployee = () => {
 
               <div>
                 <label
-                  class="text-gray-700 dark:text-gray-500"
-                  for="WorksHours"
+                  className="text-gray-700 dark:text-gray-500"
+                  htmlFor="WorksHours"
                 >
                   Works Hours
                 </label>
                 <input
                   id="WorksHours"
                   type="text"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   onChange={(e) => {
                     setWork_hours(e.target.value);
                   }}
@@ -325,13 +325,13 @@ const ProfileEmployee = () => {
               <div>
                 <label
                   htmlFor="category"
-                  class="text-gray-700 dark:text-gray-500"
+                  className="text-gray-700 dark:text-gray-500"
                 >
                   Crafts Category
                 </label>
                 <select
                   id="category"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   value={selectedCategory}
                 >
@@ -345,9 +345,9 @@ const ProfileEmployee = () => {
               </div>
             </div>
 
-            <div class="flex justify-end mt-6">
+            <div className="flex justify-end mt-6">
               <button
-                class="px-8 py-4  leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                className="px-8 py-4  leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                 onClick={() => {
                   navigate("/");
                 }}
@@ -355,7 +355,7 @@ const ProfileEmployee = () => {
                 Back To Home
               </button>
               <button
-                class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                 onClick={() => {
                   updateProfile();
                   setUpdateBox(false);

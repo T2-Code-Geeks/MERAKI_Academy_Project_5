@@ -129,7 +129,6 @@ const loginGoogle = async (req, res) => {
                             `INSERT INTO users (firstName, lastName, email, password,,img, role_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
                             [firstName, lastName, email.toLowerCase(), hashedPassword, 3]
                         );
-                        console.log(result);
                         return res.json({
                             success: true,
                             message: "Account Created",
@@ -328,7 +327,7 @@ const addToBasket = async (req, res) => {
 
     }
 
-  }
+}
 
 const getUserBasket = async (req, res) => {
     try {
@@ -366,6 +365,24 @@ const deleteCartItem = async (req, res) => {
     }
 }
 
+const getUserOrders = async (req, res) => {
+    const { user_id } = req.token;
+    try {
+        const result = await client.query(`SELECT * FROM order_details WHERE user_id=$1 AND is_deleted=0`, [user_id]);
+        res.json({
+            success: true,
+            result: result.rows
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.json({
+            success: false,
+            message: "Server Error",
+            err: error.message
+        })
+    }
+}
+
 module.exports = {
     userRegister,
     userLogin,
@@ -377,4 +394,5 @@ module.exports = {
     getUserBasket,
     deleteCartItem,
     loginGoogle,
+    getUserOrders
 };

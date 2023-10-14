@@ -196,7 +196,7 @@ const EmployeeDetails = () => {
                                     </a>
                                     <a>
                                         <button
-                                            class=" mt-5 px-8 py-3  leading-4 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 text-sm"
+                                            className=" mt-5 px-8 py-3  leading-4 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 text-sm"
                                             onClick={() => {
                                                 navigate("/employees");
                                             }}
@@ -274,15 +274,15 @@ const EmployeeDetails = () => {
                     <>
                         <div id="contant">
                             <label
-                                class="text-gray-700 dark:text-gray-100 mx-10"
-                                for="LastName"
+                                className="text-gray-700 dark:text-gray-100 mx-10"
+                                htmlFor="LastName"
                             >
                                 Comments
                             </label>
                             <input
                                 id="LastName"
                                 type="email"
-                                class="block w-200 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-10"
+                                className="block w-200 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-10"
                                 onChange={(e) => {
                                     setcomment(e.target.value);
                                 }}
@@ -290,7 +290,7 @@ const EmployeeDetails = () => {
                             <button
                                 on
                                 onClick={(e) => addFeadBackFromUser()}
-                                class="block w-200 px-4 py-2 -mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-blue-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 -mx-12"
+                                className="block w-200 px-4 py-2 -mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-blue-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 -mx-12"
                             >
                                 Addcomment
                             </button>
@@ -313,7 +313,7 @@ const EmployeeDetails = () => {
                                                             comments[id].id
                                                         );
                                                     }}
-                                                    class="block w-200 px-4 py-2 -mt-10 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-red-600 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-60"
+                                                    className="block w-200 px-4 py-2 -mt-10 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-red-600 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-60"
                                                 >
                                                     Delete Comment
                                                 </button>
