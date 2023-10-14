@@ -240,7 +240,7 @@ const EmployeeDetails = () => {
                         <div id="contant">
                             <label
                                 className="text-gray-700 dark:text-gray-100 mx-10"
-                                for="LastName"
+                                htmlFor="LastName"
                             >
                                 Comments
                             </label>

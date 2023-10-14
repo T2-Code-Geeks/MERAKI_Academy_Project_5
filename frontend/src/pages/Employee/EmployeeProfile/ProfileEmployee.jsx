@@ -237,7 +237,7 @@ const ProfileEmployee = () => {
           <form>
             <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <div>
-                <label className="text-gray-700 dark:text-gray-500" for="username">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="username">
                   Username
                 </label>
                 <input
@@ -251,7 +251,7 @@ const ProfileEmployee = () => {
               </div>
 
               <div>
-                <label className="text-gray-700 dark:text-gray-500" for="LastName">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="LastName">
                   Last Name
                 </label>
                 <input
@@ -266,7 +266,7 @@ const ProfileEmployee = () => {
               <div>
                 <label
                   className="text-gray-700 dark:text-gray-500"
-                  for="Discription"
+                  htmlFor="Discription"
                 >
                   Discription
                 </label>
@@ -280,7 +280,7 @@ const ProfileEmployee = () => {
                 />
               </div>
               <div>
-                <label className="text-gray-700 dark:text-gray-500" for="Age">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="Age">
                   Age
                 </label>
                 <input
@@ -293,7 +293,7 @@ const ProfileEmployee = () => {
                 />
               </div>
               <div>
-                <label className="text-gray-700 dark:text-gray-500" for="Country">
+                <label className="text-gray-700 dark:text-gray-500" htmlFor="Country">
                   Country
                 </label>
                 <input
@@ -309,7 +309,7 @@ const ProfileEmployee = () => {
               <div>
                 <label
                   className="text-gray-700 dark:text-gray-500"
-                  for="WorksHours"
+                  htmlFor="WorksHours"
                 >
                   Works Hours
                 </label>

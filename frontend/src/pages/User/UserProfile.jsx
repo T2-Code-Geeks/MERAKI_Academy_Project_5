@@ -11,11 +11,10 @@ const UserProfile = () => {
     const navigate = useNavigate();
     const { tokenUser } = useSelector((state) => state.auth);
     const { userId } = useSelector((state) => state.auth);
-    const [updating, setUpdating] = useState(false);
     const [userInfo, setUserInfo] = useState("");
     const imageInputRef = useRef(null);
     const [updateBox, setUpdateBox] = useState(false);
-
+    const [updateInfo, setUpdateInfo] = useState({});
     const profileInfo = async () => {
         try {
             const result = await axios.get(`http://localhost:5000/users/${id}`);
@@ -50,8 +49,10 @@ const UserProfile = () => {
         })
             .then((resp) => resp.json())
             .then(async (data) => {
-                console.log(userInfo.id);
-                const result = await axios.put(`http://localhost:5000/users/${userInfo.id}`, { img: data.url });
+                const result = await axios.put(
+                    `http://localhost:5000/users/${userInfo.id}`,
+                    { img: data.url }
+                );
                 setUserInfo({ ...userInfo, img: data.url });
             })
             .catch((err) => console.log(err));
@@ -61,10 +62,11 @@ const UserProfile = () => {
         try {
             const updatedInfo = await axios.put(
                 `http://localhost:5000/users/${userId}`,
-                userInfo
+                updateInfo
             );
-            setUserInfo(updatedInfo.data.result);
-            setUpdating(false);
+            if (updatedInfo.data.success) {
+                setUserInfo(updatedInfo.data.result);
+            }
         } catch (error) {
             console.log(error.message);
         }
@@ -107,16 +109,14 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                                 <div className="mt-10 flex w-full justify-center px-4 lg:order-3 lg:mt-0 lg:w-4/12 lg:justify-end lg:self-center">
-                                    <a href="#update">
-                                        <Button
-                                            className="bg-blue-400 mt-5"
-                                            onClick={() => {
-                                                setUpdateBox(true);
-                                            }}
-                                        >
-                                            Update
-                                        </Button>
-                                    </a>
+                                    <Button
+                                        className="bg-blue-400 mt-5"
+                                        onClick={() => {
+                                            setUpdateBox(true);
+                                        }}
+                                    >
+                                        Update
+                                    </Button>
                                 </div>
                                 <div className="w-full px-4 lg:order-1 lg:w-4/12">
                                     <div className="flex justify-center py-4 pt-8 lg:pt-4"></div>
@@ -167,27 +167,28 @@ const UserProfile = () => {
                                     </div>
                                 )}
                             </div>
-
-                            
                         </div>
                     </div>
                 </div>
-                {/* {updateBox && (
+                {updateBox && (
                     <form>
                         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                             <div>
                                 <label
                                     className="text-gray-700 dark:text-gray-500"
-                                    for="username"
+                                    htmlFor="username"
                                 >
-                                    Username
+                                    First Name
                                 </label>
                                 <input
                                     id="username"
                                     type="text"
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                                     onChange={(e) => {
-                                        setFirstName(e.target.value);
+                                        setUpdateInfo({
+                                            ...updateInfo,
+                                            firstName: e.target.value,
+                                        });
                                     }}
                                 />
                             </div>
@@ -195,7 +196,7 @@ const UserProfile = () => {
                             <div>
                                 <label
                                     className="text-gray-700 dark:text-gray-500"
-                                    for="LastName"
+                                    htmlFor="LastName"
                                 >
                                     Last Name
                                 </label>
@@ -204,46 +205,17 @@ const UserProfile = () => {
                                     type="email"
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                                     onChange={(e) => {
-                                        setLastName(e.target.value);
+                                        setUpdateInfo({
+                                            ...updateInfo,
+                                            lastName: e.target.value,
+                                        });
                                     }}
                                 />
                             </div>
                             <div>
                                 <label
                                     className="text-gray-700 dark:text-gray-500"
-                                    for="Discription"
-                                >
-                                    Discription
-                                </label>
-                                <input
-                                    id="Discription"
-                                    type="email"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                                    onChange={(e) => {
-                                        setDescription(e.target.value);
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    className="text-gray-700 dark:text-gray-500"
-                                    for="Age"
-                                >
-                                    Age
-                                </label>
-                                <input
-                                    id="Age"
-                                    type="number"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                                    onChange={(e) => {
-                                        setAge(e.target.value);
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    className="text-gray-700 dark:text-gray-500"
-                                    for="Country"
+                                    htmlFor="Country"
                                 >
                                     Country
                                 </label>
@@ -252,7 +224,48 @@ const UserProfile = () => {
                                     type="text"
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                                     onChange={(e) => {
-                                        setCountry(e.target.value);
+                                        setUpdateInfo({
+                                            ...updateInfo,
+                                            country: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    className="text-gray-700 dark:text-gray-500"
+                                    htmlFor="Age"
+                                >
+                                    Age
+                                </label>
+                                <input
+                                    id="Age"
+                                    type="number"
+                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                                    onChange={(e) => {
+                                        setUpdateInfo({
+                                            ...updateInfo,
+                                            age: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    className="text-gray-700 dark:text-gray-500"
+                                    htmlFor="Address1"
+                                >
+                                    Address (1)
+                                </label>
+                                <input
+                                    id="Address1"
+                                    type="text"
+                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                                    onChange={(e) => {
+                                        setUpdateInfo({
+                                            ...updateInfo,
+                                            address1: e.target.value,
+                                        });
                                     }}
                                 />
                             </div>
@@ -260,60 +273,29 @@ const UserProfile = () => {
                             <div>
                                 <label
                                     className="text-gray-700 dark:text-gray-500"
-                                    for="WorksHours"
+                                    htmlFor="Address2"
                                 >
-                                    Works Hours
+                                    Address (1)
                                 </label>
                                 <input
-                                    id="WorksHours"
+                                    id="Address2"
                                     type="text"
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                                     onChange={(e) => {
-                                        setWork_hours(e.target.value);
+                                        setUpdateInfo({
+                                            ...updateInfo,
+                                            address2: e.target.value,
+                                        });
                                     }}
                                 />
-                            </div>
-                            <div>
-                                <label
-                                    htmlFor="category"
-                                    className="text-gray-700 dark:text-gray-500"
-                                >
-                                    Crafts Category
-                                </label>
-                                <select
-                                    id="category"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                                    onChange={(e) =>
-                                        setSelectedCategory(e.target.value)
-                                    }
-                                    value={selectedCategory}
-                                >
-                                    <option value="">Select a category</option>
-                                    {category.map((category) => (
-                                        <option
-                                            key={category.id}
-                                            value={category.id}
-                                        >
-                                            {category.category}
-                                        </option>
-                                    ))}
-                                </select>
                             </div>
                         </div>
 
                         <div className="flex justify-end mt-6">
                             <button
-                                className="px-8 py-4  leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-                                onClick={() => {
-                                    navigate("/");
-                                }}
-                            >
-                                Back To Home
-                            </button>
-                            <button
                                 className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                                 onClick={() => {
-                                    updateProfile();
+                                    handleUpdate();
                                     setUpdateBox(false);
                                 }}
                             >
@@ -321,7 +303,7 @@ const UserProfile = () => {
                             </button>
                         </div>
                     </form>
-                )} */}
+                )}
             </section>
         </>
 
