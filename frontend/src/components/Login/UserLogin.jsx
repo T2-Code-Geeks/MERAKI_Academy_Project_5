@@ -25,7 +25,6 @@ const UserLogin = () => {
                 "http://localhost:5000/users/login/Google",
                 userInfo
             );
-            console.log(result.data);
             if (result.data.success) {
                 setMessage("Account Created");
                 setTimeout(() => {
@@ -60,7 +59,7 @@ const UserLogin = () => {
     };
     return (
         <>
-            <form className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
                 <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         Email address
@@ -123,7 +122,7 @@ const UserLogin = () => {
                         }}
                     />
                 </GoogleOAuthProvider>
-            </form>
+            </div>
         </>
     );
 };

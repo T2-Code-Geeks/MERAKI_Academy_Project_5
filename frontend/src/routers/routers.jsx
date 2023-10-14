@@ -32,6 +32,7 @@ import Home from "../pages/Home/Home";
 import Faq from "../components/FAQ/Faq";
 import Contact from "../components/Contact/Contact";
 import EmployeeLayout from "../layouts/Employee/EmployeeLayout";
+import MyOrder from "../pages/Products/My Orders/MyOrder";
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -70,7 +71,6 @@ export const router = createBrowserRouter([
                 path: "employees",
                 element: <Employees />,
                 loader: EmployeesLoader,
-                children: [],
             },
             {
                 path: "employees/:id",
@@ -102,6 +102,9 @@ export const router = createBrowserRouter([
                 path: "chat",
                 element: <Messages />,
             },
+            {
+                path: "myorders",
+                element: <MyOrder/>            },
         ],
     },
     {
