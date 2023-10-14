@@ -164,7 +164,7 @@ const EmployeeDetails = () => {
                                             {
                                                 <h2>
                                                     {" "}
-                                                    {comments.length}: comments
+                                                    {comments?.length}: comments
                                                 </h2>
                                             }
                                         </div>
