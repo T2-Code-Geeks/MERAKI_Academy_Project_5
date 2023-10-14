@@ -143,7 +143,7 @@ export const router = createBrowserRouter([
                 element: <ProfileEmployee />,
             },
             {
-                path: "chat",
+                path: "employee/chat",
                 element: <Messages />,
             },
         ],
