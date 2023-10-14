@@ -3,7 +3,7 @@ import React from "react";
 const Team = () => {
     return (
         <>
-            <div className="h-[32rem] bg-gray-100 dark:bg-gray-700">
+            <div className="h-[32rem] ">
                 <div className="container px-6 py-10 mx-auto">
                     <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
                         The Executive Team
