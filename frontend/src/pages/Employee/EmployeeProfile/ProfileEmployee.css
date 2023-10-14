@@ -1,0 +1,8 @@
+#update {
+    width: 500px;
+    margin:10px 50%
+}
+#update input{
+display: block;
+width: 300px;
+}

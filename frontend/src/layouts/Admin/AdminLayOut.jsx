@@ -7,14 +7,14 @@ import "./AdminLayOut.css"
 const AdminLayOut = () => {
     return (
         <div>
-            <header>
+            <header className="z-10">
                 <NavBar />
             </header>
-            <main id="main" className=" bg-white dark:bg-gray-700">
-                <SideBar id="sidebar"/>
+            <main id="main" className=" bg-white dark:bg-gray-700  h-screen">
+                {/* <SideBar id="sidebar"/> */}
                 <Outlet  id="outlet"/>
             </main>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };

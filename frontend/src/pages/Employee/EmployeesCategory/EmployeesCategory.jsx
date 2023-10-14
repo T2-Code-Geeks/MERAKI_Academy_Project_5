@@ -10,7 +10,7 @@ const CategoryEmployees = () => {
 
     //!==============================================   
     useEffect(() => {
-        Category();
+        // Category();
     }, []);
 
     const navigate = useNavigate();
@@ -24,22 +24,7 @@ const CategoryEmployees = () => {
     //!==============================================   
 
 
-    const Category = async () => {
-        try {
-            const result = await axios.get(
-                `http://localhost:5000/employees/categoryes/all`
-            );
-
-            if (result.data) {
-                dispatch(setcategory(result.data.result));
-            } else throw Error;
-        } catch (error) {
-            if (error.response && error.response.data) {
-                console.log(error);
-            }
-            console.log(error);
-        }
-    };
+    
 
     //!==============================================  
 

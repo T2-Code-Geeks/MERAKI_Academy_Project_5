@@ -256,11 +256,11 @@ const deleteUserById = async (req, res) => {
 const getAllUsers = async (req, res) => {
     try {
         const result = await client.query(
-            `SELECT id,firstName,lastName,img,age,country,address1,address2,email FROM users`
+            `SELECT id,firstName,lastName,img,age,country,address1,address2,email FROM users WHERE is_deleted=0`
         );
         res.json({
             success: true,
-            result: result.rows[0],
+            result: result.rows,
         });
     } catch (error) {
         res.json({
