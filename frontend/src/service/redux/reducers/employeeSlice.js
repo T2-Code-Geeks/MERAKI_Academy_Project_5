@@ -73,7 +73,7 @@ export const employeeSlice = createSlice({
     updateHiringState:(state,action)=>{
       const updatedStatus = {
         ...state.employee,
-        state: action.payload.Status,
+        status: action.payload.Status,
       
       };
       state.Hiring = updatedStatus;
