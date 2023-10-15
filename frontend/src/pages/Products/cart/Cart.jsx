@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { setCart, updateItemById } from "../../../service/redux/reducers/cart";
+import { setCart, updateItemById,setSum } from "../../../service/redux/reducers/cart";
 import { useDispatch } from "react-redux";
 import { deleteItemById } from "../../../service/redux/reducers/cart";
 import { Dialog, Transition } from "@headlessui/react";
@@ -10,10 +10,9 @@ import { Navigate, useNavigate } from "react-router";
 const Cart = ({ open, setOpen }) => {
     const dispatch = useDispatch();
     const { tokenUser } = useSelector((state) => state.auth);
-    const { cart } = useSelector((state) => state.cart);
+    const { cart,sum } = useSelector((state) => state.cart);
 const navigate=useNavigate()
     const [buttonBoolean, setButtonBoolean] = useState(true);
-    const [sum, setSum] = useState(0);
     useEffect(() => {
         if (tokenUser) {
             getBasket();
@@ -31,7 +30,7 @@ const navigate=useNavigate()
                 result.data.result.forEach((item) => {
                     sumPrice += item.price * item.quantity;
                 });
-                setSum(sumPrice);
+                dispatch(setSum(sumPrice));
                 setButtonBoolean(false);
             } else {
                 setButtonBoolean(true);

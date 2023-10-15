@@ -12,11 +12,13 @@ const Products = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [categories, setCategories] = useState("");
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+  
     useEffect(() => {
-        getAllProducts();
+        getAllProducts(currentPage);
         getCategories();
-    }, []);
+    }, [currentPage]);
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
@@ -35,11 +37,12 @@ const Products = () => {
         }
     };
 
-    const getAllProducts = async () => {
+    const getAllProducts = async (page) => {
         try {
-            const products = await axios.get("http://localhost:5000/products/");
+            const products = await axios.get(`http://localhost:5000/products?page=${page}`);
             if (products.data.result.length) {
                 setResult(products.data.result);
+                setTotalPages(products.data.totalPages);
             } else {
                 setMessage("Error Occured");
                 setTimeout(() => {
@@ -95,6 +98,17 @@ const Products = () => {
             console.log(error.message);
         }
     };
+    const handlePreviousClick = () => {
+        if (currentPage > 1) {
+          setCurrentPage(currentPage - 1);
+        }
+      };
+    
+      const handleNextClick = () => {
+        if (currentPage < totalPages) {
+          setCurrentPage(currentPage + 1);
+        }
+      };
     return (
         <>
             <div className="absolute top-20 left-20">
@@ -185,7 +199,7 @@ const Products = () => {
                                         className={`mt-4 text-sm ${
                                             isDarkMode
                                                 ? "text-gray-300"
-                                                : "text-black-700"
+                                                : "text-gray-100 "
                                         }`}
                                     >
                                         <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
@@ -194,7 +208,7 @@ const Products = () => {
                                         className={`mt-1 text-lg font-medium ${
                                             isDarkMode
                                                 ? "text-gray-400"
-                                                : "text-gray-900"
+                                                : "text-gray-100 "
                                         }`}
                                     >
                                         ${product.price}
@@ -209,6 +223,60 @@ const Products = () => {
                             );
                         })}
                 </div>
+                <div className="mt-6 sm:flex sm:items-center sm:justify-between ">
+        <div className="text-sm text-gray-500 dark:text-gray-400">
+          Page
+          <span className="font-medium text-gray-700 dark:text-gray-100">
+            {currentPage} of {totalPages}
+          </span>
+        </div>
+
+        <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
+          <a
+            onClick={handlePreviousClick}
+            className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-5 h-5 rtl:-scale-x-100"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+              />
+            </svg>
+
+            <span>previous</span>
+          </a>
+
+          <a
+            onClick={handleNextClick}
+            className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+          >
+            <span>Next</span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-5 h-5 rtl:-scale-x-100"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
             </div>
         </>
     );

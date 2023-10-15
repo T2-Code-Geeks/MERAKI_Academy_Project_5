@@ -37,7 +37,7 @@ const ProductsPage = () => {
       );
       if (result.data.success) {
         dispatch(setProducts(result.data.result));
-        setTotalProducts(result.data.totalItems)
+        setTotalProducts(result.data.totalItems);
         setTotalPages(result.data.totalPages);
       }
     } catch (error) {
@@ -131,6 +131,13 @@ const ProductsPage = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+  function truncateDescription(description, maxLength) {
+    if (description && description.length > maxLength) {
+      return description.substring(0, maxLength) + '...'; 
+    }
+    return description;
+  }
+  
   return (
     <div className="container px-4 mx-auto">
       <div className="sm:flex sm:items-center sm:justify-between">
@@ -215,7 +222,7 @@ const ProductsPage = () => {
                             <div className="flex items-center gap-x-2">
                               <img
                                 className="object-cover w-10 h-10 rounded-full"
-                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                src={product.img}
                                 alt=""
                               />
                               <div>
@@ -227,7 +234,7 @@ const ProductsPage = () => {
                           </div>
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          {product?.description}
+                        {truncateDescription(product?.description, 50)}
                         </td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                           {product?.category_name}

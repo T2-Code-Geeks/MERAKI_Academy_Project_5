@@ -2,6 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
+
       <footer className="bg-white dark:bg-gray-800">
           <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
               <div className="md:flex md:justify-between">
@@ -184,6 +185,7 @@ function Footer() {
                       </a>
                   </div>
               </div>
+
           </div>
       </footer>
   );

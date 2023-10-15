@@ -25,7 +25,9 @@ const MyOrder = () => {
         }
     };
     return (
-        <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100 ">
+
+        <div className="container p-20 mx-auto sm:p-4 dark:text-gray-100 h-screen ">
+
             <h2 className="mb-4 text-2xl font-semibold leadi">Invoices</h2>
             <div className="overflow-x-auto">
                 <table className="min-w-full text-xs">
@@ -59,7 +61,9 @@ const MyOrder = () => {
                                                 <NavLink>Order Items</NavLink>
                                             </td>
                                             <td className="p-3">
+
                                                 <p>{ order.shipping_date?order.shipping_date.split("T")[0]:"Not Determined" }</p>
+
                                             </td>
                                             <td className="p-3 text-right">
                                                 <p>${order.total }</p>
