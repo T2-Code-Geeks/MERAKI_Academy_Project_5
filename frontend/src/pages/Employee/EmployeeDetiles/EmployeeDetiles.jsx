@@ -150,7 +150,6 @@ const EmployeeDetails = () => {
                     headers: { Authorization: `Bearer ${tokenUser}` },
                 }
             );
-            console.log(result.data);
             if (result.data.success) {
                 toast.success("Employee Hired")
             } else if(result.data.message === "The token is invalid or expired") {
@@ -263,7 +262,6 @@ const EmployeeDetails = () => {
                                 <Button
                                     className="bg-blue-600 mt-5 mx-1"
                                     onClick={() => {
-                                        console.log(id);
                                         newConversation();
                                     }}
                                 >

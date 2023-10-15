@@ -77,10 +77,6 @@ export const router = createBrowserRouter([
                 path: "employees/:id",
                 element: <EmployeeDetails />,
             },
-            {
-                path: "Hiring",
-                element: <Dashboard />,
-            },
 
             {
                 path: "user/:id",
@@ -109,7 +105,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: "myorders",
-                element: <MyOrder/>            },
+                element: <MyOrder />,
+            },
         ],
     },
     {
@@ -146,6 +143,10 @@ export const router = createBrowserRouter([
         path: "dashboard",
         element: <EmployeeLayout />,
         children: [
+            {
+                path: "",
+                element: <Dashboard />,
+            },
             {
                 path: "employeeProfile/:id",
                 element: <ProfileEmployee />,

@@ -86,22 +86,22 @@ const ProductDetails = () => {
                                         </h2>
                                         <div className="flex mb-4">
                                             <div className="mr-4">
-                                                <span className="font-bold text-gray-100">
+                                                <span className="font-bold text-black-100">
                                                     Price:{" "}
                                                 </span>
 
-                                                <span className="text-gray-200">
+                                                <span className="text-black-200">
 
                                                     ${result.price}
                                                 </span>
                                             </div>
                                         </div>
                                         <div>
-                                            <span className="font-bold text-gray-100">
+                                            <span className="font-bold text-black-100">
                                                 Product Description:
                                             </span>
 
-                                            <p className="text-gray-200 text-sm mt-2">
+                                            <p className="text-gray-blackgit  text-sm mt-2">
 
                                                 {result.description}
                                             </p>

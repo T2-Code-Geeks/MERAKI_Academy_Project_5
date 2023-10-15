@@ -98,7 +98,6 @@ const ProfileEmployee = () => {
                         img: data.url,
                     }
                 );
-                console.log(result.data);
             })
             .catch((err) => console.log(err));
     };
