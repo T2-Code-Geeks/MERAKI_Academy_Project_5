@@ -62,8 +62,8 @@ CREATE TABLE products (
     inventory_ID INT,
     created_at TIMESTAMP DEFAULT NOW(),
     is_deleted SMALLINT DEFAULT 0,
-    FOREIGN KEY (inventory_ID) REFERENCES product_category(id),
-    FOREIGN KEY (category_id) REFERENCES product_inventory(id)
+    FOREIGN KEY (inventory_ID) REFERENCES product_inventory(id),
+    FOREIGN KEY (category_id) REFERENCES product_category(id)
 );
 CREATE TABLE order_items (
     id SERIAL PRIMARY KEY,
@@ -220,26 +220,26 @@ INSERT INTO products (name, description, img, price, category_id, inventory_id) 
 
  
     
-    ('safety Glasses', 'Protective eyewear is important in certain workplaces to shield employees’ eyes from flying particles, hot liquids, molten metal, chemical gases, and harmful radiation. This PPE must fit closely and comfortably to the wearer’s face, be cleanable, and not restrict vision or movement.', 'https://tse4.mm.bing.net/th?id=OIP.qm3hmTklq5m6gCbjUqbPvgHaEb&pid=Api&P=0&h=220', 34, 2, 1),
-    ('Hearing Protection', 'Earplugs and earmuffs are used to protect workers from exposure to excessive noise, which can lead to irreparable hearing damage and increased stress.', 'https://tse1.mm.bing.net/th?id=OIP.UvZvVY9jsnmD-YyumfZL7AHaHa&pid=Api&P=0&h=220', 66, 2, 2),
-    ('Safety Golves', 'Gloves, finger guards, and arm coverings will protect employees from the skin damage caused by cuts, chemical and thermal burns, and punctures. ', 'https://tse4.mm.bing.net/th?id=OIP.tbkM7sQrnMeizynFeZ7IbQHaHa&pid=Api&P=0&h=220', 43, 2, 3),
-    ('Safty Helmets', ' Safety helmets, also known, are essential pieces of personal protective equipment used in various industries and professions to protect the head from injuries', 'https://tse3.mm.bing.net/th?id=OIP.LJvweuuvldfSQIh9sNAFJgHaFh&pid=Api&P=0&h=220', 34, 2, 1),
-    ('Safety Shoes', 'Leggings, foot guards, and safety shoes help protect workers from a range of workplace hazards including falling, rolling, or sharp objects; and hot surfaces; and electrical hazards.', 'https://tse1.mm.bing.net/th?id=OIP.-nmwBDMsb2c3yKYPwbn3mAHaE0&pid=Api&P=0&h=220',64, 2, 2),
-    ('Face Shield', 'Face shields consist of a visor, a lightweight plastic or metal frame, and a suspension system that attaches the shield to the head of the wearer. Providing full face protection,', 'https://tse3.mm.bing.net/th?id=OIP.Qy3JCqmNV2ldhlITBN8D8AHaHa&pid=Api&P=0&h=220', 40, 2, 3),
-    ('Earplugs and Earmuffs', 'Earplugs and earmuffs are used to protect workers from exposure to excessive noise, which can lead to irreparable hearing damage and increased stress.', 'https://tse2.mm.bing.net/th?id=OIP.6yNsbjWkIbM2QccdfQseNQHaHa&pid=Api&P=0&h=220', 32, 2, 1),
-    ('Surgical Face Masks', 'A surgical mask — often referred to as a face mask — is a loose-fitting, disposable device that covers the wearer’s mouth and nose', 'https://cdn.shopify.com/s/files/1/0300/3065/9677/products/1_49ec74f1-9e4b-4fa6-b53f-c83ea6d755f0_1024x1024@2x.jpg?v=1595502409', 12, 2, 2),
-    ('Respirators', 'Respirators have long been used in a manufacturing setting to protect employees from inhaling air contaminated with harmful dust, fumes, gases, or sprays.', 'https://tse2.mm.bing.net/th?id=OIP.IRUoXE9dnX0i5NNpB10VJwAAAA&pid=Api&P=0&h=220',23, 2, 3),
-    ('Hard Hats', 'Hard hats serve to protect industrial workers from head injuries caused by falling, flying, or fixed objects.', 'https://tse4.mm.bing.net/th?id=OIP.Cium1-8qsbZklf0mY8TWggHaFn&pid=Api&P=0&h=220', 33, 2, 1);
+    ('safety Glasses', 'Protective eyewear is important in certain workplaces to shield employees’ eyes from flying particles, hot liquids, molten metal, chemical gases, and harmful radiation. This PPE must fit closely and comfortably to the wearer’s face, be cleanable, and not restrict vision or movement.', 'https://tse4.mm.bing.net/th?id=OIP.qm3hmTklq5m6gCbjUqbPvgHaEb&pid=Api&P=0&h=220', 34, 4, 1),
+    ('Hearing Protection', 'Earplugs and earmuffs are used to protect workers from exposure to excessive noise, which can lead to irreparable hearing damage and increased stress.', 'https://tse1.mm.bing.net/th?id=OIP.UvZvVY9jsnmD-YyumfZL7AHaHa&pid=Api&P=0&h=220', 66, 4, 2),
+    ('Safety Golves', 'Gloves, finger guards, and arm coverings will protect employees from the skin damage caused by cuts, chemical and thermal burns, and punctures. ', 'https://tse4.mm.bing.net/th?id=OIP.tbkM7sQrnMeizynFeZ7IbQHaHa&pid=Api&P=0&h=220', 43, 4, 3),
+    ('Safty Helmets', ' Safety helmets, also known, are essential pieces of personal protective equipment used in various industries and professions to protect the head from injuries', 'https://tse3.mm.bing.net/th?id=OIP.LJvweuuvldfSQIh9sNAFJgHaFh&pid=Api&P=0&h=220', 34, 4, 1),
+    ('Safety Shoes', 'Leggings, foot guards, and safety shoes help protect workers from a range of workplace hazards including falling, rolling, or sharp objects; and hot surfaces; and electrical hazards.', 'https://tse1.mm.bing.net/th?id=OIP.-nmwBDMsb2c3yKYPwbn3mAHaE0&pid=Api&P=0&h=220',64, 4, 2),
+    ('Face Shield', 'Face shields consist of a visor, a lightweight plastic or metal frame, and a suspension system that attaches the shield to the head of the wearer. Providing full face protection,', 'https://tse3.mm.bing.net/th?id=OIP.Qy3JCqmNV2ldhlITBN8D8AHaHa&pid=Api&P=0&h=220', 40, 4, 3),
+    ('Earplugs and Earmuffs', 'Earplugs and earmuffs are used to protect workers from exposure to excessive noise, which can lead to irreparable hearing damage and increased stress.', 'https://tse2.mm.bing.net/th?id=OIP.6yNsbjWkIbM2QccdfQseNQHaHa&pid=Api&P=0&h=220', 32, 4, 1),
+    ('Surgical Face Masks', 'A surgical mask — often referred to as a face mask — is a loose-fitting, disposable device that covers the wearer’s mouth and nose', 'https://cdn.shopify.com/s/files/1/0300/3065/9677/products/1_49ec74f1-9e4b-4fa6-b53f-c83ea6d755f0_1024x1024@2x.jpg?v=1595502409', 12, 4, 2),
+    ('Respirators', 'Respirators have long been used in a manufacturing setting to protect employees from inhaling air contaminated with harmful dust, fumes, gases, or sprays.', 'https://tse2.mm.bing.net/th?id=OIP.IRUoXE9dnX0i5NNpB10VJwAAAA&pid=Api&P=0&h=220',23, 4, 3),
+    ('Hard Hats', 'Hard hats serve to protect industrial workers from head injuries caused by falling, flying, or fixed objects.', 'https://tse4.mm.bing.net/th?id=OIP.Cium1-8qsbZklf0mY8TWggHaFn&pid=Api&P=0&h=220', 33, 4, 1);
    
 
      
-     INSERT INTO employeeCategory (category) VALUES
-     ('Electrical craftsmen group'),
-     ('extending water pipes craftsmen group'),
-     ('Construction craftsmen group'),
-     ('plumbing craftsmen group');
+INSERT INTO employeeCategory (category) VALUES
+    ('Electrical craftsmen group'),
+    ('extending water pipes craftsmen group'),
+    ('Construction craftsmen group'),
+    ('plumbing craftsmen group');
 
-    INSERT INTO employees (firstName, lastName, description, category_id , work_hours ,img,age,country,role_id) VALUES
+INSERT INTO employees (firstName, lastName, description, category_id , work_hours ,img,age,country,role_id) VALUES
 
 ('Qtada', 'Ahmad', 'work in electrical',1 ,'(8-2) pm','https://tse3.mm.bing.net/th?id=OIP.5puLayR0ov1MwxPuSIpZQgHaE7&pid=Api&P=0&h=220',22,'Jordan',2),
 ('ahmad', 'Rame', 'work in electrical',1 ,'(8-3) pm','https://tse2.mm.bing.net/th?id=OIP.F2S-pXzG9Vt3AwAPtyX6MAAAAA&pid=Api&P=0&h=220',45,'Jordan',2),

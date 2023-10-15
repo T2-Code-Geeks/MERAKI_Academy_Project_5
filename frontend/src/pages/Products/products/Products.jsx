@@ -56,6 +56,7 @@ const Products = () => {
             const result = await axios.get(
                 `http://localhost:5000/products/category/products/${categoryId}`
             );
+            console.log(result.data);
             if (result.data.success) {
                 setResult(result.data.result);
             }
@@ -144,7 +145,8 @@ const Products = () => {
                                 return (
                                     <li key={cats.id}>
                                         <button
-                                            onClick={() => {
+                                            onClick={ () => {
+                                                console.log(cats.id);
                                                 getProductByCatgegory(cats.id);
                                             }}
                                             className="block px-14 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
