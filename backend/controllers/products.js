@@ -408,7 +408,6 @@ const createNewOrderDetails = async (req, res) => {
         const result = await client.query(`INSERT INTO order_details (user_id, order_items, payment_method, total) VALUES ($1,$2,$3,$4) RETURNING *`, [user_id, order_items, paymentMethod, total]);
         
         await client.query(`UPDATE order_items SET is_deleted=1 WHERE user_id = $1`,[user_id])
-        console.log(result.rows[0]);
         res.json({
             success: true,
             result: result.rows[0]
