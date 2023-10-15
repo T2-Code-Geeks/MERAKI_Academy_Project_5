@@ -8,11 +8,11 @@ import {
     deletecomment,
     addNewComment,
 } from "../../../service/redux/reducers/employeeSlice";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Avatar, Typography, Button } from "@material-tailwind/react";
 import { MapPinIcon, BuildingLibraryIcon } from "@heroicons/react/24/solid";
-import { Try } from "@mui/icons-material";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //!=================================== show details employee ... ====================================================
 const EmployeeDetails = () => {
     const navigate = useNavigate();
@@ -22,10 +22,12 @@ const EmployeeDetails = () => {
     const [show, setShow] = useState(false);
     const { id } = useParams();
     const dispatch = useDispatch();
+    const employeeId = useParams();
 
     const { userId } = useSelector((state) => state.auth);
     const { comments } = useSelector((state) => state.employee);
     const { tokenUser } = useSelector((state) => state.auth);
+    const [message, setMessage] = useState("");
 
     //!======================================================================
 
@@ -128,7 +130,6 @@ const EmployeeDetails = () => {
                     },
                 }
             );
-            console.log(result.data);
             if (result.data) {
                 navigate("/chat");
             } else {
@@ -140,15 +141,29 @@ const EmployeeDetails = () => {
         }
     };
 
-    const handleHire = async() => {
+    const handleHire = async () => {
         try {
-            const result = await axios.post(`http://localhost:5000/`)
+            const result = await axios.post(
+                `http://localhost:5000/users/hire/${employeeId.id}`,
+                { note: "Hello employee" },
+                {
+                    headers: { Authorization: `Bearer ${tokenUser}` },
+                }
+            );
+            if (result.data.success) {
+                toast.success("Employee Hired")
+            } else {
+                toast.warning("Employee Already Hired");
+            }
         } catch (error) {
             console.log(error.message);
         }
-    }
+    };
     return (
         <>
+            <div>
+                <ToastContainer />
+            </div>
             <section className="relative block h-[50vh]">
                 <div className="bg-profile-background absolute top-0 h-full w-full  bg-cover bg-center" />
                 <div className="absolute top-0 h-full w-full bg-black/75 bg-cover bg-center" />
@@ -258,7 +273,7 @@ const EmployeeDetails = () => {
                                         <Typography className="mb-8 font-normal text-blue-gray-500">
                                             <Button
                                                 className="bg-red-500 mt-5 mx-1"
-                                                onClick={() => {}}
+                                                onClick={handleHire}
                                             >
                                                 Hire Craftman
                                             </Button>
@@ -319,7 +334,7 @@ const EmployeeDetails = () => {
                                                 <span>{comment.comment}</span>
                                             </div>
                                             <span>
-                                                {comment.user_id == userId && (
+                                                {comment.user_id === userId && (
                                                     <button
                                                         key={comments[id].id}
                                                         onClick={() => {
@@ -347,3 +362,21 @@ const EmployeeDetails = () => {
 //! ======================================== export function  ====================================================
 
 export default EmployeeDetails;
+
+export const Message = ({ message, setMessage }) => {
+    return (
+        <div className="flex fixed right-10 shadow-md gap-6 rounded-lg overflow-hidden divide-x max-w-2xl dark:bg-gray-900 dark:text-gray-100 divide-gray-700">
+            <div className="flex flex-1 flex-col p-4 border-l-8 dark:border-violet-400">
+                <span className="text-2xl">{message}</span>
+            </div>
+            <button
+                onClick={() => {
+                    setMessage("");
+                }}
+                className="px-4 flex items-center text-xs uppercase tracki dark:text-gray-400 dark:border-gray-700"
+            >
+                Dismiss
+            </button>
+        </div>
+    );
+};
