@@ -8,9 +8,8 @@ import { useEffect } from "react";
 const Checkout = () => {
     const { tokenUser } = useSelector((state) => state.auth);
     const [message, setMessage] = useState("");
-    const { cart } = useSelector((state) => state.cart);
-    const [sum, setSum] = useState(0);
-
+    const { cart,sum } = useSelector((state) => state.cart);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cashOnDelivery');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleOrder = async () => {
@@ -40,7 +39,9 @@ const Checkout = () => {
     useEffect(() => {
  
     }, [])
-    
+    function handlePaymentMethodChange(method) {
+      setSelectedPaymentMethod(method);
+    }
     return (
 <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
   <div className="px-4 pt-8">
@@ -51,12 +52,12 @@ const Checkout = () => {
 
     return (
    
-       <div className="flex flex-col rounded-lg bg-white sm:flex-row">    { setSum((item.price*item.quantity)+sum)}
+       <div className="flex flex-col rounded-lg bg-white sm:flex-row">   
         <img className="m-2 h-24 w-28 rounded-md border object-cover object-center" src={item.img} alt="" />
         <div className="flex w-full flex-col px-4 py-4">
-          <span className="font-semibold">Nike Air Max Pro 8888 - Super Light</span>
+          <span className="font-semibold">{item.name}</span>
           <span className="float-right text-gray-400">{item.quantity}</span>
-          <p className="text-lg font-bold">${item.price*item.quantity}</p>
+          <p className="text-lg font-bold">${item.price*item.quantity}.00</p>
         </div>
       </div> 
     )
@@ -64,36 +65,68 @@ const Checkout = () => {
 
     </div>
 
-    <p className="mt-8 text-lg font-medium">Shipping Methods</p>
-    <form className="mt-5 grid gap-6">
-      <div className="relative">
-        <input className="peer hidden" id="radio_1" type="radio" name="radio" checked />
-        <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-        <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" htmlFor="radio_1">
-          <img className="w-14 object-contain" src="/images/naorrAeygcJzX0SyNI4Y0.png" alt="" />
-          <div className="ml-5">
-            <span className="mt-2 font-semibold">Fedex Delivery</span>
-            <p className="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
-          </div>
-        </label>
-      </div>
-      <div className="relative">
-        <input className="peer hidden" id="radio_2" type="radio" name="radio" checked />
-        <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-        <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" htmlFor="radio_2">
-          <img className="w-14 object-contain" src="/images/oG8xsl3xsOkwkMsrLGKM4.png" alt="" />
-          <div className="ml-5">
-            <span className="mt-2 font-semibold">Fedex Delivery</span>
-            <p className="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
-          </div>
-        </label>
-      </div>
-    </form>
+<div className="bg-gray-50 mt-1 rounded-lg"> 
+    <label className="block text-lg font-medium bg-gray-50">Payment Method</label>
+<div className="mt-2 space-y-4 bg-gray-50">
+  <div className="relative flex items-center">
+    <input
+      type="radio"
+      id="cashOnDelivery"
+      name="paymentMethod"
+      value="cashOnDelivery"
+      checked={selectedPaymentMethod === 'cashOnDelivery'}
+      onChange={() => handlePaymentMethodChange('cashOnDelivery')}
+    />
+    <label htmlFor="cashOnDelivery" className="ml-3 text-sm font-medium">
+      Cash on Delivery
+    </label>
+  </div>
+  <div className="relative flex items-center">
+    <input
+      type="radio"
+      id="visa"
+      name="paymentMethod"
+      value="visa"
+      checked={selectedPaymentMethod === 'visa'}
+      onChange={() => handlePaymentMethodChange('visa')}
+    />
+    <label htmlFor="visa" className="ml-3 text-sm font-medium">
+      Visa
+    </label></div>
+  </div>
+</div>
   </div>
   <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
     <p className="text-xl font-medium">Payment Details</p>
     <p className="text-gray-400">Complete your order by providing your payment details.</p>
-    <div className="">
+    {selectedPaymentMethod === 'cashOnDelivery' ? (<div><label htmlFor="email" className="mt-4 mb-2 block text-sm font-medium">Email</label>
+      <div className="relative">
+        <input type="text" id="email" name="email" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="your.email@gmail.com" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+          </svg>
+        </div>
+      </div>
+      <label htmlFor="card-holder" className="mt-4 mb-2 block text-sm font-medium">Card Holder</label>
+      <div className="relative">
+        <input type="text" id="card-holder" name="card-holder" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Your full name here" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+          </svg>
+        </div>
+      </div>
+      <label htmlFor="billing-address" className="mt-4 mb-2 block text-sm font-medium">Billing Address</label>
+      <div className="flex flex-col sm:flex-row">
+        <div className="relative flex-shrink-0 sm:w-7/12">
+          <input type="text" id="billing-address" name="billing-address" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Street Address" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+          </div>
+        </div>
+    
+        <input type="text" name="billing-zip" className="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="ZIP" />
+      </div></div>):(<div className="">
       <label htmlFor="email" className="mt-4 mb-2 block text-sm font-medium">Email</label>
       <div className="relative">
         <input type="text" id="email" name="email" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="your.email@gmail.com" />
@@ -131,31 +164,28 @@ const Checkout = () => {
         <div className="relative flex-shrink-0 sm:w-7/12">
           <input type="text" id="billing-address" name="billing-address" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Street Address" />
           <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-            <img className="h-4 w-4 object-contain" src="https://flagpack.xyz/_nuxt/4c829b6c0131de7162790d2f897a90fd.svg" alt="" />
           </div>
         </div>
-        <select type="text" name="billing-state" className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500">
-          <option value="State">State</option>
-        </select>
+    
         <input type="text" name="billing-zip" className="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="ZIP" />
       </div>
 
-     
+     </div>)}
       <div className="mt-6 border-t border-b py-2">
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-gray-900">Subtotal</p>
-          <p className="font-semibold text-gray-900">${sum}</p>
+          <p className="font-semibold text-gray-900">${sum}.00</p>
         </div>
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-gray-900">Shipping</p>
-          <p className="font-semibold text-gray-900">$8.00</p>
+          <p className="font-semibold text-gray-900">$10.00</p>
         </div>
       </div>
       <div className="mt-6 flex items-center justify-between">
         <p className="text-sm font-medium text-gray-900">Total</p>
-        <p className="text-2xl font-semibold text-gray-900">$408.00</p>
+        <p className="text-2xl font-semibold text-gray-900">${sum+10}.00</p>
       </div>
-    </div>
+    
     <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" onClick={handleOrder}>Place Order</button>
   </div>
 </div>
@@ -167,13 +197,3 @@ export default Checkout;
 
 
 
-/* 
-        <div>
-            <select>
-                <option value={"cod"}>Cash On Delivery</option>
-                <option value={"cc"}>credit Card</option>
-            </select>
-            <button onClick={ handleOrder }>Confirm</button>
-            <h5>{ message }</h5>
-        </div>
-*/

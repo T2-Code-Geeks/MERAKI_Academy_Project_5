@@ -261,19 +261,19 @@ const handelUserInfo=async()=>{
     ref={scroll}
     key={index}
     className={`${
-      message?.sender === userId || message?.sender === employeeId
+      message?.sender == userId || message?.sender == employeeId
         ? "col-start-1 col-end-8 p-3 rounded-lg ml-auto"
         : "col-start-6 col-end-13 p-3 rounded-lg"
     }`}
   >
     <div className="flex flex-row items-center">
       <div className={`flex items-center justify-center h-10 w-10 rounded-full ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500" : "bg-indigo-100"} flex-shrink-0`}>
-        {message?.sender === userId || message?.sender === employeeId
+        {message?.sender == userId || message?.sender == employeeId
           ? "You"
           : "Other"}
       </div>
       <div
-        className={`relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${message?.sender === userId || message?.sender === employeeId ? "bg-indigo-500 text-gray-800" : "bg-indigo-100 text-gray-800"}`}
+        className={`relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${message?.sender == userId || message?.sender == employeeId ? "bg-indigo-500 text-gray-800" : "bg-indigo-100 text-gray-800"}`}
       >
         <div>{message.text}</div>
       </div>
