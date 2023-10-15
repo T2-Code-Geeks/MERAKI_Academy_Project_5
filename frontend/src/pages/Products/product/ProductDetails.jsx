@@ -55,7 +55,7 @@ const ProductDetails = () => {
                             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-screen py-20">
                                 <div className="flex flex-col md:flex-row -mx-4">
                                     <div className="md:flex-1 px-4">
-                                        <div className="h-[460px] rounded-lg bg-gray-300 mb-4">
+                                        <div className="h-[460px] rounded-lg bg-gray-300 mb-4 mt-4">
                                             <img
                                                 className="w-full h-full object-cover"
                                                 src={result.img}
@@ -89,7 +89,9 @@ const ProductDetails = () => {
                                                 <span className="font-bold text-gray-100">
                                                     Price:{" "}
                                                 </span>
+
                                                 <span className="text-gray-200">
+
                                                     ${result.price}
                                                 </span>
                                             </div>
@@ -98,7 +100,9 @@ const ProductDetails = () => {
                                             <span className="font-bold text-gray-100">
                                                 Product Description:
                                             </span>
+
                                             <p className="text-gray-200 text-sm mt-2">
+
                                                 {result.description}
                                             </p>
                                         </div>
