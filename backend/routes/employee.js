@@ -29,7 +29,7 @@ employeeRouter.post("/register", registerEmployee);
 employeeRouter.post("/login", loginEmployee);
 employeeRouter.put("/:id", updateEmployeeById);
 employeeRouter.delete("/:id", deleteEmployeeById);
-employeeRouter.get("/hiring",authentication,getAllHiring);
+employeeRouter.get("/hiring/all",authentication,getAllHiring);
 employeeRouter.put("/updateHiring/:id",authentication,updateHiring)
 employeeRouter.delete("/comment/:id",deleteComment)
 employeeRouter.get("/", getAllEmployees);

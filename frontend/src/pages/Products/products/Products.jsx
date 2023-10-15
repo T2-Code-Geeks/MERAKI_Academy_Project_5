@@ -59,7 +59,6 @@ const Products = () => {
             const result = await axios.get(
                 `http://localhost:5000/products/category/products/${categoryId}`
             );
-            console.log(result.data);
             if (result.data.success) {
                 setResult(result.data.result);
             }
@@ -81,7 +80,6 @@ const Products = () => {
                     { product_id, quantity: 1 },
                     { headers: { Authorization: `Bearer ${tokenUser}` } }
                 );
-                console.log(result);
                 if (result.data.success) {
                     setMessage("Added To cart");
                     setTimeout(() => {
@@ -160,7 +158,6 @@ const Products = () => {
                                     <li key={cats.id}>
                                         <button
                                             onClick={ () => {
-                                                console.log(cats.id);
                                                 getProductByCatgegory(cats.id);
                                             }}
                                             className="block px-14 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -199,7 +196,7 @@ const Products = () => {
                                         className={`mt-4 text-sm ${
                                             isDarkMode
                                                 ? "text-gray-300"
-                                                : "text-gray-100 "
+                                                : "text-black-100 "
                                         }`}
                                     >
                                         <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
@@ -208,7 +205,7 @@ const Products = () => {
                                         className={`mt-1 text-lg font-medium ${
                                             isDarkMode
                                                 ? "text-gray-400"
-                                                : "text-gray-100 "
+                                                : "text-black-100 "
                                         }`}
                                     >
                                         ${product.price}
