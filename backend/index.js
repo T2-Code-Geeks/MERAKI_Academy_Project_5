@@ -42,12 +42,10 @@ let clients={};
 io.use(socketAuth)
 
 io.on("connection", (socket) => {
-console.log("a  connection");
   const id=socket.handshake.headers.id;
   clients[id]={socket_id:socket.id,id};
 
 
-// console.log("clients",clients);
 
 messageHandler(socket,io,clients)
 
@@ -60,7 +58,6 @@ socket.on("disconnect",()=>{
       delete clients[key]
     }
   }
-  // console.log(clients);
 })
 
 
