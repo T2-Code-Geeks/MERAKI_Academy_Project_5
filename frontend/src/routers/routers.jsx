@@ -11,6 +11,7 @@ import ProfileEmployee from "../pages/Employee/EmployeeProfile/ProfileEmployee";
 import ProductDetails, {
     productLoader,
 } from "../pages/Products/product/ProductDetails";
+import Dashboard from "../pages/Employee/EmployeeDetiles/Dashoard/Dashboard";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MainPage from "../components/Admin/MainPage/MainPage";
 import AdminLayOut from "../layouts/Admin/AdminLayOut";
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
             {
                 path: "employees/:id",
                 element: <EmployeeDetails />,
+            },
+            {
+                path: "Hiring",
+                element: <Dashboard />,
             },
 
             {
