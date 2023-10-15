@@ -8,32 +8,32 @@ import {
     deletecomment,
     addNewComment,
 } from "../../../service/redux/reducers/employeeSlice";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Avatar, Typography, Button } from "@material-tailwind/react";
 import { MapPinIcon, BuildingLibraryIcon } from "@heroicons/react/24/solid";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //!=================================== show details employee ... ====================================================
 const EmployeeDetails = () => {
+    const navigate = useNavigate();
+    const [comment, setcomment] = useState("");
+    const [massege, setMassege] = useState("");
+    const [employee, setEmployee] = useState({});
+    const [show, setShow] = useState(false);
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const employeeId = useParams();
 
-  const navigate = useNavigate();
-  const [comment, setcomment] = useState("");
-  const [massege, setMassege] = useState("");
-  const [employee, setEmployee] = useState({});
-  const [show, setShow] = useState(false);
-  const { id } = useParams();
-  const dispatch = useDispatch();
-    
     const { userId } = useSelector((state) => state.auth);
     const { comments } = useSelector((state) => state.employee);
     const { tokenUser } = useSelector((state) => state.auth);
-
-
-
+    const [message, setMessage] = useState("");
 
     //!======================================================================
 
     useEffect(() => {
         allCommentsUser();
+        getEmployeeDetails();
     }, []);
 
     //! ======================================== show comments =================================================
@@ -83,7 +83,6 @@ const EmployeeDetails = () => {
         }
     };
 
-
     //! ======================================== delete comment ====================================================
 
     const DeleteCommentUser = async (id) => {
@@ -96,15 +95,8 @@ const EmployeeDetails = () => {
             if (error.response.data.success) {
                 setMassege(error.response.data.massege);
             }
-
         }
     };
-
-    //! ======================================================================
-
-    useEffect(() => {
-        getEmployeeDetails();
-    }, []);
 
     //!======================================================================
 
@@ -127,30 +119,51 @@ const EmployeeDetails = () => {
 
     //!========================================================================
 
-
-
-    const newConversation=async()=>{
-      try {
-        const result = await axios.post(
-            `http://localhost:5000/conversation`,{receiverId:parseInt(id)}, {
-              headers: {
-                  Authorization: `Bearer ${tokenUser}`,
-              },
-          })
-            console.log(result.data);
-        if (result.data) {
-          navigate("/chat")
-        } else {
-            setMassege("NOt found details");
+    const newConversation = async () => {
+        try {
+            const result = await axios.post(
+                `http://localhost:5000/conversation`,
+                { receiverId: parseInt(id) },
+                {
+                    headers: {
+                        Authorization: `Bearer ${tokenUser}`,
+                    },
+                }
+            );
+            if (result.data) {
+                navigate("/chat");
+            } else {
+                setMassege("NOt found details");
+            }
+        } catch (error) {
+            if (error.response.data.success) {
+            }
         }
-    } catch (error) {
-        if (error.response.data.success) {
-        }
-    }
-    }
+    };
 
+    const handleHire = async () => {
+        try {
+            const result = await axios.post(
+                `http://localhost:5000/users/hire/${employeeId.id}`,
+                { note: "Hello employee" },
+                {
+                    headers: { Authorization: `Bearer ${tokenUser}` },
+                }
+            );
+            if (result.data.success) {
+                toast.success("Employee Hired")
+            } else {
+                toast.warning("Employee Already Hired");
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
     return (
         <>
+            <div>
+                <ToastContainer />
+            </div>
             <section className="relative block h-[50vh]">
                 <div className="bg-profile-background absolute top-0 h-full w-full  bg-cover bg-center" />
                 <div className="absolute top-0 h-full w-full bg-black/75 bg-cover bg-center" />
@@ -240,31 +253,27 @@ const EmployeeDetails = () => {
                                 </div>
                                 <div className="mb-2 flex items-center justify-center gap-2">
                                     <Typography className="font-medium text-blue-gray-700">
-                                        Work Description : {employee.description}
+                                        Work Description :{" "}
+                                        {employee.description}
                                     </Typography>
-                                    
                                 </div>
                                 <Button
-                                            className="bg-blue-600 mt-5 mx-1"
-                                            onClick={() => {
-                                              console.log(id);
-                                              newConversation()
-                                            }}
-                                        >
-                                           Chat Now
-                                        </Button>
+                                    className="bg-blue-600 mt-5 mx-1"
+                                    onClick={() => {
+                                        console.log(id);
+                                        newConversation();
+                                    }}
+                                >
+                                    Chat Now
+                                </Button>
                             </div>
-
-
                             <div className="mb-10 border-t border-blue-gray-50 py-6 text-center">
                                 <div className="mt-2 flex flex-wrap justify-center">
                                     <div className="flex w-full flex-col items-center px-4 lg:w-9/12">
                                         <Typography className="mb-8 font-normal text-blue-gray-500">
                                             <Button
                                                 className="bg-red-500 mt-5 mx-1"
-                                                onClick={ () => {
-                                                    
-                                                }}
+                                                onClick={handleHire}
                                             >
                                                 Hire Craftman
                                             </Button>
@@ -272,7 +281,6 @@ const EmployeeDetails = () => {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -293,39 +301,54 @@ const EmployeeDetails = () => {
                                 onChange={(e) => {
                                     setcomment(e.target.value);
                                 }}
-                            />):<p className="text-gray-100">No there Any comments</p>}
-                            {tokenUser && <button
-                                on
-                                onClick={(e) => addFeadBackFromUser()}
-                                className="block w-200 px-4 py-2 -mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-blue-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 -mx-12"
-                            >
-                                Addcomment
-                            </button>}
+
+                            />
+                            {tokenUser && (
+                                <button
+                                    on
+                                    onClick={(e) => addFeadBackFromUser()}
+                                    className="block w-200 px-4 py-2 -mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-blue-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 -mx-12"
+                                >
+                                    Addcomment
+                                </button>
+                            )}
+
                         </div>
                         {comments &&
                             comments.map((comment, id) => {
-                              console.log(comment)
+                                console.log(comment);
                                 return (
                                     <>
                                         <div id="comments">
-                                           <div className="flex justify-start"><span><img src="https://tse3.mm.bing.net/th?id=OIP.AkKR5-4AJhHTNNDMp0NxvQAAAA&pid=Api&P=0&h=220" width={20} height={30} /></span> <span className="text-gray-300 w-20  mx-10">User {comment.user_id} </span></div>
-                                            <div id="feadback">
+                                            <div className="flex justify-start">
                                                 <span>
-                                                    {comment.comment}
+                                                    <img
+                                                        src="https://tse3.mm.bing.net/th?id=OIP.AkKR5-4AJhHTNNDMp0NxvQAAAA&pid=Api&P=0&h=220"
+                                                        width={20}
+                                                        height={30}
+                                                    />
+                                                </span>{" "}
+                                                <span className="text-gray-300 w-20  mx-10">
+                                                    User {comment.user_id}{" "}
                                                 </span>
                                             </div>
+                                            <div id="feadback">
+                                                <span>{comment.comment}</span>
+                                            </div>
                                             <span>
-                                              {comment.user_id == userId && <button
-                                                  key={comments[id].id}
-                                                  onClick={() => {
-                                                      DeleteCommentUser(
-                                                          comments[id].id
-                                                      );
-                                                  }}
-                                                  className="block w-200 px-4 py-2 -mt-10 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-red-600 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-60"
-                                              >
-                                                  Delete Comment
-                                              </button>}
+                                                {comment.user_id === userId && (
+                                                    <button
+                                                        key={comments[id].id}
+                                                        onClick={() => {
+                                                            DeleteCommentUser(
+                                                                comments[id].id
+                                                            );
+                                                        }}
+                                                        className="block w-200 px-4 py-2 -mt-10 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-red-600 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring font-size-10 mx-60"
+                                                    >
+                                                        Delete Comment
+                                                    </button>
+                                                )}
                                             </span>
                                         </div>
                                     </>
@@ -341,3 +364,21 @@ const EmployeeDetails = () => {
 //! ======================================== export function  ====================================================
 
 export default EmployeeDetails;
+
+export const Message = ({ message, setMessage }) => {
+    return (
+        <div className="flex fixed right-10 shadow-md gap-6 rounded-lg overflow-hidden divide-x max-w-2xl dark:bg-gray-900 dark:text-gray-100 divide-gray-700">
+            <div className="flex flex-1 flex-col p-4 border-l-8 dark:border-violet-400">
+                <span className="text-2xl">{message}</span>
+            </div>
+            <button
+                onClick={() => {
+                    setMessage("");
+                }}
+                className="px-4 flex items-center text-xs uppercase tracki dark:text-gray-400 dark:border-gray-700"
+            >
+                Dismiss
+            </button>
+        </div>
+    );
+};

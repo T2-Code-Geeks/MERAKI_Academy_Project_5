@@ -15,6 +15,7 @@ const {
     loginGoogle,
     deleteCartItem,
     getUserOrders,
+    hireEmployee,
 } = require("../controllers/users");
 
 userRouter.post("/", userRegister);
@@ -28,5 +29,6 @@ userRouter.get("/basket/get", authentication, getUserBasket);
 userRouter.delete("/basket/:itemId", authentication, deleteCartItem);
 userRouter.post("/login/Google", loginGoogle);
 userRouter.get("/orders/all", authentication, getUserOrders);
+userRouter.post("/hire/:employeeId", authentication, hireEmployee);
 
 module.exports = userRouter;

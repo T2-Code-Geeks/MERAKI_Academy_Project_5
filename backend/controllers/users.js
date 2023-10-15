@@ -383,6 +383,35 @@ const getUserOrders = async (req, res) => {
     }
 }
 
+const hireEmployee = async (req, res) => {
+    try {
+        const { user_id } = req.token;
+        const { employeeId } = req.params;
+        const { note } = req.body;
+        const search = await client.query(`SELECT * FROM hiring WHERE user_id = $1 AND employee_id = $2`, [user_id, employeeId]);
+        if (search.rows.length) {
+            res.json({
+                success: false,
+                message: "Already Hired"
+            })
+        } else {
+            const result = await client.query(`INSERT INTO hiring (user_id, employee_id, note) VALUES ($1,$2,$3) RETURNING *`, [user_id, employeeId, note]);
+            res.json({
+                success: true,
+                result: result.rows[0]
+            })
+        }
+
+    } catch (error) {
+        console.log(error.message);
+        res.json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     userRegister,
     userLogin,
@@ -394,5 +423,6 @@ module.exports = {
     getUserBasket,
     deleteCartItem,
     loginGoogle,
-    getUserOrders
+    getUserOrders,
+    hireEmployee
 };

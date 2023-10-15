@@ -227,7 +227,7 @@ const getAllProducts = (req, res) => {
     const page = req.query.page || 1;
     const itemsPerPage = 10;
     const offset = (page - 1) * itemsPerPage;
-  
+
     const countQuery = `
       SELECT COUNT(*) AS total_count
       FROM products
@@ -235,7 +235,7 @@ const getAllProducts = (req, res) => {
       JOIN product_inventory ON products.inventory_ID = product_inventory.id
       WHERE products.is_deleted = 0;
     `;
-  
+
     const productsQuery = `
       SELECT products.*, product_category.name AS category_name
       FROM products
@@ -244,43 +244,43 @@ const getAllProducts = (req, res) => {
       WHERE products.is_deleted = 0
       LIMIT $1 OFFSET $2;
     `;
-  
-    const values = [itemsPerPage, offset];
-  
-    client
-      .query(countQuery)
-      .then((countResult) => {
-        const totalItems = countResult.rows[0].total_count;
-  
 
-        client
-          .query(productsQuery, values)
-          .then((productsResult) => {
-            res.status(200).json({
-              success: true,
-              message: "Products for page " + page,
-              result: productsResult.rows,
-              totalItems: totalItems, 
-              totalPages: Math.ceil(totalItems / itemsPerPage),
-            });
-          })
-          .catch((err) => {
+    const values = [itemsPerPage, offset];
+
+    client
+        .query(countQuery)
+        .then((countResult) => {
+            const totalItems = countResult.rows[0].total_count;
+
+
+            client
+                .query(productsQuery, values)
+                .then((productsResult) => {
+                    res.status(200).json({
+                        success: true,
+                        message: "Products for page " + page,
+                        result: productsResult.rows,
+                        totalItems: totalItems,
+                        totalPages: Math.ceil(totalItems / itemsPerPage),
+                    });
+                })
+                .catch((err) => {
+                    res.status(500).json({
+                        success: false,
+                        message: "Server error",
+                        err: err,
+                    });
+                });
+        })
+        .catch((err) => {
             res.status(500).json({
-              success: false,
-              message: "Server error",
-              err: err,
+                success: false,
+                message: "Server error",
+                err: err,
             });
-          });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
         });
-      });
-  };
-  
+};
+
 
 // ! Get  Products by id
 const getProductById = (req, res) => {
@@ -404,11 +404,10 @@ const createNewOrderDetails = async (req, res) => {
         const { user_id } = req.token;
         let { order_items, paymentMethod, total } = req.body;
         order_items = JSON.stringify(order_items);
-         
+
         const result = await client.query(`INSERT INTO order_details (user_id, order_items, payment_method, total) VALUES ($1,$2,$3,$4) RETURNING *`, [user_id, order_items, paymentMethod, total]);
-        
-        await client.query(`UPDATE order_items SET is_deleted=1 WHERE user_id = $1`,[user_id])
-        console.log(result.rows[0]);
+
+        await client.query(`UPDATE order_items SET is_deleted=1 WHERE user_id = $1`, [user_id])
         res.json({
             success: true,
             result: result.rows[0]
