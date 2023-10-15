@@ -183,7 +183,7 @@ const Products = () => {
                                         className={`mt-4 text-sm ${
                                             isDarkMode
                                                 ? "text-gray-300"
-                                                : "text-black-700"
+                                                : "text-gray-100 "
                                         }`}
                                     >
                                         <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
@@ -192,7 +192,7 @@ const Products = () => {
                                         className={`mt-1 text-lg font-medium ${
                                             isDarkMode
                                                 ? "text-gray-400"
-                                                : "text-gray-900"
+                                                : "text-gray-100 "
                                         }`}
                                     >
                                         ${product.price}
