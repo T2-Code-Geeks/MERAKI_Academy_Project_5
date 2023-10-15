@@ -6,16 +6,18 @@ import Footer from "../../components/Footer/Footer";
 const Main = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <header>
-        <NavBar />
+        <NavBar style={{ flex: "0 0 auto" }} />
       </header>
-      <main>
+      <main style={{ flex: "1 0 auto" }} >
       <section className={`bg-${isDarkMode ? 'gray-700' : 'white'} dark:bg-gray-700`}>    
             <Outlet isDarkMode={isDarkMode}/>
         </section>
       </main>
+      <footer style={{ flex: "0 0 auto" }}>
       <Footer />
+      </footer>
     </div>
   );
 };
