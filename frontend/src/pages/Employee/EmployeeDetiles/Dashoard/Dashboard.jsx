@@ -136,7 +136,7 @@ const Dashboard = () => {
                                                     {state?.note}
                                                 </td>
                                                 <td className="px-4 py-4 text-sm font-medium text-yellow-600 whitespace-nowrap">
-                                                    {state?.date.split("T")[0]}
+                                                    {state?.date?.split("T")[0]}
                                                 </td>
                                                 <td className="px-4 py-4 text-sm font-medium text-yellow-600 whitespace-nowrap">
                                                     {state?.status}
