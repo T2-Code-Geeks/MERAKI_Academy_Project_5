@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const EmployeesLoader = async () => {
 
-    const result = await axios.get("http://localhost:5000/employees").then(res => {
+    const result = await axios.get("https://geeks-app.onrender.com/employees").then(res => {
         return res.data.result
         
     })

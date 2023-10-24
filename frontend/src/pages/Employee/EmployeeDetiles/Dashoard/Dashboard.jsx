@@ -27,7 +27,7 @@ const Dashboard = () => {
     const getAllMyOrders = async () => {
         try {
             const result = await axios.get(
-                "http://localhost:5000/employees/hiring/all",
+                "https://geeks-app.onrender.com/employees/hiring/all",
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -43,7 +43,7 @@ const Dashboard = () => {
     const HiringAprroved = async (productId) => {
         try {
             const result = await axios.put(
-                `http://localhost:5000/employees/updateHiring/${productId}`,
+                `https://geeks-app.onrender.com/employees/updateHiring/${productId}`,
                 updateHiring,
                 {
                     headers: { Authorization: `Bearer ${token}` },
@@ -136,7 +136,7 @@ const Dashboard = () => {
                                                     {state?.note}
                                                 </td>
                                                 <td className="px-4 py-4 text-sm font-medium text-yellow-600 whitespace-nowrap">
-                                                    {state?.date.split("T")[0]}
+                                                    {state?.date?.split("T")[0]}
                                                 </td>
                                                 <td className="px-4 py-4 text-sm font-medium text-yellow-600 whitespace-nowrap">
                                                     {state?.status}
@@ -254,7 +254,7 @@ const Dashboard = () => {
                                             type="text"
                                             id="productName"
                                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                                            placeholder="Enter product name"
+                                            placeholder="Enter Your Status"
                                             onChange={(e) =>
                                                 setUpdateHiring({
                                                     ...updateHiring,

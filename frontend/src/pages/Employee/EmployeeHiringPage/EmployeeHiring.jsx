@@ -27,7 +27,7 @@ const EmployeeHiring = () => {
     const HiringAprroved = async () => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/employees/hiring`
+                `https://geeks-app.onrender.com/employees/hiring`
             );
 
             if (result.data) {

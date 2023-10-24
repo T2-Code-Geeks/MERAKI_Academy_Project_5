@@ -28,7 +28,7 @@ export const EmployeesByCategory = () => {
     const getEmployeeByCategory = async () => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/employees/ByCategory/${id}`
+                `https://geeks-app.onrender.com/employees/ByCategory/${id}`
             );
             if (result.data.success) {
                 dispatch(setEmployeeByCategory(result.data.result));

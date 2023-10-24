@@ -27,7 +27,7 @@ const UserRegister = () => {
 
     const handleUserRegister = async () => {
         try {
-            const result = await axios.post("http://localhost:5000/users/", {
+            const result = await axios.post("https://geeks-app.onrender.com/users/", {
                 firstName,
                 lastName,
                 img,

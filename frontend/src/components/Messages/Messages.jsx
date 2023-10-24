@@ -24,7 +24,7 @@ const Messages = () => {
     };
   });
   useEffect(() => {
-    socket.current = io.connect("http://localhost:5000", {
+    socket.current = io.connect("https://geeks-app.onrender.com", {
       extraHeaders: {
         id: userId || employeeId,
         token: tokenUser || token,
@@ -57,7 +57,7 @@ const Messages = () => {
   const getConversationById = async () => {
     if (tokenUser) {
       try {
-        const res = await axios.get("http://localhost:5000/conversation", {
+        const res = await axios.get("https://geeks-app.onrender.com/conversation", {
           headers: { Authorization: `Bearer ${tokenUser}` },
         });
         setConversation(res.data.result);
@@ -67,7 +67,7 @@ const Messages = () => {
     }
     if (token) {
       try {
-        const res = await axios.get("http://localhost:5000/conversation", {
+        const res = await axios.get("https://geeks-app.onrender.com/conversation", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -81,7 +81,7 @@ const Messages = () => {
     if (tokenUser) {
       try {
         const res = await axios.get(
-          `http://localhost:5000/messages/${currentChat?._id}`,
+          `https://geeks-app.onrender.com/messages/${currentChat?._id}`,
           {
             headers: { Authorization: `Bearer ${tokenUser}` },
           }
@@ -94,7 +94,7 @@ const Messages = () => {
     if (token) {
       try {
         const res = await axios.get(
-          `http://localhost:5000/messages/${currentChat?._id}`,
+          `https://geeks-app.onrender.com/messages/${currentChat?._id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -120,7 +120,7 @@ const Messages = () => {
     if (tokenUser) {
       try {
         const res = await axios.post(
-          "http://localhost:5000/messages",
+          "https://geeks-app.onrender.com/messages",
           message,
           {
             headers: { Authorization: `Bearer ${tokenUser}` },
@@ -136,7 +136,7 @@ const Messages = () => {
     if (token) {
       try {
         const res = await axios.post(
-          "http://localhost:5000/messages",
+          "https://geeks-app.onrender.com/messages",
           message,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -158,7 +158,7 @@ const handelUserInfo=async()=>{
   if (userId) {
     try {
       const result = await axios.get(
-        `http://localhost:5000/users/${userId}`
+        `https://geeks-app.onrender.com/users/${userId}`
       );
       if (result.data) {
         console.log(result.data);
@@ -174,7 +174,7 @@ const handelUserInfo=async()=>{
   if (employeeId) {
     try {
       const result = await axios.get(
-        `http://localhost:5000/employees/${employeeId}`
+        `https://geeks-app.onrender.com/employees/${employeeId}`
       );
       if (result.data) {
         console.log(result.data);

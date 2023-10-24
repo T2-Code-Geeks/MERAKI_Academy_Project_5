@@ -17,7 +17,7 @@ const ProductDetails = () => {
                 }, [2000]);
             } else {
                 const result = await axios.post(
-                    "http://localhost:5000/users/basket",
+                    "https://geeks-app.onrender.com/users/basket",
                     { product_id, quantity: 1 },
                     { headers: { Authorization: `Bearer ${tokenUser}` } }
                 );
@@ -121,7 +121,7 @@ export default ProductDetails;
 
 export const productLoader = async ({ params }) => {
     const result = axios
-        .get(`http://localhost:5000/products/${params.id}`)
+        .get(`https://geeks-app.onrender.com/products/${params.id}`)
         .then((res) => {
             return res.data.result;
         });

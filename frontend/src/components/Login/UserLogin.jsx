@@ -22,7 +22,7 @@ const UserLogin = () => {
     const LoginWithGoogle = async (user) => {
         try {
             const result = await axios.post(
-                "http://localhost:5000/users/login/Google",
+                "https://geeks-app.onrender.com/users/login/Google",
                 userInfo
             );
             if (result.data.success) {
@@ -41,7 +41,7 @@ const UserLogin = () => {
     const loginHandle = async (event) => {
         try {
             const result = await axios.post(
-                "http://localhost:5000/users/login",
+                "https://geeks-app.onrender.com/users/login",
                 userInfo
             );
             if (result.data.success) {

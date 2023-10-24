@@ -33,7 +33,7 @@ const ProductsPage = () => {
   const getAllProducts = async (page) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/products?page=${page}`
+        `https://geeks-app.onrender.com/products?page=${page}`
       );
       if (result.data.success) {
         dispatch(setProducts(result.data.result));
@@ -46,7 +46,7 @@ const ProductsPage = () => {
   };
   const getAllCategory = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/products/category");
+      const result = await axios.get("https://geeks-app.onrender.com/products/category");
       if (result.data.success) {
         setCategoryNames(result.data.result);
       }
@@ -62,7 +62,7 @@ const ProductsPage = () => {
     try {
       const newProducts = { ...addProducts, category_id: selectedCategory };
       const result = await axios.post(
-        "http://localhost:5000/products/",
+        "https://geeks-app.onrender.com/products/",
         newProducts
       );
       if (result.data.success) {
@@ -77,7 +77,7 @@ const ProductsPage = () => {
   const updateProduct = async (id) => {
     try {
       const result = await axios.put(
-        `http://localhost:5000/products/${id}`,
+        `https://geeks-app.onrender.com/products/${id}`,
         updatedProduct
       );
 
@@ -100,7 +100,7 @@ const ProductsPage = () => {
     if (productToDeleteId) {
       try {
         const result = await axios.delete(
-          `http://localhost:5000/products/${productToDeleteId}`
+          `https://geeks-app.onrender.com/products/${productToDeleteId}`
         );
         dispatch(deleteProductById(productToDeleteId));
       } catch (error) {

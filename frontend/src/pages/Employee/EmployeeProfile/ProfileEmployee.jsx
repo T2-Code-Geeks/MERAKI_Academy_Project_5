@@ -45,7 +45,7 @@ const ProfileEmployee = () => {
     const Category = async () => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/employees/categoryes/all`
+                `https://geeks-app.onrender.com/employees/categoryes/all`
             );
 
             if (result.data) {
@@ -63,7 +63,7 @@ const ProfileEmployee = () => {
     const profile = async () => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/employees/${employeeId}`
+                `https://geeks-app.onrender.com/employees/${employeeId}`
             );
             if (result.data) {
                 dispatch(setEmployee(result.data.result));
@@ -93,7 +93,7 @@ const ProfileEmployee = () => {
             .then((resp) => resp.json())
             .then(async (data) => {
                 const result = await axios.put(
-                    `http://localhost:5000/employees/${employeeId}`,
+                    `https://geeks-app.onrender.com/employees/${employeeId}`,
                     {
                         img: data.url,
                     }
@@ -106,7 +106,7 @@ const ProfileEmployee = () => {
     const updateProfile = async () => {
         try {
             const result = await axios.put(
-                `http://localhost:5000/employees/${employeeId}`,
+                `https://geeks-app.onrender.com/employees/${employeeId}`,
                 {
                     firstName: firstname,
                     lastName: lastname,

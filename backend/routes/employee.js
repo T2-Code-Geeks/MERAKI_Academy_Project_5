@@ -32,7 +32,7 @@ employeeRouter.delete("/:id", deleteEmployeeById);
 employeeRouter.get("/hiring/all",authentication,getAllHiring);
 employeeRouter.put("/updateHiring/:id",authentication,updateHiring)
 employeeRouter.delete("/comment/:id",deleteComment)
-employeeRouter.get("/", getAllEmployees);
+employeeRouter.get("/",authentication, getAllEmployees);
 employeeRouter.post("/", CreateEmployeeCategory);
 
 //!==================================  exports router  =============================================

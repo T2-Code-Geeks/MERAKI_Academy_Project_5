@@ -18,7 +18,7 @@ const EmployeesPage = () => {
     const getAllEmployee= async (page) => {
       try {
         const result = await axios.get(
-          `http://localhost:5000/employees`
+          `https://geeks-app.onrender.com/employees`
         );
         if (result.data.success) {
           dispatch(setEmployee(result.data.result));
@@ -44,7 +44,7 @@ const EmployeesPage = () => {
       if (productToDeleteId) {
         try {
           const result = await axios.delete(
-            `http://localhost:5000/employees/${productToDeleteId}`
+            `https://geeks-app.onrender.com/employees/${productToDeleteId}`
           );
           dispatch(deleteEmployee(productToDeleteId));
         } catch (error) {

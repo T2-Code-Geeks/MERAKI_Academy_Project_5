@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 const socketInt = ({ user_id, token }) => {
- return io("http://localhost:5000", {
+ return io("https://geeks-app.onrender.com", {
     extraHeaders: {
       user_id,
       token,

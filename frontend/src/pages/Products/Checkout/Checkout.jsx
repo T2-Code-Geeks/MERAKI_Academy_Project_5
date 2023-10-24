@@ -19,7 +19,7 @@ const Checkout = () => {
         });
         try {
             const result = await axios.post(
-                `http://localhost:5000/products/new/OrderDetail`,
+                `https://geeks-app.onrender.com/products/new/OrderDetail`,
                 { order_items: cart, paymentMethod: "cod", total },
                 { headers: { Authorization: `Bearer ${tokenUser}` } }
             );

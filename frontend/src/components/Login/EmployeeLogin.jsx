@@ -21,7 +21,7 @@ const EmployeeLogin = () => {
   const Login = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post("http://localhost:5000/employees/login", 
+      const result = await axios.post("https://geeks-app.onrender.com/employees/login", 
       userInfo
       );
       if (result.data) {
