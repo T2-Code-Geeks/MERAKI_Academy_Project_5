@@ -1,4 +1,4 @@
-const client = require("../models/db");
+const pool = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = parseInt(process.env.SALT);
@@ -11,7 +11,7 @@ const CreateEmployeeCategory = async (req, res) => {
 
     const query = `INSERT INTO employeeCategory (category) VALUES ($1) RETURNING *`;
     const data = [category];
-    client
+    pool
         .query(query, data)
         .then((result) => {
             res.status(200).json({
@@ -34,7 +34,7 @@ const CreateEmployeeCategory = async (req, res) => {
 const getAllCategoryes = (req, res) => {
 
     const query = `SELECT * FROM employeeCategory WHERE is_deleted=0 ;`;
-    client
+    pool
         .query(query)
         .then((result) => {
             res.status(200).json({
@@ -70,7 +70,7 @@ const registerEmployee = async (req, res) => {
         } = req.body;
         if (firstName && lastName && email && password) {
             const hashedPassword = await bcrypt.hash(password, saltRounds);
-            const result = await client.query(
+            const result = await pool.query(
                 `INSERT INTO employees (firstName, lastName, age, country, email,password, role_id,category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
                 [
                     firstName,
@@ -119,7 +119,7 @@ const loginEmployee = (req, res) => {
     const email = req.body.email.toLowerCase();
     const query = `SELECT * FROM employees WHERE email=$1`;
     const data = [email];
-    client
+    pool
         .query(query, data)
         .then(async (results) => {
             if (!results.rows.length) {
@@ -193,7 +193,7 @@ const updateEmployeeById = (req, res) => {
         age || null,
         id,
     ];
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {
@@ -222,7 +222,7 @@ const deleteEmployeeById = (req, res) => {
     const id = req.params.id;
     const query = `UPDATE employees SET is_deleted=1 WHERE id=$1;`;
     const data = [id];
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rowCount !== 0) {
@@ -247,7 +247,7 @@ const deleteEmployeeById = (req, res) => {
 const getAllEmployees = (req, res) => {
 
     const query = `SELECT * FROM employees a WHERE a.is_deleted=0 ;`;
-    client
+    pool
         .query(query)
         .then((result) => {
             res.status(200).json({
@@ -272,7 +272,7 @@ const getEmployeeById = (req, res) => {
     const query = `SELECT firstName,lastName,description, work_hours ,country,category_id ,img,age FROM employees  WHERE id=$1 AND is_deleted=0;`;
     const data = [id];
 
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {
@@ -303,7 +303,7 @@ const getALLEmployeesBycategory = (req, res) => {
     const query = `SELECT * FROM employees  WHERE category_id=$1 AND employees.is_deleted=0;`;
     const data = [category_id];
 
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {
@@ -339,7 +339,7 @@ const getFeadbackFromUser = async (req, res) => {
         const { user_id } = req.token;
         const { comment, employee_id } = req.body;
         if (comment) {
-            const result = await client.query(
+            const result = await pool.query(
                 `INSERT INTO feadback_user (comment,user_id,employee_id) VALUES ($1,$2,$3) RETURNING *`,
                 [comment, user_id, employee_id]
             );
@@ -378,7 +378,7 @@ const getAllFeadbackFromUser = async (req, res) => {
 
     const { id } = req.params
     try {
-        const result = await client.query(`SELECT * FROM feadback_user a WHERE a.employee_id=($1);`, [id]);
+        const result = await pool.query(`SELECT * FROM feadback_user a WHERE a.employee_id=($1);`, [id]);
         if (result) {
             res.json({
                 success: true,
@@ -406,7 +406,7 @@ const deleteComment = async (req, res) => {
 
     try {
         const { id } = req.params;
-        const results = await client.query(
+        const results = await pool.query(
             `DELETE FROM feadback_user WHERE id =($1);`,
             [id]
         );
@@ -436,7 +436,7 @@ const getAllHiring = async(req, res) => {
     try {
 
         const { employee_id } = req.token;
-        const result = await client.query(`SELECT * FROM hiring WHERE employee_id=$1;`, [employee_id]);
+        const result = await pool.query(`SELECT * FROM hiring WHERE employee_id=$1;`, [employee_id]);
         res.status(201).json({
             success: true,
             message: `all Hiring of ${employee_id}`,
@@ -465,7 +465,7 @@ const updateHiring = (req, res) => {
         id || null,
         employee_id || null,
     ];
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {

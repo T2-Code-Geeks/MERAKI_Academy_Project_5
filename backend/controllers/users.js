@@ -1,4 +1,4 @@
-const client = require("../models/db");
+const pool = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -18,7 +18,7 @@ const userRegister = async (req, res) => {
         } = req.body;
         if (firstName && lastName && email && password) {
             const hashedPassword = await bcrypt.hash(password, 10);
-            const result = await client.query(
+            const result = await pool.query(
                 `INSERT INTO users (firstName, lastName, img, age, country, address1, address2, email, password, role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
                 [
                     firstName,
@@ -64,7 +64,7 @@ const userRegister = async (req, res) => {
 const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const result = await client.query(
+        const result = await pool.query(
             `SELECT * FROM users WHERE email=$1 AND is_deleted=0`,
             [email.toLowerCase()]
         );
@@ -113,7 +113,7 @@ const loginGoogle = async (req, res) => {
     const user = req.body;
     const query = `SELECT * FROM users WHERE email=$1`;
     const data = [user.email];
-    client
+    pool
         .query(query, data)
         .then(async (results) => {
             if (!results.rows.length) {
@@ -125,7 +125,7 @@ const loginGoogle = async (req, res) => {
                     const img = user.picture;
                     if (firstName && lastName && email && password) {
                         const hashedPassword = await bcrypt.hash(password, 10);
-                        const result = await client.query(
+                        const result = await pool.query(
                             `INSERT INTO users (firstName, lastName, email, password,,img, role_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
                             [firstName, lastName, email.toLowerCase(), hashedPassword, 3]
                         );
@@ -213,7 +213,7 @@ const UpdateUserById = async (req, res) => {
             const hashedPassword = await bcrypt.hash(password, 10);
             data[data.length - 1] = hashedPassword;
         }
-        const result = await client.query(
+        const result = await pool.query(
             `UPDATE users SET firstName = COALESCE($1,firstName), lastName=COALESCE($2,lastName), img=COALESCE($3,img), age=COALESCE($4,age), country=COALESCE($5,country), address1=COALESCE($6,address1), address2=COALESCE($7,address2),password=COALESCE($8,password) WHERE id=$9 AND is_deleted=0 RETURNING *`,
             [...data, id]
         );
@@ -234,7 +234,7 @@ const UpdateUserById = async (req, res) => {
 const deleteUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await client.query(
+        const result = await pool.query(
             `UPDATE users SET is_deleted=1 WHERE id=$1`,
             [id]
         );
@@ -254,7 +254,7 @@ const deleteUserById = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const result = await client.query(
+        const result = await pool.query(
             `SELECT id,firstName,lastName,img,age,country,address1,address2,email FROM users WHERE is_deleted=0`
         );
         res.json({
@@ -273,7 +273,7 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await client.query(
+        const result = await pool.query(
             `SELECT id,firstName,lastName,img,age,country,address1,address2,email FROM users WHERE id=$1 AND is_deleted=0`,
             [id]
         );
@@ -296,13 +296,13 @@ const addToBasket = async (req, res) => {
         const { user_id } = req.token;
 
         const { product_id, quantity } = req.body;
-        const result = await client.query(`SELECT *, order_items.id FROM order_items WHERE product_id=$1 AND user_id=$2 AND is_deleted=0`, [product_id, user_id]);
+        const result = await pool.query(`SELECT *, order_items.id FROM order_items WHERE product_id=$1 AND user_id=$2 AND is_deleted=0`, [product_id, user_id]);
         if (result.rows.length) {
 
 
-            await client.query(`UPDATE order_items SET quantity = $1 WHERE product_id = $2 AND user_id=$3 AND is_deleted=0 RETURNING *`, [quantity, product_id, user_id]);
-            const result = await client.query(`SELECT *,order_items.id FROM order_items INNER JOIN products ON products.id = $1 AND order_items.product_id=$1 WHERE user_id = $2 AND order_items.is_deleted=0`, [product_id, user_id]);
-            const remainingItems = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
+            await pool.query(`UPDATE order_items SET quantity = $1 WHERE product_id = $2 AND user_id=$3 AND is_deleted=0 RETURNING *`, [quantity, product_id, user_id]);
+            const result = await pool.query(`SELECT *,order_items.id FROM order_items INNER JOIN products ON products.id = $1 AND order_items.product_id=$1 WHERE user_id = $2 AND order_items.is_deleted=0`, [product_id, user_id]);
+            const remainingItems = await pool.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
             res.status(200).json({
                 success: true,
                 result: result.rows,
@@ -311,7 +311,7 @@ const addToBasket = async (req, res) => {
         } else {
 
 
-            const update = await client.query(`INSERT INTO order_items (quantity, product_id, user_id) VALUES ($1,$2,$3) RETURNING *`, [quantity, product_id, user_id]);
+            const update = await pool.query(`INSERT INTO order_items (quantity, product_id, user_id) VALUES ($1,$2,$3) RETURNING *`, [quantity, product_id, user_id]);
             res.status(200).json({
                 success: true,
                 result: update.rows
@@ -332,7 +332,7 @@ const addToBasket = async (req, res) => {
 const getUserBasket = async (req, res) => {
     try {
         const { user_id } = req.token;
-        const result = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
+        const result = await pool.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
         res.json({
             success: true,
             result: result.rows
@@ -349,8 +349,8 @@ const deleteCartItem = async (req, res) => {
     try {
         const { itemId } = req.params;
         const { user_id } = req.token;
-        const result = await client.query(`DELETE FROM order_items WHERE user_id=$1 AND id=$2 RETURNING *`, [user_id, itemId]);
-        const remainingItems = await client.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
+        const result = await pool.query(`DELETE FROM order_items WHERE user_id=$1 AND id=$2 RETURNING *`, [user_id, itemId]);
+        const remainingItems = await pool.query(`SELECT *, order_items.id FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE user_id=$1 AND order_items.is_deleted=0`, [user_id]);
         res.json({
             success: true,
             result: result.rows[0],
@@ -368,7 +368,7 @@ const deleteCartItem = async (req, res) => {
 const getUserOrders = async (req, res) => {
     const { user_id } = req.token;
     try {
-        const result = await client.query(`SELECT * FROM order_details WHERE user_id=$1 AND is_deleted=0`, [user_id]);
+        const result = await pool.query(`SELECT * FROM order_details WHERE user_id=$1 AND is_deleted=0`, [user_id]);
         res.json({
             success: true,
             result: result.rows
@@ -388,14 +388,14 @@ const hireEmployee = async (req, res) => {
         const { user_id } = req.token;
         const { employeeId } = req.params;
         const { note } = req.body;
-        const search = await client.query(`SELECT * FROM hiring WHERE user_id = $1 AND employee_id = $2`, [user_id, employeeId]);
+        const search = await pool.query(`SELECT * FROM hiring WHERE user_id = $1 AND employee_id = $2`, [user_id, employeeId]);
         if (search.rows.length) {
             res.json({
                 success: false,
                 message: "Already Hired"
             })
         } else {
-            const result = await client.query(`INSERT INTO hiring (user_id, employee_id, note) VALUES ($1,$2,$3) RETURNING *`, [user_id, employeeId, note]);
+            const result = await pool.query(`INSERT INTO hiring (user_id, employee_id, note) VALUES ($1,$2,$3) RETURNING *`, [user_id, employeeId, note]);
             res.json({
                 success: true,
                 result: result.rows[0]

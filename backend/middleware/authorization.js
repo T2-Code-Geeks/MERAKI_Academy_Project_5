@@ -1,4 +1,4 @@
-const client = require("../models/db");
+const pool = require("../models/db");
 
 // ! Authorization Middleware
 const authorization = (string) => {
@@ -6,7 +6,7 @@ const authorization = (string) => {
         const role_id = req.token.role_id;
         const data = [role_id, string];
         const query = `SELECT * FROM role_permission RP INNER JOIN permissions P ON RP.permission_id = P.id WHERE RP.role_id = ($1) AND P.permission = ($2)`;
-        client
+        pool
             .query(query, data)
             .then((result) => {
                 if (result.rows.length) {

@@ -1,8 +1,8 @@
 const messageModal = require("../models/Message");
-const messageHandler = (socket, io,clients,) => {
+const messageHandler = (socket, io,pools,) => {
   socket.on("message", (data) => {
 
-const receiver = clients[data.to]?.socket_id
+const receiver = pools[data.to]?.socket_id
     data.success = true;
     socket.to(`room-`+data.to).emit("message", data);
   });

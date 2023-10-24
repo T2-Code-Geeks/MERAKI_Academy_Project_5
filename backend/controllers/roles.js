@@ -1,9 +1,9 @@
-const client = require("../models/db");
+const pool = require("../models/db");
 
 const createNewRole = async (req, res) => {
     try {
         const { role } = req.body;
-        const result = await client.query("INSERT INTO roles (role) VALUES ($1) RETURNING *", [role]);
+        const result = await pool.query("INSERT INTO roles (role) VALUES ($1) RETURNING *", [role]);
         res.status(201).json({
             success: true,
             message: "Role Created",
@@ -23,7 +23,7 @@ const createNewPermission = (req, res) => {
     const query = `INSERT INTO permissions (permission) VALUES ($1) RETURNING *;`;
     const data = [permission];
 
-    client
+    pool
         .query(query, data)
         .then((result) => {
             res.status(201).json({
@@ -47,7 +47,7 @@ const createNewRolePermission = (req, res) => {
     permission_id) VALUES ($1,$2) RETURNING *`;
     const data = [role_id, permission_id];
 
-    client
+    pool
         .query(query, data)
         .then((result) => {
             res.status(201).json({

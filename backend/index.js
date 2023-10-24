@@ -36,26 +36,26 @@ app.use("*", (req, res) => res.status(404).json("NO content at this path"));
 const server = http.createServer(app);
 const io = socket(server, { cors: { origin: "*" } });
 
-let clients={};
+let pools={};
 
 
 io.use(socketAuth)
 
 io.on("connection", (socket) => {
   const id=socket.handshake.headers.id;
-  clients[id]={socket_id:socket.id,id};
+  pools[id]={socket_id:socket.id,id};
 
 
 
-messageHandler(socket,io,clients)
+messageHandler(socket,io,pools)
 
 
 socket.on("disconnect",()=>{
 
-  for (const key in clients) {
-    if (clients[key].socket_id===socket.id) {
+  for (const key in pools) {
+    if (pools[key].socket_id===socket.id) {
   
-      delete clients[key]
+      delete pools[key]
     }
   }
 })
