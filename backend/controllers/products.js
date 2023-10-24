@@ -1,9 +1,9 @@
-const client = require("../models/db");
+const pool = require("../models/db");
 // ! Create New Category
 const createNewCategory = async (req, res) => {
     try {
         const { name, description } = req.body;
-        const result = await client.query(
+        const result = await pool.query(
             "INSERT INTO product_category (name, description) VALUES ($1,$2) RETURNING *",
             [name, description]
         );
@@ -28,7 +28,7 @@ const updateCategoryById = (req, res) => {
 
     const query = `UPDATE product_category SET name = COALESCE($1,name), description = COALESCE($2, description) WHERE id=$3 AND is_deleted = 0  RETURNING *;`;
     const data = [name || null, description || null, id];
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {
@@ -58,7 +58,7 @@ const deleteCategoryById = (req, res) => {
     const id = req.params.id;
     const query = `UPDATE product_category SET is_deleted=1 
     WHERE id=$1;`;
-    client
+    pool
         .query(query, [id])
         .then((result) => {
             if (result.rowCount !== 0) {
@@ -82,7 +82,7 @@ const deleteCategoryById = (req, res) => {
 const getAllCategory = (req, res) => {
     const query = `SELECT * FROM product_category  WHERE is_deleted=0;`;
 
-    client
+    pool
         .query(query)
         .then((result) => {
             res.status(200).json({
@@ -105,7 +105,7 @@ const getCategoryById = (req, res) => {
     const query = `SELECT * FROM product_category  WHERE id=$1;`;
     const data = [id];
 
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {
@@ -133,7 +133,7 @@ const createNewProduct = async (req, res) => {
         const query =
             "INSERT INTO products (name, description, img, price, category_id, inventory_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *";
         const data = [name, description, img, price, category_id, inventory_ID];
-        const result = await client.query(query, data);
+        const result = await pool.query(query, data);
         res.status(201).json({
             success: true,
             message: "Product Created",
@@ -171,7 +171,7 @@ const updateProductById = (req, res) => {
         inventory_ID || null,
         id,
     ];
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length > 0) {
@@ -199,7 +199,7 @@ const deleteProductById = (req, res) => {
     const id = req.params.id;
     const query = `UPDATE products SET is_deleted=1 
       WHERE id=$1;`;
-    client
+    pool
         .query(query, [id])
         .then((result) => {
             if (result.rowCount !== 0) {
@@ -247,13 +247,13 @@ const getAllProducts = (req, res) => {
 
     const values = [itemsPerPage, offset];
 
-    client
+    pool
         .query(countQuery)
         .then((countResult) => {
             const totalItems = countResult.rows[0].total_count;
 
 
-            client
+            pool
                 .query(productsQuery, values)
                 .then((productsResult) => {
                     res.status(200).json({
@@ -288,7 +288,7 @@ const getProductById = (req, res) => {
     const query = `SELECT * FROM products  WHERE id=$1;`;
     const data = [id];
 
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {
@@ -315,7 +315,7 @@ const getProductsByCategory = (req, res) => {
     const query = `SELECT * FROM products  WHERE category_id=$1;`;
     const data = [id];
 
-    client
+    pool
         .query(query, data)
         .then((result) => {
             if (result.rows.length !== 0) {
@@ -351,7 +351,7 @@ const newOrder = (req, res) => {
 
 const getAllOrdersDetails = async (req, res) => {
     try {
-        const result = await client.query(`SELECT * FROM order_details`);
+        const result = await pool.query(`SELECT * FROM order_details`);
         res.json({
             success: true,
             result: result.rows
@@ -368,7 +368,7 @@ const getAllOrdersDetails = async (req, res) => {
 const updateStatus = async (req, res) => {
     try {
         const { productId } = req.params;
-        const result = await client.query(`UPDATE order_details SET shipping_status='On Proceed' WHERE id=$1 RETURNING *`, [productId]);
+        const result = await pool.query(`UPDATE order_details SET shipping_status='On Proceed' WHERE id=$1 RETURNING *`, [productId]);
         res.json({
             success: true,
             result: result.rows[0]
@@ -385,7 +385,7 @@ const updateStatus = async (req, res) => {
 const getAllOrderDetailsById = async (req, res) => {
     try {
         const { user_id } = req.token;
-        const result = await client.query(`SELECT * FROM order_details WHERE user_id=$1`, [user_id]);
+        const result = await pool.query(`SELECT * FROM order_details WHERE user_id=$1`, [user_id]);
         res.json({
             success: true,
             result: result.rows
@@ -405,9 +405,9 @@ const createNewOrderDetails = async (req, res) => {
         let { order_items, paymentMethod, total } = req.body;
         order_items = JSON.stringify(order_items);
 
-        const result = await client.query(`INSERT INTO order_details (user_id, order_items, payment_method, total) VALUES ($1,$2,$3,$4) RETURNING *`, [user_id, order_items, paymentMethod, total]);
+        const result = await pool.query(`INSERT INTO order_details (user_id, order_items, payment_method, total) VALUES ($1,$2,$3,$4) RETURNING *`, [user_id, order_items, paymentMethod, total]);
 
-        await client.query(`UPDATE order_items SET is_deleted=1 WHERE user_id = $1`, [user_id])
+        await pool.query(`UPDATE order_items SET is_deleted=1 WHERE user_id = $1`, [user_id])
         res.json({
             success: true,
             result: result.rows[0]

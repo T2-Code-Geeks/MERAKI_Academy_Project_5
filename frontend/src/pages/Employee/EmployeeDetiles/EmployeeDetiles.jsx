@@ -179,7 +179,7 @@ const EmployeeDetails = () => {
                                     <div className="relative">
                                         <div className="-mt-20 w-70">
                                             <Avatar
-                                                src={employee.img}
+                                                src={employee?.img}
                                                 alt="Profile picture"
                                                 variant="circular"
                                                 className="h-full w-full shadow-xl"
@@ -229,7 +229,7 @@ const EmployeeDetails = () => {
                                     className="mb-2"
                                     children={1}
                                 >
-                                    {employee.firstname} {employee.lastname}
+                                    {employee?.firstname} {employee?.lastname}
                                 </Typography>
                                 <div className="mb-10 flex items-center justify-center gap-2">
                                     <MapPinIcon className="-mt-px h-4 w-4 text-blue-gray-700" />
