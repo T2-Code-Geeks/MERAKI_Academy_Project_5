@@ -18,7 +18,7 @@ const UsersPage = () => {
   const getAllUsers= async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/users`
+        `https://geeks-app.onrender.com/users`
       );
       if (result.data.success) {
         dispatch(setUsers(result.data.result));
@@ -44,7 +44,7 @@ const UsersPage = () => {
     if (userToDeleteId) {
       try {
         const result = await axios.delete(
-          `http://localhost:5000/users/${userToDeleteId}`
+          `https://geeks-app.onrender.com/users/${userToDeleteId}`
         );
         dispatch(deleteUsers(userToDeleteId));
       } catch (error) {

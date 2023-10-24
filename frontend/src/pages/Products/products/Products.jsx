@@ -27,7 +27,7 @@ const Products = () => {
     const getCategories = async () => {
         try {
             const result = await axios.get(
-                "http://localhost:5000/products/category"
+                "https://geeks-app.onrender.com/products/category"
             );
             if (result.data.success) {
                 setCategories(result.data.result);
@@ -39,7 +39,7 @@ const Products = () => {
 
     const getAllProducts = async (page) => {
         try {
-            const products = await axios.get(`http://localhost:5000/products?page=${page}`);
+            const products = await axios.get(`https://geeks-app.onrender.com/products?page=${page}`);
             if (products.data.result.length) {
                 setResult(products.data.result);
                 setTotalPages(products.data.totalPages);
@@ -57,7 +57,7 @@ const Products = () => {
     const getProductByCatgegory = async (categoryId) => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/products/category/products/${categoryId}`
+                `https://geeks-app.onrender.com/products/category/products/${categoryId}`
             );
             if (result.data.success) {
                 setResult(result.data.result);
@@ -76,7 +76,7 @@ const Products = () => {
                 }, [2000]);
             } else {
                 const result = await axios.post(
-                    "http://localhost:5000/users/basket",
+                    "https://geeks-app.onrender.com/users/basket",
                     { product_id, quantity: 1 },
                     { headers: { Authorization: `Bearer ${tokenUser}` } }
                 );

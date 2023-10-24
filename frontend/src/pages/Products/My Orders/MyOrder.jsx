@@ -12,7 +12,7 @@ const MyOrder = () => {
     const getUserOrders = async () => {
         try {
             const result = await axios.get(
-                "http://localhost:5000/users/orders/all",
+                "https://geeks-app.onrender.com/users/orders/all",
                 {
                     headers: { Authorization: `Bearer ${tokenUser}` },
                 }

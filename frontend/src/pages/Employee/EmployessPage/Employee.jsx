@@ -23,7 +23,7 @@ useEffect(() => {
 
     const getAllEmployee = async () => {
         try {
-            const employee = await axios.get(`http://localhost:5000/employees`);
+            const employee = await axios.get(`https://geeks-app.onrender.com/employees`);
             if (employee.data.result.length) {
                 setResult(employee.data.result);
             } else {
@@ -36,7 +36,7 @@ useEffect(() => {
     const getEmployeeByCategory= async (categoryId) => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/employees/ByCategory/${categoryId}`
+                `https://geeks-app.onrender.com/employees/ByCategory/${categoryId}`
             );
             if (result.data.success) {
                 setResult(result.data.result);
@@ -48,7 +48,7 @@ useEffect(() => {
     const getCategory= async (categoryId) => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/employees/categoryes/all`
+                `https://geeks-app.onrender.com/employees/categoryes/all`
             );
             if (result.data.success) {
                 setCategories(result.data.result);
@@ -136,7 +136,7 @@ useEffect(() => {
                                             {result?.map((Employee) => (
                                                 <div
                                                     key={Employee.id}
-                                                    className="w-full bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center"
+                                                    className="w-full bg-gray-400 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center"
                                                 >
                                                     <div className="mb-8">
                                                         <img

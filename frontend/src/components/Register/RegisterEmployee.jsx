@@ -30,7 +30,7 @@ const RegisterEmployee = () => {
     const addEmployee = { ...employeeInfo, role_id: role_id };
     try {
       const result = await axios.post(
-        "http://localhost:5000/employees/register",
+        "https://geeks-app.onrender.com/employees/register",
         addEmployee
       );
 

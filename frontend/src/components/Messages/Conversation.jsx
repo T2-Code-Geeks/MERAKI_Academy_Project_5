@@ -20,7 +20,7 @@ const friendId=conversations.members.find(m=>m!==parseInt(userId)||parseInt(empl
 
   if (userId) {
     try {
-    const res = await axios.get(`http://localhost:5000/employees/${friendId}`)
+    const res = await axios.get(`https://geeks-app.onrender.com/employees/${friendId}`)
   
    
   setUser(res.data.result)
@@ -32,7 +32,7 @@ const friendId=conversations.members.find(m=>m!==parseInt(userId)||parseInt(empl
   if(employeeId) {
     
     try {
-      const res =await axios.get(`http://localhost:5000/users/${friendId}`)
+      const res =await axios.get(`https://geeks-app.onrender.com/users/${friendId}`)
     
       setUser(res.data.result)
   

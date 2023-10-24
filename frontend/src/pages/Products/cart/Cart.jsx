@@ -22,7 +22,7 @@ const navigate=useNavigate()
     const getBasket = async () => {
         try {
             const result = await axios.get(
-                "http://localhost:5000/users/basket/get",
+                "https://geeks-app.onrender.com/users/basket/get",
                 { headers: { Authorization: `Bearer ${tokenUser}` } }
             );
             if (result.data.result.length) {
@@ -46,7 +46,7 @@ const navigate=useNavigate()
             if (quantity < 1) {
             } else {
                 const result = await axios.post(
-                    "http://localhost:5000/users/basket",
+                    "https://geeks-app.onrender.com/users/basket",
                     { product_id, quantity },
                     { headers: { Authorization: `Bearer ${tokenUser}` } }
                 );
@@ -65,7 +65,7 @@ const navigate=useNavigate()
     const handleDelete = async (itemId) => {
         try {
             const result = await axios.delete(
-                `http://localhost:5000/users/basket/${itemId}`,
+                `https://geeks-app.onrender.com/users/basket/${itemId}`,
                 {
                     headers: { Authorization: `Bearer ${tokenUser}` },
                 }

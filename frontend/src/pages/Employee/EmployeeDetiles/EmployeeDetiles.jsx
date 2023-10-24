@@ -41,7 +41,7 @@ const EmployeeDetails = () => {
     const allCommentsUser = async () => {
         try {
             const results = await axios.get(
-                `http://localhost:5000/employees/allcomment/${id}`
+                `https://geeks-app.onrender.com/employees/allcomment/${id}`
             );
 
             if (results) {
@@ -64,7 +64,7 @@ const EmployeeDetails = () => {
         };
         try {
             const results = await axios.post(
-                "http://localhost:5000/employees/feadback/user",
+                "https://geeks-app.onrender.com/employees/feadback/user",
                 commentss,
                 {
                     headers: {
@@ -88,7 +88,7 @@ const EmployeeDetails = () => {
     const DeleteCommentUser = async (id) => {
         try {
             const result = await axios.delete(
-                `http://localhost:5000/employees/comment/${id}`
+                `https://geeks-app.onrender.com/employees/comment/${id}`
             );
             dispatch(deletecomment(id));
         } catch (error) {
@@ -103,7 +103,7 @@ const EmployeeDetails = () => {
     const getEmployeeDetails = async () => {
         try {
             const result = await axios.get(
-                `http://localhost:5000/employees/${id}`
+                `https://geeks-app.onrender.com/employees/${id}`
             );
             if (result.data) {
                 setEmployee(result.data.result);
@@ -122,7 +122,7 @@ const EmployeeDetails = () => {
     const newConversation = async () => {
         try {
             const result = await axios.post(
-                `http://localhost:5000/conversation`,
+                `https://geeks-app.onrender.com/conversation`,
                 { receiverId: parseInt(id) },
                 {
                     headers: {
@@ -144,7 +144,7 @@ const EmployeeDetails = () => {
     const handleHire = async () => {
         try {
             const result = await axios.post(
-                `http://localhost:5000/users/hire/${employeeId.id}`,
+                `https://geeks-app.onrender.com/users/hire/${employeeId.id}`,
                 { note: "Hello employee" },
                 {
                     headers: { Authorization: `Bearer ${tokenUser}` },

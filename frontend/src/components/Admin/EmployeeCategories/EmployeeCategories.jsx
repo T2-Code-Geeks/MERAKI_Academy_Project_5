@@ -26,7 +26,7 @@ const EmployeeCategories = () => {
   
     const getAllCategory = async () => {
       try {
-        const result = await axios.get("http://localhost:5000/employees/categoryes/all");
+        const result = await axios.get("https://geeks-app.onrender.com/employees/categoryes/all");
         if (result.data.success) {
           dispatch(setcategory(result.data.result));
         }
@@ -39,7 +39,7 @@ const EmployeeCategories = () => {
       e.preventDefault();
       try {
         const result = await axios.post(
-          "http://localhost:5000/products/category",
+          "https://geeks-app.onrender.com/products/category",
           addCategoryState
         );
         if (result.data.success) {
@@ -53,7 +53,7 @@ const EmployeeCategories = () => {
     };
     const updateCategory = async (id) => {
       try {
-        const result = await axios.put(`http://localhost:5000/products/category/${id}`,updateCategoryState);
+        const result = await axios.put(`https://geeks-app.onrender.com/products/category/${id}`,updateCategoryState);
         
         // dispatch(updateCategoryById(result.data.result));
       } catch (error) {
@@ -72,7 +72,7 @@ const EmployeeCategories = () => {
     const deleteCategory = async () => {
    if (CategoryToDeleteId) {
       try {
-        const result = await axios.delete(`http://localhost:5000/products/category/${CategoryToDeleteId}`);
+        const result = await axios.delete(`https://geeks-app.onrender.com/products/category/${CategoryToDeleteId}`);
         // dispatch(deleteCategoryById(CategoryToDeleteId));
       } catch (error) {
         console.log(error);

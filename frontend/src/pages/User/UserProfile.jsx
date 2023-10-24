@@ -17,7 +17,7 @@ const UserProfile = () => {
     const [updateInfo, setUpdateInfo] = useState({});
     const profileInfo = async () => {
         try {
-            const result = await axios.get(`http://localhost:5000/users/${id}`);
+            const result = await axios.get(`https://geeks-app.onrender.com/users/${id}`);
             if (result.data.success) {
                 setUserInfo(result.data.result);
             }
@@ -50,7 +50,7 @@ const UserProfile = () => {
             .then((resp) => resp.json())
             .then(async (data) => {
                 const result = await axios.put(
-                    `http://localhost:5000/users/${userInfo.id}`,
+                    `https://geeks-app.onrender.com/users/${userInfo.id}`,
                     { img: data.url }
                 );
                 setUserInfo({ ...userInfo, img: data.url });
@@ -61,7 +61,7 @@ const UserProfile = () => {
     const handleUpdate = async () => {
         try {
             const updatedInfo = await axios.put(
-                `http://localhost:5000/users/${userId}`,
+                `https://geeks-app.onrender.com/users/${userId}`,
                 updateInfo
             );
             if (updatedInfo.data.success) {
